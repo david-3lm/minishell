@@ -1,5 +1,5 @@
 NAME = minishell
-SRC = ./src/main.c
+SRC = ./src/main.c 
 OBJ = $(SRC:.c=.o)
 LIB_DIR = ./libimp
 LIB = $(LIB_DIR)/libft.a
