@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlopez-l <dlopez-l@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 11:23:27 by dlopez-l          #+#    #+#             */
-/*   Updated: 2024/11/14 13:01:09 by dlopez-l         ###   ########.fr       */
+/*   Updated: 2024/11/14 21:43:21 by dlopez-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,17 @@
 int	main(void)
 {
     char *rl;
+    char **res;
+    int i = 0;
+
     rl = readline("Prompt > ");
-    printf("%s\n", rl);
+    res = lexer(rl);
+    while (res[i])
+    {
+        ft_printf("%s\n", res[i]);
+        i++;
+    }
+    
+    
     return (0);
 }

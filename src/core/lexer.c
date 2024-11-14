@@ -6,13 +6,16 @@
 /*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 19:16:08 by dlopez-l          #+#    #+#             */
-/*   Updated: 2024/11/14 19:18:42 by dlopez-l         ###   ########.fr       */
+/*   Updated: 2024/11/14 21:44:28 by dlopez-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/minishell.h"
+#include "../../inc/minishell.h"
 
-int	lexer(void)
+char	**lexer(char *input)
 {
-	return (0);
+	char **sp;
+
+	sp = ft_split(input, ' ');
+	return (sp);
 }
