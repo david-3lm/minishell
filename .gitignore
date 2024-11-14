@@ -1,4 +1,4 @@
 update_make.sh
-.o
-.a
-.out
+*.o
+*.a
+*.out
