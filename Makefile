@@ -20,7 +20,7 @@ CIAN = \e[7;36m
 all: $(NAME) $(CLIN)
 
 $(NAME): $(OBJ) $(LIB)
-	$(CC) $(OBJ) $(LIB) -o $(NAME)
+	$(CC) $(OBJ) $(LIB) -o $(NAME) -lreadline
 
 $(LIB):
 	@$(MAKE) -C $(LIB_DIR)

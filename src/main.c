@@ -3,17 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: dlopez-l <dlopez-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 11:23:27 by dlopez-l          #+#    #+#             */
-/*   Updated: 2024/11/13 11:23:55 by dlopez-l         ###   ########.fr       */
+/*   Updated: 2024/11/14 12:41:47 by dlopez-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
+#include "../inc/minishell.h"
 
 int	main(void)
 {
-	printf("Hola");
-	return (0);
+    char *rl;
+    rl = readline("Prompt > ");
+    printf("%s\n", rl);
+    return (0);
 }
