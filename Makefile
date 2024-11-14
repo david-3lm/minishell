@@ -1,9 +1,9 @@
 NAME = minishell
-SRC = ./src/main.c 
+SRC = ./src/main.c ./src/core/parser.c ./src/core/lexer.c 
 OBJ = $(SRC:.c=.o)
 LIB_DIR = ./libimp
 LIB = $(LIB_DIR)/libft.a
-HEADERS = ./inc/minitalk.h
+HEADERS = ./inc/minishell.h
 CC = gcc
 CFLAGS = -Wall -Werror -Wextra #-fsanitize=address -g3
 RM = rm -f
