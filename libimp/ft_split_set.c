@@ -1,18 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_split.c                                         :+:      :+:    :+:   */
+/*   ft_split_set.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dlopez-l <dlopez-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 12:30:34 by dlopez-l          #+#    #+#             */
-/*   Updated: 2024/11/15 12:29:48 by dlopez-l         ###   ########.fr       */
+/*   Updated: 2024/11/15 12:39:55 by dlopez-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	count_words(char const *s, char c)
+int	find(char s, char *c)
+{
+	int	i;
+
+	i = 0;
+	while (c[i])
+	{
+		if (s == c[i])
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
+static int	count_words(char const *s, char *c)
 {
 	int	i;
 	int	count;
@@ -22,15 +36,15 @@ static int	count_words(char const *s, char c)
 	count = 0;
 	if (!*s)
 		return (count);
-	in_word = (*s != c);
+	in_word = !find(*s, c);
 	while (s[i])
 	{
-		if (s[i] == c && in_word)
+		if (find(s[i], c) && in_word)
 		{
 			count++;
 			in_word = 0;
 		}
-		else if (s[i] != c)
+		else if (!find(s[i], c))
 			in_word = 1;
 		i++;
 	}
@@ -39,33 +53,22 @@ static int	count_words(char const *s, char c)
 	return (count);
 }
 
-static int	idxnsize_next_word(char const *s, char c, int start, int *size)
+static int	idxnsize_next_word(char const *s, char *c, int start, int *size)
 {
 	int	i;
 	int	siz;
 
 	i = start;
 	siz = 0;
-	while (s[i] == c)
+	while (find(s[i], c))
 		i++;
-	while (s[i + siz] != c && s[i + siz])
+	while (!find(s[i + siz], c) && s[i + siz])
 		siz++;
 	*size = siz;
 	return (i);
 }
 
-static int	free_mem(char **pptr, int i)
-{
-	while (0 <= i)
-	{
-		free(pptr[i]);
-		i--;
-	}
-	free(pptr);
-	return (0);
-}
-
-static int	compute_array(char const *s, char c, char **pptr, int words)
+static int	compute_array(char const *s, char *c, char **pptr, int words)
 {
 	int	i;
 	int	idx;
@@ -80,7 +83,12 @@ static int	compute_array(char const *s, char c, char **pptr, int words)
 		pptr[i] = (char *) malloc(size + 1);
 		if (!pptr[i])
 		{
-			free_mem(pptr, i);
+			while (0 <= i)
+			{
+				free(pptr[i]);
+				i--;
+			}
+			free(pptr);
 			return (0);
 		}
 		ft_strlcpy(pptr[i], &s[idx], (int) size + 1);
@@ -89,19 +97,17 @@ static int	compute_array(char const *s, char c, char **pptr, int words)
 	return (1);
 }
 
-char	**ft_split(char const *s, char c)
+char	**ft_split_set(char *str, char *c)
 {
-	char	**pptr;
+	char	**res;
 	int		words;
 
-	if (!s)
+	words = count_words(str, c) + 1;
+	res = (char **) ft_calloc(words, sizeof(char *));
+	if (!res)
+		return (NULL);
+	if (!compute_array(str, c, res, words))
 		return (0);
-	words = count_words(s, c) + 1;
-	pptr = (char **) malloc(sizeof(char *) * (words));
-	if (!pptr)
-		return (0);
-	if (!compute_array(s, c, pptr, words))
-		return (0);
-	pptr[words - 1] = 0;
-	return (pptr);
+	res[words - 1] = 0;
+	return (res);
 }

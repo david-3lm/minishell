@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: dlopez-l <dlopez-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 11:23:27 by dlopez-l          #+#    #+#             */
-/*   Updated: 2024/11/14 21:43:21 by dlopez-l         ###   ########.fr       */
+/*   Updated: 2024/11/15 11:47:38 by dlopez-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	main(void)
     char **res;
     int i = 0;
 
-    rl = readline("Prompt > ");
+    rl = readline("\033[1;32m🎅 Concepción > \033[0m");
     res = lexer(rl);
     while (res[i])
     {

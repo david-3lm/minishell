@@ -13,6 +13,6 @@
 # include <stdio.h>
 # include <term.h>
 
+char	**lexer(char *input);
 int	    main(void);
-char	**    lexer(char *input);
 #endif
