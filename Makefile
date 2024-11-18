@@ -1,5 +1,5 @@
 NAME = minishell
-SRC = ./src/main.c ./src/core/parser.c ./src/core/lexer.c 
+SRC = ./src/main.c ./src/utils/lexer_utils.c ./src/core/parser.c ./src/core/lexer.c 
 OBJ = $(SRC:.c=.o)
 LIB_DIR = ./libimp
 LIB = $(LIB_DIR)/libft.a
@@ -72,6 +72,9 @@ norma:
 debug: CFLAGS += -g3 -O0
 debug: re
 # gdb 
+
+update:
+	./update_header.sh $(HEADERS)
 
 
 .PHONY: all clean fclean re exec norma debug
