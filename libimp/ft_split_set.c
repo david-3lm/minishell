@@ -6,7 +6,7 @@
 /*   By: dlopez-l <dlopez-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 12:30:34 by dlopez-l          #+#    #+#             */
-/*   Updated: 2024/11/15 12:39:55 by dlopez-l         ###   ########.fr       */
+/*   Updated: 2024/11/19 15:30:05 by dlopez-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ static int	idxnsize_next_word(char const *s, char *c, int start, int *size)
 {
 	int	i;
 	int	siz;
+	int	idx;
 
 	i = start;
 	siz = 0;
@@ -64,6 +65,15 @@ static int	idxnsize_next_word(char const *s, char *c, int start, int *size)
 		i++;
 	while (!find(s[i + siz], c) && s[i + siz])
 		siz++;
+	if (s[i] == '"' || s[i] == '\'')
+	{
+		siz = 0;
+		idx = i + 1;
+		while (s[idx] != '"' && s[idx] != '\'' && s[idx])
+			idx++;
+		*size = idx - i + 1;
+		return (i);
+	}
 	*size = siz;
 	return (i);
 }
