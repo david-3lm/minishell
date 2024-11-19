@@ -1,5 +1,5 @@
 NAME = minishell
-SRC = ./src/core/parser.c ./src/core/lexer.c ./src/main.c ./src/utils/lexer_utils.c 
+SRC = ./src/main.c ./src/utils/lexer_utils.c ./src/core/parser.c ./src/core/lexer.c 
 OBJ = $(SRC:.c=.o)
 LIB_DIR = ./libimp
 LIB = $(LIB_DIR)/libft.a

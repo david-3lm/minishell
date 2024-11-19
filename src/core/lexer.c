@@ -3,39 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlopez-l <dlopez-l@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 19:16:08 by dlopez-l          #+#    #+#             */
-/*   Updated: 2024/11/19 19:43:40 by dlopez-l         ###   ########.fr       */
+/*   Updated: 2024/11/19 21:52:15 by dlopez-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
-
-t_tok_type	get_ttype(char *tok)
-{
-	if (ft_strchr(tok, '<') || ft_strchr(tok, '>'))
-		return (REDIR);
-	if (ft_strchr(tok, '|'))
-		return (PIPE);
-	if (ft_strchr(tok, '$'))
-		return (VARIABLE);
-	if (tok[0] == '\'' || tok[0] == '"')
-		return (STRING);
-	return (COMMAND);
-}
-
-void	add_token(t_token_list *list, char *value)
-{
-	t_tok	*new_tok;
-
-	new_tok = malloc(sizeof(t_tok));
-	if (!new_tok)
-		return ;
-	new_tok->type = get_ttype(value);
-	new_tok->value = ft_strdup(value);
-	ft_lstadd_back(&(list->tokens), ft_lstnew(new_tok));
-}
 
 t_token_list	*lexer(char *input)
 {
@@ -53,5 +28,6 @@ t_token_list	*lexer(char *input)
 		add_token(list, sp[i]);
 		i++;
 	}
+	parser(list);
 	return (list);
 }

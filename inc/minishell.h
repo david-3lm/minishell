@@ -14,11 +14,11 @@
 # include <stdio.h>
 # include <term.h>
 
-void	parser(t_token_list *list);
-t_tok_type	get_ttype(char *tok);
-void	add_token(t_token_list *list, char *value);
-t_token_list	*lexer(char *input);
 void	debug(t_token_list *list);
 int	main(void);
-void	create_token(void);
+t_tok_type	get_ttype(char *tok);
+void	add_token(t_token_list *list, char *value);
+void	add_cmds(t_token_list *tok, t_cmd_table *table);
+t_cmd_table	*parser(t_token_list *list);
+t_token_list	*lexer(char *input);
 #endif
