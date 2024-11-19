@@ -20,7 +20,7 @@ BLUE = \033[0;34m
 CIAN = \e[7;36m
 
 # Barra de progreso
-TOTAL_FILES = $(words $(OBJ)) # Total de archivos
+TOTAL_FILES = $(words $(OBJ) + $(OBJBONUS)) # Total de archivos
 CURRENT_FILE = 0 # Contador de archivos procesados
 BAR_WIDTH = 40
 
@@ -47,8 +47,8 @@ endef
 
 all: $(NAME)
 
-$(NAME): $(OBJ)
-	@ar rcs $(NAME) $(OBJ)
+$(NAME): $(OBJ) $(OBJBONUS)
+	@ar rcs $(NAME) $(OBJ) $(OBJBONUS)
 	@echo "$(GREEN)ft_printf compilado!$(COLOREND)\n"
 	$(ascii_art)
 

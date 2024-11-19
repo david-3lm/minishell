@@ -1,9 +1,48 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   structs.h                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dlopez-l <dlopez-l@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/19 12:16:00 by dlopez-l          #+#    #+#             */
+/*   Updated: 2024/11/19 12:21:15 by dlopez-l         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef STRUCTS_H
 # define STRUCTS_H
 # include "../libimp/libft.h"
 
+/* Enum to get he type of the tokens*/
+typedef enum tok_type
+{
+	COMMAND = 0,
+	STRING = 1,
+	FILES = 2,
+	REDIR = 3,
+	PIPE = 4,
+	VARIABLE = 5
+}	t_tok_type;
 
 //this .h inspired from https://github.com/DimitriDaSilva/42_minishell
+
+/*
+tokens: list of tokens (s_tok *)
+ */
+typedef struct s_token_list
+{
+	t_list	*tokens;
+}			t_token_list;
+/*
+token structure to save its type and its value
+*/
+typedef struct s_tok
+{
+	t_tok_type	type;
+	char		*value;
+}				t_tok;
+
 
 /*
 A command table

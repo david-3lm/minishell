@@ -1,7 +1,7 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 # include "../libimp/libft.h"
-# include "structs.h"
+# include "./structs.h"
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <sys/types.h>
@@ -14,7 +14,10 @@
 # include <stdio.h>
 # include <term.h>
 
-int		main(void);
+t_tok_type	get_ttype(char *tok);
+void	add_token(t_token_list *list, char *value);
+t_token_list	*lexer(char *input);
+void	debug(t_token_list *list);
+int	main(void);
 void	create_token(void);
-char	**lexer(char *input);
 #endif
