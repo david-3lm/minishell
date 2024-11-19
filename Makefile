@@ -1,9 +1,10 @@
 NAME = minishell
-SRC = ./src/main.c ./src/utils/lexer_utils.c ./src/core/parser.c ./src/core/lexer.c 
+SRC = ./src/core/parser.c ./src/core/lexer.c ./src/main.c ./src/utils/lexer_utils.c 
 OBJ = $(SRC:.c=.o)
 LIB_DIR = ./libimp
 LIB = $(LIB_DIR)/libft.a
-HEADERS = ./inc/minishell.h
+MAIN_HEADER = ./inc/minishell.h
+HEADERS = ./inc/minishell.h ./inc/structs.h 
 CC = gcc
 CFLAGS = -Wall -Werror -Wextra #-fsanitize=address -g3
 RM = rm -f
@@ -74,7 +75,8 @@ debug: re
 # gdb 
 
 update:
-	./update_header.sh $(HEADERS)
+	./update_make.sh
+	./update_header.sh $(MAIN_HEADER)
 
 
 .PHONY: all clean fclean re exec norma debug

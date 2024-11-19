@@ -14,6 +14,7 @@
 # include <stdio.h>
 # include <term.h>
 
+void	parser(t_token_list *list);
 t_tok_type	get_ttype(char *tok);
 void	add_token(t_token_list *list, char *value);
 t_token_list	*lexer(char *input);
