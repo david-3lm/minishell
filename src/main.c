@@ -6,7 +6,7 @@
 /*   By: dlopez-l <dlopez-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 11:23:27 by dlopez-l          #+#    #+#             */
-/*   Updated: 2024/11/19 15:28:42 by dlopez-l         ###   ########.fr       */
+/*   Updated: 2024/11/19 17:32:10 by dlopez-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	debug(t_token_list *list)
 		ft_printf("%s => %s\n" ,get_type_name(((t_tok *)node->content)->type), ((t_tok *)node->content)->value);
 		node = node->next;
 	}
-	//ft_printf("%d\n" ,get_type_name(((t_tok *)node->content)->type));
+	ft_printf("%d\n" ,get_type_name(((t_tok *)node->content)->type));
 
 }
 

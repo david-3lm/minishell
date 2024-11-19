@@ -6,7 +6,7 @@
 /*   By: dlopez-l <dlopez-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 19:16:08 by dlopez-l          #+#    #+#             */
-/*   Updated: 2024/11/19 12:58:31 by dlopez-l         ###   ########.fr       */
+/*   Updated: 2024/11/19 16:18:13 by dlopez-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 t_tok_type	get_ttype(char *tok)
 {
-	if (ft_strnstr(tok, "<", 4) || ft_strnstr(tok, ">", 4) || ft_strnstr(tok, ">>", 8))
+	if (ft_strnstr(tok, "<", 4) || ft_strnstr(tok, ">", 4))
 		return (REDIR);
 	if (ft_strnstr(tok, "|", 4))
 		return (PIPE);
