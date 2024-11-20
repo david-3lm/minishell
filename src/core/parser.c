@@ -6,7 +6,7 @@
 /*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 19:16:03 by dlopez-l          #+#    #+#             */
-/*   Updated: 2024/11/19 21:51:38 by dlopez-l         ###   ########.fr       */
+/*   Updated: 2024/11/20 21:09:54 by dlopez-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ void	add_cmds(t_token_list *tok, t_cmd_table *table)
 			new_cmd->tokens = tok->tokens->content;
 			ft_lstadd_back(&(table->cmds), ft_lstnew(new_cmd));
 		}
+		tok->tokens = tok->tokens->next;
 	}
-	
 }
 
 t_cmd_table	*parser(t_token_list *list)
@@ -38,6 +38,6 @@ t_cmd_table	*parser(t_token_list *list)
 	if (!table)
 		return (NULL);
 	add_cmds(list, table);
-	ft_printf("%s\n", table->cmds->content);
+	// ft_printf("%s\n", table->cmds->content);
 	return (table);
 }
