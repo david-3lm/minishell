@@ -6,7 +6,7 @@
 /*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 11:23:27 by dlopez-l          #+#    #+#             */
-/*   Updated: 2024/11/21 13:19:05 by dlopez-l         ###   ########.fr       */
+/*   Updated: 2024/11/21 16:14:34 by dlopez-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,14 @@ void	debug(t_token_list *list)
 
 int	main(void)
 {
+	struct sigaction	s_sigaction;
 	char	*rl;
 	t_token_list *l;
 
+	s_sigaction.sa_sigaction = handle_signal;
+	s_sigaction.sa_flags = SA_SIGINFO;
+	sigemptyset(&s_sigaction.sa_mask);
+	sigaction(SIGINT, &s_sigaction, 0);
 	rl = readline("\033[1;32m🎅 Concepción ↝ \033[0m");
 	while (rl != NULL)
 	{

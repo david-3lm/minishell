@@ -39,6 +39,7 @@ echo "# include <string.h>" >> "$HEADER_FILE"
 echo "# include <dirent.h>" >> "$HEADER_FILE"
 echo "# include <stdio.h>" >> "$HEADER_FILE"
 echo "# include <term.h>" >> "$HEADER_FILE"
+echo "# include <signal.h>" >> "$HEADER_FILE"
 echo "" >> "$HEADER_FILE"
 
 # Extraer funciones de cada archivo .c y añadirlas al archivo de encabezado
