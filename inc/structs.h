@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlopez-l <dlopez-l@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 12:16:00 by dlopez-l          #+#    #+#             */
-/*   Updated: 2024/11/19 12:21:15 by dlopez-l         ###   ########.fr       */
+/*   Updated: 2024/11/21 11:02:29 by dlopez-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ typedef enum tok_type
 //this .h inspired from https://github.com/DimitriDaSilva/42_minishell
 
 /*
+struct used to save a list of the tokens that the lexer calculates
 tokens: list of tokens (s_tok *)
  */
 typedef struct s_token_list
@@ -36,6 +37,7 @@ typedef struct s_token_list
 }			t_token_list;
 /*
 token structure to save its type and its value
+type: (enum) {COMMAND, STRING, FILES, REDIR, PIPE, VARIABLE}
 */
 typedef struct s_tok
 {

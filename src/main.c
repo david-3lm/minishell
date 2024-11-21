@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlopez-l <dlopez-l@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 11:23:27 by dlopez-l          #+#    #+#             */
-/*   Updated: 2024/11/19 18:14:21 by dlopez-l         ###   ########.fr       */
+/*   Updated: 2024/11/21 13:19:05 by dlopez-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,8 @@ int	main(void)
 	while (rl != NULL)
 	{
 		l = lexer(rl);
-		debug(l);
+		//debug(l);
+		(void) l;
 		rl = readline("\033[1;32m🎅 Concepción ↝ \033[0m");
 	}
 	return (0);
