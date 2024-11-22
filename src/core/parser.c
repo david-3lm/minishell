@@ -6,53 +6,86 @@
 /*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 19:16:03 by dlopez-l          #+#    #+#             */
-/*   Updated: 2024/11/21 13:17:17 by dlopez-l         ###   ########.fr       */
+/*   Updated: 2024/11/22 13:19:22 by dlopez-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
+void	debug_parser(t_cmd_table *table)
+{
+	t_list	*cmd_list;
+	t_cmd	*cmd;
+	t_list	*token_list;
+	t_tok	*token;
+	int		cmd_index;
+
+	if (!table || !table->cmds)
+	{
+		ft_printf("No commands found in the table.\n");
+		return ;
+	}
+
+	cmd_list = table->cmds;
+	cmd_index = 0;
+	ft_printf("=== Command Table Debug ===\n");
+	while (cmd_list)
+	{
+		cmd = (t_cmd *)cmd_list->content;
+		ft_printf("Command %d:\n", cmd_index);
+		if (cmd && cmd->tokens)
+		{
+			token_list = cmd->tokens;
+			while (token_list)
+			{
+				token = (t_tok *)token_list->content;
+				if (token && token->value)
+					ft_printf("  Token: [Type: %d, Value: '%s']\n", token->type, token->value);
+				token_list = token_list->next;
+			}
+		}
+		else
+		{
+			ft_printf("  No tokens found for this command.\n");
+		}
+		cmd_list = cmd_list->next;
+		cmd_index++;
+	}
+	ft_printf("==========================\n");
+}
+
+
 void	add_cmds(t_token_list *tok, t_cmd_table **table)
 {
-	t_cmd	*new_cmd;
+	t_cmd	*current_cmd = NULL;
 	t_list	*current_token;
-	t_list	*new_token_node;
 	t_tok	*token_content;
+	t_tok	*new_token;
 
 	while (tok->tokens != NULL)
 	{
-		// Crear un nuevo comando
-		new_cmd = malloc(sizeof(t_cmd));
-		if (!new_cmd)
-			return ;
-		new_cmd->tokens = NULL; // Inicializar la lista de tokens del comando
-		new_cmd->redirs = NULL; // Inicializar redirecciones
-
-		// Iterar sobre los tokens para duplicarlos
 		current_token = tok->tokens;
-		while (current_token)
+		token_content = (t_tok *)current_token->content;
+		if (!token_content)
+			break;
+		if (current_cmd == NULL || (token_content->type != COMMAND && token_content->type != STRING))
 		{
-			token_content = (t_tok *)current_token->content;
-			if (!token_content)
-				break;
-
-			// Crear un nuevo token duplicado
-			t_tok *new_token = malloc(sizeof(t_tok));
-			if (!new_token)
+			current_cmd = malloc(sizeof(t_cmd));
+			if (!current_cmd)
 				return ;
-			new_token->type = token_content->type;
-			new_token->value = strdup(token_content->value); // Duplica el valor del token
-			new_token_node = ft_lstnew(new_token);
-			ft_lstadd_back(&(new_cmd->tokens), new_token_node);
-
-			current_token = current_token->next;
+			current_cmd->tokens = NULL;
+			current_cmd->redirs = NULL;
+			ft_lstadd_back(&(*table)->cmds, ft_lstnew(current_cmd));
+			(*table)->n_cmd += 1;
 		}
-
-		// Agregar el nuevo comando a la tabla
-		ft_lstadd_back(&(*table)->cmds, ft_lstnew(new_cmd));
-		(*table)->n_cmd += 1;
-
-		// Avanzar al siguiente token en la lista principal
+		new_token = malloc(sizeof(t_tok));
+		if (!new_token)
+			return ;
+		new_token->type = token_content->type;
+		new_token->value = strdup(token_content->value);
+		ft_lstadd_back(&(current_cmd->tokens), ft_lstnew(new_token));
+		if (token_content->type == PIPE)
+			current_cmd = NULL;
 		tok->tokens = tok->tokens->next;
 	}
 }
@@ -62,27 +95,15 @@ t_cmd_table	*parser(t_token_list *list)
 {
 	t_cmd_table *table;
 
-	// Inicializar la tabla de comandos
 	table = ft_calloc(1, sizeof(t_cmd_table));
 	if (!table)
 		return (NULL);
 	table->n_cmd = 0;
-
-	// Añadir comandos a la tabla
 	add_cmds(list, &table);
-
-	// Verificar e imprimir los tokens del primer comando
-	if (table->cmds && table->cmds->content)
-	{
-		t_cmd *first_cmd = (t_cmd *)table->cmds->content;
-		t_list *token_list = first_cmd->tokens;
-		while (token_list)
-		{
-			t_tok *token = (t_tok *)token_list->content;
-			if (token && token->value)
-				ft_printf("Token: %s\n", token->value);
-			token_list = token_list->next;
-		}
-	}
+	
+	/*DEBUG*/
+	#pragma region debug
+	debug_parser(table);
+	#pragma endregion
 	return (table);
 }
