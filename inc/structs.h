@@ -6,7 +6,7 @@
 /*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 12:16:00 by dlopez-l          #+#    #+#             */
-/*   Updated: 2024/11/21 11:02:29 by dlopez-l         ###   ########.fr       */
+/*   Updated: 2024/11/23 23:49:02 by dlopez-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,5 +94,15 @@ typedef struct s_redir
 	char	type[2];
 }			t_redir;
 
+/*ERROR CODES*/
+typedef enum	e_error_code
+{
+	NO_ERROR = 0,
+	MEM_ALLOC_ERROR,
+	NULL_POINTER_ERROR,
+	UNEXPECTED_EOF,
+	SYNTAX_ERROR,
+	UNKNOWN_ERROR
+} t_error_code;
 
 #endif
