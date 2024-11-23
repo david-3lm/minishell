@@ -2,6 +2,7 @@
 # define MINISHELL_H
 # include "../libimp/libft.h"
 # include "./structs.h"
+# include "./defines.h"
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <sys/types.h>
@@ -19,6 +20,7 @@ void	debug(t_token_list *list);
 int	main(void);
 t_tok_type	get_ttype(char *tok);
 void	add_token(t_token_list *list, char *value);
+int	executor(t_cmd_table table);
 void	handle_signal(int signal, siginfo_t *info, void *ctx);
 void	debug_parser(t_cmd_table *table);
 void	add_cmds(t_token_list *tok, t_cmd_table **table);
