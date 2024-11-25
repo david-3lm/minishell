@@ -6,7 +6,7 @@
 /*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 19:16:03 by dlopez-l          #+#    #+#             */
-/*   Updated: 2024/11/22 13:19:22 by dlopez-l         ###   ########.fr       */
+/*   Updated: 2024/11/25 11:45:16 by dlopez-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,13 +91,13 @@ void	add_cmds(t_token_list *tok, t_cmd_table **table)
 }
 
 
-t_cmd_table	*parser(t_token_list *list)
+t_error_code	parser(t_token_list *list)
 {
 	t_cmd_table *table;
 
 	table = ft_calloc(1, sizeof(t_cmd_table));
 	if (!table)
-		return (NULL);
+		return (MEM_ALLOC_ERROR);
 	table->n_cmd = 0;
 	add_cmds(list, &table);
 	
@@ -105,5 +105,5 @@ t_cmd_table	*parser(t_token_list *list)
 	#pragma region debug
 	debug_parser(table);
 	#pragma endregion
-	return (table);
+	return (executor(table));
 }

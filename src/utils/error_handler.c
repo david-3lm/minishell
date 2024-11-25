@@ -6,7 +6,7 @@
 /*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/23 23:50:11 by dlopez-l          #+#    #+#             */
-/*   Updated: 2024/11/23 23:55:10 by dlopez-l         ###   ########.fr       */
+/*   Updated: 2024/11/25 11:44:17 by dlopez-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,5 @@ const char	*get_error_msg(t_error_code code)
 		return ("Syntax error.");
 	if (code == UNKNOWN_ERROR)
 		return ("Something went grong. :(");
-	return ("")
+	return ("");
 }
