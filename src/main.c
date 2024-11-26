@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: dlopez-l <dlopez-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 11:23:27 by dlopez-l          #+#    #+#             */
-/*   Updated: 2024/11/25 11:43:54 by dlopez-l         ###   ########.fr       */
+/*   Updated: 2024/11/26 17:17:04 by dlopez-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	debug(t_token_list *list)
 int	main(void)
 {
 	struct sigaction	s_sigaction;
-	char	*rl;
+	char				*rl;
 
 	s_sigaction.sa_sigaction = handle_signal;
 	s_sigaction.sa_flags = SA_SIGINFO;
@@ -55,7 +55,8 @@ int	main(void)
 	rl = readline("\033[1;32m🎅 Concepción ↝ \033[0m");
 	while (rl != NULL)
 	{
-		printf("%d",lexer(rl));
+		add_history(rl);
+		printf("%d", lexer(rl));
 		rl = readline("\033[1;32m🎅 Concepción ↝ \033[0m");
 	}
 	return (0);

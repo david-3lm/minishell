@@ -16,14 +16,15 @@
 # include <term.h>
 # include <signal.h>
 
-void	debug(t_token_list *list);
-int	main(void);
-t_tok_type	get_ttype(char *tok);
-void	add_token(t_token_list *list, char *value);
-t_error_code	executor(t_cmd_table *table);
 void	handle_signal(int signal, siginfo_t *info, void *ctx);
+void prueba_test(void);
+t_error_code	executor(t_cmd_table *table);
+t_error_code	lexer(char *input);
 void	debug_parser(t_cmd_table *table);
 void	add_cmds(t_token_list *tok, t_cmd_table **table);
 t_error_code	parser(t_token_list *list);
-t_error_code	lexer(char *input);
+t_tok_type	get_ttype(char *tok);
+void	add_token(t_token_list *list, char *value);
+void	debug(t_token_list *list);
+int	main(void);
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: dlopez-l <dlopez-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 19:16:03 by dlopez-l          #+#    #+#             */
-/*   Updated: 2024/11/25 11:45:16 by dlopez-l         ###   ########.fr       */
+/*   Updated: 2024/11/26 15:53:21 by dlopez-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	add_cmds(t_token_list *tok, t_cmd_table **table)
 		current_token = tok->tokens;
 		token_content = (t_tok *)current_token->content;
 		if (!token_content)
-			break;
+			break ;
 		if (current_cmd == NULL || (token_content->type != COMMAND && token_content->type != STRING))
 		{
 			current_cmd = malloc(sizeof(t_cmd));
@@ -93,17 +93,13 @@ void	add_cmds(t_token_list *tok, t_cmd_table **table)
 
 t_error_code	parser(t_token_list *list)
 {
-	t_cmd_table *table;
+	t_cmd_table	*table;
 
 	table = ft_calloc(1, sizeof(t_cmd_table));
 	if (!table)
 		return (MEM_ALLOC_ERROR);
 	table->n_cmd = 0;
 	add_cmds(list, &table);
-	
-	/*DEBUG*/
-	#pragma region debug
 	debug_parser(table);
-	#pragma endregion
 	return (executor(table));
 }
