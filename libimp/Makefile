@@ -1,3 +1,4 @@
+SHELL := /bin/zsh
 NAME = libft.a
 SRC = ft_printf.c ft_print_string.c ft_print_nbr_dec.c ft_print_unsigned.c ft_print_hex.c ft_print_ptr.c \
 ft_atoi.c ft_bzero.c ft_calloc.c ft_isalnum.c ft_isalpha.c ft_isascii.c ft_isdigit.c ft_isprint.c \
@@ -29,8 +30,8 @@ define progress_bar
 	@progress=$$(($(CURRENT_FILE) * $(BAR_WIDTH) / $(TOTAL_FILES))); \
 	empty=$$(($(BAR_WIDTH) - $$progress)); \
 	printf "\r$(YELLOW)["; \
-	for i in $$(seq 1 $$progress); do printf "|"; done; \
-	for i in $$(seq 1 $$empty); do printf " "; done; \
+	for i in $$(seq 1 $$progress); do printf "#"; done; \
+	for i in $$(seq 1 $$empty); do printf "."; done; \
 	printf "] $(CURRENT_FILE)/$(TOTAL_FILES)$(COLOREND)";
 endef
 

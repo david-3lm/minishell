@@ -6,32 +6,32 @@
 /*   By: dlopez-l <dlopez-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 11:23:27 by dlopez-l          #+#    #+#             */
-/*   Updated: 2024/11/26 17:17:04 by dlopez-l         ###   ########.fr       */
+/*   Updated: 2024/11/26 18:37:14 by dlopez-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-const char *get_type_name(t_tok_type type)
+const char	*get_type_name(t_tok_type type)
 {
-    if (type == COMMAND)
-        return "COMMAND";
-    if (type == STRING)
-        return "STRING";
-    if (type == FILES)
-        return "FILE";
-    if (type == REDIR)
-        return "REDIR";
-    if (type == PIPE)
-        return "PIPE";
-    if (type == VARIABLE)
-        return "VARIABLE";
-    return "UNKNOWN";
+	if (type == COMMAND)
+		return "COMMAND";
+	if (type == STRING)
+		return "STRING";
+	if (type == FILES)
+		return "FILE";
+	if (type == REDIR)
+		return "REDIR";
+	if (type == PIPE)
+		return "PIPE";
+	if (type == VARIABLE)
+		return "VARIABLE";
+	return "UNKNOWN";
 }
 
 void	debug(t_token_list *list)
 {
-	t_list *node;
+	t_list	*node;
 
 	node = list->tokens;
 	while (node->next != NULL)

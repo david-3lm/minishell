@@ -19,6 +19,8 @@
 void	handle_signal(int signal, siginfo_t *info, void *ctx);
 void prueba_test(void);
 t_error_code	executor(t_cmd_table *table);
+int	count_delims(char *str);
+char	**check_split(char **sp);
 t_error_code	lexer(char *input);
 void	debug_parser(t_cmd_table *table);
 void	add_cmds(t_token_list *tok, t_cmd_table **table);
