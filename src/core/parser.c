@@ -6,7 +6,7 @@
 /*   By: dlopez-l <dlopez-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 19:16:03 by dlopez-l          #+#    #+#             */
-/*   Updated: 2024/11/26 15:53:21 by dlopez-l         ###   ########.fr       */
+/*   Updated: 2024/12/03 15:38:56 by dlopez-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ void	add_cmds(t_token_list *tok, t_cmd_table **table)
 		new_token->type = token_content->type;
 		new_token->value = strdup(token_content->value);
 		ft_lstadd_back(&(current_cmd->tokens), ft_lstnew(new_token));
-		if (token_content->type == PIPE)
+		if (token_content->type == PIPE || token_content->type == REDIR)
 			current_cmd = NULL;
 		tok->tokens = tok->tokens->next;
 	}
