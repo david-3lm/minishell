@@ -6,7 +6,7 @@
 /*   By: dlopez-l <dlopez-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 19:16:08 by dlopez-l          #+#    #+#             */
-/*   Updated: 2024/12/03 12:40:34 by dlopez-l         ###   ########.fr       */
+/*   Updated: 2024/12/03 12:49:34 by dlopez-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,8 @@ t_error_code	lexer(char *input)
 		return (MEM_ALLOC_ERROR);
 	while (sp[i])
 	{
-		if (ft_strchr(sp[i], '|') || ft_strchr(sp[i], '<') || ft_strchr(sp[i], '>'))
+		if (ft_strchr(sp[i], '|') || ft_strchr(sp[i], '<') \
+			|| ft_strchr(sp[i], '>'))
 			purge_input(list, sp[i]);
 		else
 			add_token(list, sp[i]);
