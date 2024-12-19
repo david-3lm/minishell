@@ -3,6 +3,7 @@
 # include "../libimp/libft.h"
 # include "./structs.h"
 # include "./defines.h"
+# include "./pipex.h"
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <sys/types.h>
@@ -28,4 +29,19 @@ t_tok_type	get_ttype(char *tok);
 void	add_token(t_token_list *list, char *value);
 void	debug(t_token_list *list);
 int	main(void);
+int	open_default(char **argv, int argc, t_files *files);
+int	open_here_doc(char **argv, int argc, t_files *files);
+int	pipex(char **argv, int argc, char **envp, t_files *files);
+void	command_path(char **cmd, char **envp);
+char	**get_paths(char **envp);
+void	path_exec(char *argv, char **envp);
+void	free_all(char **arr);
+void	ft_usage(void);
+int	ft_error(char *str);
+int	pipex_proccess(char *argv, char **envp);
+char	*ft_new_limit(char *limit);
+int	ft_write_here_doc(char *limit);
+void	create_here_doc(char *limit);
+int	ft_open_here_doc(void);
+void	here_doc(char *limit, int argc);
 #endif

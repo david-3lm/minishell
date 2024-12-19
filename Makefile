@@ -1,10 +1,10 @@
 NAME = minishell
-SRC = ./src/core/actions.c ./src/core/executor.c ./src/core/lexer.c ./src/core/parser.c ./src/utils/error_handler.c ./src/utils/lexer_utils.c ./src/main.c 
+SRC = ./src/core/actions.c ./src/core/executor.c ./src/core/lexer.c ./src/core/parser.c ./src/utils/error_handler.c ./src/utils/lexer_utils.c ./src/main.c ./src/pipex/proccess.c ./src/pipex/utils.c ./src/pipex/pipex.c ./src/pipex/here_doc.c 
 OBJ = $(SRC:.c=.o)
 LIB_DIR = ./libimp
 LIB = $(LIB_DIR)/libft.a
 MAIN_HEADER = ./inc/minishell.h
-HEADERS = ./inc/defines.h ./inc/minishell.h ./inc/structs.h 
+HEADERS = ./inc/defines.h ./inc/minishell.h ./inc/structs.h ./inc/pipex.h 
 CC = gcc
 CFLAGS = -Wall -Werror -Wextra #-fsanitize=address -g3
 RM = rm -f

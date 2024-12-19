@@ -21,7 +21,6 @@ LIB := $(LIB_DIR)libft.a
 SRCS :=	pipex.c \
     	utils.c \
 		proccess.c \
-    	here_doc.c \
 
 OBJS :=  $(SRCS:.c=.o)
 

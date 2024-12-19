@@ -1,16 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   proccess_bonus.c                                   :+:      :+:    :+:   */
+/*   proccess.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 11:45:46 by cde-migu          #+#    #+#             */
-/*   Updated: 2024/12/17 12:36:10 by cde-migu         ###   ########.fr       */
+/*   Updated: 2024/12/19 15:10:50 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "../../inc/minishell.h"
+
 
 int	open_default(char **argv, int argc, t_files *files)
 {
@@ -55,7 +56,7 @@ int	pipex(char **argv, int argc, char **envp, t_files *files)
 		i = open_default(argv, argc, files);
 	while (i < argc - 2)
 	{
-		output = pipex_bonus(argv[i], envp);
+		output = pipex_proccess(argv[i], envp);
 		i++;
 	}
 	dup2(files->outfile, STDOUT_FILENO);
