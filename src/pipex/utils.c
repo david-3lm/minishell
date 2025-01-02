@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 12:50:13 by cde-migu          #+#    #+#             */
-/*   Updated: 2024/12/19 15:06:28 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/01/02 14:23:18 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,15 +32,29 @@ void	command_path(char **cmd, char **envp)
 	}
 }
 
-char	**get_paths(char **envp)
+/* char	**get_paths()
 {
 	int		i;
+	char	*env_paths;
 	char	**my_paths;
 
 	i = 0;
+	env_paths = 
 	while (envp[i] && ft_strncmp(envp[i], "PATH=", 5))
 		i++;
 	my_paths = ft_split(envp[i], ':');
+	return (my_paths);
+} */
+
+char	**get_paths(char **envp)
+{
+	char	*env_paths;
+	char	**my_paths;
+
+	my_paths = NULL;
+	env_paths = getenv("PATH");
+	if (env_paths != NULL)
+		my_paths = ft_split(env_paths, ':');
 	return (my_paths);
 }
 
@@ -54,7 +68,7 @@ void	path_exec(char *argv, char **envp)
 
 	i = 0;
 	cmd = ft_split(argv, ' ');
-	mypaths = get_paths(envp);
+	mypaths = get_paths();
 	if (mypaths == NULL)
 		command_path(cmd, envp);
 	while (mypaths[++i])
@@ -63,7 +77,7 @@ void	path_exec(char *argv, char **envp)
 		executable = ft_strjoin(temp, cmd[0]);
 		free(temp);
 		if (access(executable, X_OK) == 0)
-			execve(executable, cmd, envp);
+			execve(executable, cmd, mypaths);
 		free(executable);
 	}
 	perror("Error: ");

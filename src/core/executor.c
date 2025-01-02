@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlopez-l <dlopez-l@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/23 23:34:06 by dlopez-l          #+#    #+#             */
-/*   Updated: 2024/11/26 16:07:15 by dlopez-l         ###   ########.fr       */
+/*   Updated: 2025/01/02 11:45:45 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,39 @@ void prueba_test(void)
 	ft_printf("hola");
 }
 
+/* bool	is_command(t_cmd cmd)
+{
+	t_tok 	*token;
+	t_list	*token_list;
+
+	token_list = cmd.tokens;
+	token = (t_tok *)token_list->content;
+	if (token && token->type == 0)
+		return (true);
+	else
+		return (false);
+} */
+
 t_error_code	executor(t_cmd_table *table)
 {
-	(void) table;
+	t_list	*cmd_list;
+	int		cmd_index;
+	t_cmd	*cmd;
+
+	cmd_index = 0;
+	cmd_list = table->cmds;
+	while (cmd_list)
+	{
+		cmd = (t_cmd *)cmd_list->content;
+		if (is_command(cmd))
+		{
+			// si es comando, debería pasarlo directamente al pipe? al execve?
+			
+		}
+		cmd_list = cmd_list->next;
+		cmd_index++;
+	}
+	
+	(void )table;
 	return (EXIT_SUCCESS);
 }
