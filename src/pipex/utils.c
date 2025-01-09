@@ -6,13 +6,13 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 12:50:13 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/01/02 14:23:18 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/01/09 19:19:49 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-void	command_path(char **cmd, char **envp)
+/* void	command_path(char **cmd, char **envp)
 {
 	char	*temp;
 
@@ -30,23 +30,31 @@ void	command_path(char **cmd, char **envp)
 		perror("Error command not found");
 		exit(EXIT_FAILURE);
 	}
-}
-
-/* char	**get_paths()
-{
-	int		i;
-	char	*env_paths;
-	char	**my_paths;
-
-	i = 0;
-	env_paths = 
-	while (envp[i] && ft_strncmp(envp[i], "PATH=", 5))
-		i++;
-	my_paths = ft_split(envp[i], ':');
-	return (my_paths);
 } */
 
-char	**get_paths(char **envp)
+char	**get_cmd(t_list *origin)
+{
+	char *full_cmd;
+	char *temp;
+	t_list	*aux;
+	int	size;
+	int	i;
+
+	size = ft_lstsize(origin);
+	i = 0;
+	aux = origin;
+	full_cmd = (char *)aux->content;
+	while (i < size)
+	{
+		aux = aux->next;
+		full_cmd = ft_strjoin(full_cmd, " ");
+		full_cmd = ft_strjoin(full_cmd, aux->content);
+		i++;
+	}
+	return (full_cmd);
+}
+
+char	**get_paths()
 {
 	char	*env_paths;
 	char	**my_paths;
@@ -58,23 +66,21 @@ char	**get_paths(char **envp)
 	return (my_paths);
 }
 
-void	path_exec(char *argv, char **envp)
+void	path_exec(t_cmd *cmd)
 {
 	int		i;
-	char	**cmd;
+	t_list	*token;
 	char	**mypaths;
 	char	*temp;
 	char	*executable;
 
 	i = 0;
-	cmd = ft_split(argv, ' ');
+	token = cmd->tokens;
 	mypaths = get_paths();
-	if (mypaths == NULL)
-		command_path(cmd, envp);
 	while (mypaths[++i])
 	{
 		temp = ft_strjoin(mypaths[i], "/");
-		executable = ft_strjoin(temp, cmd[0]);
+		executable = ft_strjoin(temp, token->content);
 		free(temp);
 		if (access(executable, X_OK) == 0)
 			execve(executable, cmd, mypaths);

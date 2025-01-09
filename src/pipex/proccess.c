@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 11:45:46 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/01/02 13:13:59 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/01/09 18:20:39 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ int	pipex(char **argv, int argc, t_files *files)
 {
 	int	i;
 	int	output;
+	int	last_output;
 
 	i = 0;
 	output = 0;
@@ -59,7 +60,8 @@ int	pipex(char **argv, int argc, t_files *files)
 		output = pipex_proccess(argv[i]);
 		i++;
 	}
-	dup2(files->outfile, STDOUT_FILENO);
-	path_exec(argv[argc - 2]);
+	last_output = last_child(files, argv, argc);
+	if (last_output && output != last_output)
+		output = last_output;
 	return (output);
 }

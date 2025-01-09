@@ -16,10 +16,10 @@
 # include <stdio.h>
 # include <term.h>
 # include <signal.h>
-# include <stdbool.h>
 
 void	handle_signal(int signal, siginfo_t *info, void *ctx);
 void prueba_test(void);
+bool	is_command(t_cmd cmd);
 t_error_code	executor(t_cmd_table *table);
 void	purge_input(t_token_list *list, const char *str);
 t_error_code	lexer(char *input);
@@ -33,13 +33,14 @@ int	main(void);
 int	open_default(char **argv, int argc, t_files *files);
 int	open_here_doc(char **argv, int argc, t_files *files);
 int	pipex(char **argv, int argc, t_files *files);
-void	command_path(char **cmd);
-char	**get_paths(void);
+void	command_path(char **cmd, char **envp);
+char	**get_paths();
 void	path_exec(char *argv);
 void	free_all(char **arr);
 void	ft_usage(void);
 int	ft_error(char *str);
 int	pipex_proccess(char *argv);
+int	last_child(t_files *files, char **argv, int argc);
 char	*ft_new_limit(char *limit);
 int	ft_write_here_doc(char *limit);
 void	create_here_doc(char *limit);
