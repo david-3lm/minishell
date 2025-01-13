@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 12:05:04 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/01/09 18:20:13 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/01/13 12:58:52 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	pipex_proccess(char *argv)
 	return (EXIT_FAILURE);
 }
 
-int	last_child(t_files *files, char **argv, int argc)
+int	last_child(char **argv, int argc)
 {
 	int	pid;
 	int	status;
@@ -58,10 +58,7 @@ int	last_child(t_files *files, char **argv, int argc)
 	if (pid == -1)
 		return (ft_error("Fork: "));
 	if (pid == 0)
-	{
-		dup2(files->outfile, STDOUT_FILENO);
-		path_exec(argv[argc - 2]);
-	}
+		path_exec(argv[argc - 1]);
 	else
 		waitpid(pid, &status, 0);
 	if (status && WIFEXITED(status))
