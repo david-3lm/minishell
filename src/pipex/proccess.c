@@ -6,13 +6,13 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 11:45:46 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/01/13 13:00:09 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/01/14 13:54:52 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-int	pipex(char **argv, int argc)
+/* int	pipex(char **argv, int argc)
 {
 	int	i;
 	int	output;
@@ -29,4 +29,4 @@ int	pipex(char **argv, int argc)
 	if (last_output && output != last_output)
 		output = last_output;
 	return (output);
-}
+} */

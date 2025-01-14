@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 12:05:04 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/01/13 12:58:52 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/01/14 14:00:07 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ int	ft_error(char *str)
 	return (EXIT_FAILURE);
 }
 
+/*
 int	pipex_proccess(char *argv)
 {
 	pid_t	pid;
@@ -64,4 +65,4 @@ int	last_child(char **argv, int argc)
 	if (status && WIFEXITED(status))
 		return (WEXITSTATUS(status));
 	return (EXIT_FAILURE);
-}
+} */

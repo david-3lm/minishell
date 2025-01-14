@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/23 23:34:06 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/01/09 18:59:00 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/01/14 13:59:31 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,24 +29,43 @@ bool	is_command(t_cmd cmd)
 	else
 		return (false);
 }
+int	command_exec(t_cmd *cmd)
+{
+	int	pid;
+	int	status;
+
+	pid = fork();
+	if (pid == -1)
+		return (ft_error("Fork: "));
+	if (pid == 0)
+		path_exec(cmd);
+	else
+		waitpid(pid, &status, 0);
+	if (status && WIFEXITED(status))
+		return (WEXITSTATUS(status));
+	return (NO_ERROR);
+}
 
 t_error_code	executor(t_cmd_table *table)
 {
 	t_list	*cmd_list;
 	int		cmd_index;
+	t_error_code	res;
 	t_cmd	*cmd;
 
 	cmd_index = 0;
 	cmd_list = table->cmds;
+	res = NO_ERROR;
 	while (cmd_list)
 	{
 		cmd = (t_cmd *)cmd_list->content;
-		if (is_command(cmd))
-			path_exec(cmd);
+		if (is_command(*cmd))
+		{
+			res = command_exec(cmd);
+		}
 		cmd_list = cmd_list->next;
 		cmd_index++;
 	}
 	(void )table;
-	return (EXIT_SUCCESS);
+	return (res);
 }
-// 

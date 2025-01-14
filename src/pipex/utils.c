@@ -6,31 +6,16 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 12:50:13 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/01/09 19:19:49 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/01/14 16:45:43 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-/* void	command_path(char **cmd, char **envp)
+char	*get_value(void *token)
 {
-	char	*temp;
-
-	temp = ft_strdup(cmd[0]);
-	if (access(temp, 0) == 0)
-	{
-		execve(temp, cmd, envp);
-		free(temp);
-		perror("Error: failed execution");
-		exit(EXIT_FAILURE);
-	}
-	else
-	{
-		free(temp);
-		perror("Error command not found");
-		exit(EXIT_FAILURE);
-	}
-} */
+	return 	(((t_tok *)token)->value);
+}
 
 char	**get_cmd(t_list *origin)
 {
@@ -41,17 +26,23 @@ char	**get_cmd(t_list *origin)
 	int	i;
 
 	size = ft_lstsize(origin);
-	i = 0;
+	printf("lst size ---> %d \n", size);
+	i = 1;
 	aux = origin;
-	full_cmd = (char *)aux->content;
+	// full_cmd = ((t_tok *)aux->content)->value;
+	full_cmd = get_value(aux->content);
 	while (i < size)
 	{
 		aux = aux->next;
-		full_cmd = ft_strjoin(full_cmd, " ");
-		full_cmd = ft_strjoin(full_cmd, aux->content);
+		printf("content --> %s \n", get_value(aux->content));
+		
+		temp = ft_strjoin(full_cmd, " ");
+		full_cmd = ft_strjoin(temp, get_value(aux->content));
+		free(temp);
 		i++;
 	}
-	return (full_cmd);
+		printf("full cmd --> %s \n ", full_cmd);
+	return (ft_split(full_cmd, ' '));
 }
 
 char	**get_paths()
@@ -69,26 +60,27 @@ char	**get_paths()
 void	path_exec(t_cmd *cmd)
 {
 	int		i;
-	t_list	*token;
+	char	**full_cmd;
 	char	**mypaths;
 	char	*temp;
 	char	*executable;
 
 	i = 0;
-	token = cmd->tokens;
+	printf("Tokens: %s\n", ((t_tok *)cmd->tokens->content)->value);
+	full_cmd = get_cmd(cmd->tokens);
 	mypaths = get_paths();
 	while (mypaths[++i])
 	{
 		temp = ft_strjoin(mypaths[i], "/");
-		executable = ft_strjoin(temp, token->content);
+		executable = ft_strjoin(temp, full_cmd[0]);
 		free(temp);
 		if (access(executable, X_OK) == 0)
-			execve(executable, cmd, mypaths);
+			execve(executable, full_cmd, mypaths);
 		free(executable);
 	}
 	perror("Error: ");
 	free_all(mypaths);
-	free_all(cmd);
+	free_all(full_cmd);
 	exit(EXIT_FAILURE);
 }
 
