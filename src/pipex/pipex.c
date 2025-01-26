@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 11:45:46 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/01/14 19:37:22 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/01/26 16:52:47 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,18 @@ int	pipex(char **argv, int argc)
 	return (output);
 }
 
-t_tok_type	get_next_type(t_list *cmd)
+bool	is_pipe_ok(t_list *current)
 {
-	t_list *aux;
-	t_tok	*token;
-	
-	aux = cmd->next;
-	token = (t_tok *)aux->content;
-	return (token->type);
+	t_list *current;
+	t_list *next;
+	t_list *second_next;
+
+	next = current->next;
+	second_next = next->next;
+	if (is_command(current) && (get_token_type(next) == PIPE) && (get_token_type(second_next) == COMMAND))
+		return (true);
+	else
+		return (false);
 }
 
 int	pipex(t_cmd_table *table)
@@ -46,5 +50,15 @@ int	pipex(t_cmd_table *table)
 	// leer la command table, identificar los cmd y los pipes
 	// si es pipe, hacer ese pipe y pasar al siguiente 
 	// el numero de pipes
+	t_list	*current_cmd;
+	int		files[2];
+	int		i;
 	
+	command_list = table->cmds;
+	pipe(files);
+	while (i < n_cmd)
+	{
+		if (is_pipe_ok(current_cmd))
+			
+	}
 }
