@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 12:50:13 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/01/14 16:45:43 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/01/14 18:02:08 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 char	*get_value(void *token)
 {
-	return 	(((t_tok *)token)->value);
+	return (((t_tok *)token)->value);
 }
 
 char	**get_cmd(t_list *origin)

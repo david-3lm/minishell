@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlopez-l <dlopez-l@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 12:16:00 by dlopez-l          #+#    #+#             */
-/*   Updated: 2024/11/26 15:46:22 by dlopez-l         ###   ########.fr       */
+/*   Updated: 2025/01/14 18:01:40 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ typedef struct s_cmd_table
 }			t_cmd_table;
 
 /*
-tokens: splits the tokens of the command
+tokens: splits the tokens of the command (t_tok *)
 redirs: linked list of all redirections (t_redir *) targeting this simple command
 */
 typedef struct s_cmd

@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/23 23:34:06 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/01/14 13:59:31 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/01/26 16:01:13 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,10 +59,13 @@ t_error_code	executor(t_cmd_table *table)
 	while (cmd_list)
 	{
 		cmd = (t_cmd *)cmd_list->content;
-		if (is_command(*cmd))
+		if (is_command(*cmd) && get_next_type(cmd_list) == PIPE)
 		{
-			res = command_exec(cmd);
+			// pipex(table);
+			cmd_list = cmd_list->next;
 		}
+		else
+			res = command_exec(cmd);
 		cmd_list = cmd_list->next;
 		cmd_index++;
 	}

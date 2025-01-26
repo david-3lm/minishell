@@ -5,64 +5,46 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/25 12:05:04 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/01/14 14:00:07 by cde-migu         ###   ########.fr       */
+/*   Created: 2024/12/16 11:45:46 by cde-migu          #+#    #+#             */
+/*   Updated: 2025/01/14 19:37:22 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-int	ft_error(char *str)
+int	pipex(char **argv, int argc)
 {
-	if (str != NULL)
-		perror(str);
-	return (EXIT_FAILURE);
+	int	i;
+	int	output;
+	int	last_output;
+
+	i = 0;
+	output = 0;
+	while (i < argc - 1)
+	{
+		output = pipex_proccess(argv[i]);
+		i++;
+	}
+	last_output = last_child(argv, argc);
+	if (last_output && output != last_output)
+		output = last_output;
+	return (output);
 }
 
-/*
-int	pipex_proccess(char *argv)
+t_tok_type	get_next_type(t_list *cmd)
 {
-	pid_t	pid;
-	int		fd[2];
-	int		status;
-
-	status = 0;
-	if (pipe(fd) == -1)
-		return (ft_error("pipe: "));
-	pid = fork();
-	if (pid == -1)
-		return (ft_error("Fork: "));
-	if (pid == 0)
-	{
-		close(fd[0]);
-		dup2(fd[1], STDOUT_FILENO);
-		path_exec(argv);
-	}
-	else
-	{
-		close(fd[1]);
-		dup2(fd[0], STDIN_FILENO);
-		waitpid(pid, &status, 0);
-	}
-	if (status && WIFEXITED(status))
-		return (WEXITSTATUS(status));
-	return (EXIT_FAILURE);
+	t_list *aux;
+	t_tok	*token;
+	
+	aux = cmd->next;
+	token = (t_tok *)aux->content;
+	return (token->type);
 }
 
-int	last_child(char **argv, int argc)
+int	pipex(t_cmd_table *table)
 {
-	int	pid;
-	int	status;
-
-	status = 0;
-	pid = fork();
-	if (pid == -1)
-		return (ft_error("Fork: "));
-	if (pid == 0)
-		path_exec(argv[argc - 1]);
-	else
-		waitpid(pid, &status, 0);
-	if (status && WIFEXITED(status))
-		return (WEXITSTATUS(status));
-	return (EXIT_FAILURE);
-} */
+	// leer la command table, identificar los cmd y los pipes
+	// si es pipe, hacer ese pipe y pasar al siguiente 
+	// el numero de pipes
+	
+}
