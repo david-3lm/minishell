@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlopez-l <dlopez-l@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 19:16:03 by dlopez-l          #+#    #+#             */
-/*   Updated: 2024/12/03 15:38:56 by dlopez-l         ###   ########.fr       */
+/*   Updated: 2025/01/28 17:32:35 by dlopez-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,22 @@ void	add_cmds(t_token_list *tok, t_cmd_table **table)
 	}
 }
 
+void	count_pipes(t_cmd_table *table)
+{
+	t_list	*curr;
+	t_tok	*tok;
+
+	curr = table->cmds;
+	table->n_pipes = 0;
+	while (curr)
+	{
+		tok = (t_tok *)curr->content;
+		if (tok->type == PIPE)
+			table->n_pipes += 1;
+		curr = curr->next;
+	}
+	
+}
 
 t_error_code	parser(t_token_list *list)
 {
@@ -101,5 +117,6 @@ t_error_code	parser(t_token_list *list)
 	table->n_cmd = 0;
 	add_cmds(list, &table);
 	debug_parser(table);
+	count_pipes(table);
 	return (executor(table));
 }
