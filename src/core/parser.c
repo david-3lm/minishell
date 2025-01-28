@@ -6,7 +6,7 @@
 /*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 19:16:03 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/01/28 17:32:35 by dlopez-l         ###   ########.fr       */
+/*   Updated: 2025/01/28 17:32:48 by dlopez-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,6 @@ void	count_pipes(t_cmd_table *table)
 			table->n_pipes += 1;
 		curr = curr->next;
 	}
-	
 }
 
 t_error_code	parser(t_token_list *list)
