@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 12:50:13 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/02/01 13:19:49 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/02/01 16:28:14 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ char	**get_cmd(t_list *origin)
 	int	i;
 
 	size = ft_lstsize(origin);
-	printf("lst size ---> %d \n", size);
+	// printf("lst size ---> %d \n", size);
 	i = 1;
 	aux = origin;
 	// full_cmd = ((t_tok *)aux->content)->value;
@@ -41,7 +41,7 @@ char	**get_cmd(t_list *origin)
 		free(temp);
 		i++;
 	}
-		printf("full cmd --> %s \n ", full_cmd);
+		// printf("full cmd --> %s \n ", full_cmd);
 	return (ft_split(full_cmd, ' '));
 }
 

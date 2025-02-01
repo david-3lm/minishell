@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 16:37:57 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/01/26 16:50:24 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/02/01 14:52:57 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,11 @@ t_tok_type	get_next_type(t_list *cmd)
 	return (token->type);
 }
 
-t_tok_type get_token_type(t_list cmd)
+t_tok_type get_token_type(t_list *cmd)
 {
 	t_tok *token;
 
-	token = (t_tok )cmd.content;
+	token = (t_tok *)cmd->content;
 	return (token->type);
 }
 

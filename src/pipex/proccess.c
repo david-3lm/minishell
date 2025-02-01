@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 12:05:04 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/02/01 13:23:12 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/02/01 16:28:00 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	ft_error(char *str)
 	return (EXIT_FAILURE);
 }
 
-int	old_pipex_proccess(char *argv)
+/* int	old_pipex_proccess(char *argv)
 {
 	pid_t	pid;
 	int		fd[2];
@@ -46,7 +46,7 @@ int	old_pipex_proccess(char *argv)
 	if (status && WIFEXITED(status))
 		return (WEXITSTATUS(status));
 	return (EXIT_FAILURE);
-}
+} */
 
 int	pipex_proccess(t_cmd *cmd)
 {
@@ -55,6 +55,7 @@ int	pipex_proccess(t_cmd *cmd)
 	int		status;
 	
 	status = 0;
+	printf("entro en pipex proccess \n");
 	if (pipe(fd) == -1)
 		return (ft_error("pipe: "));
 	pid = fork();
@@ -68,30 +69,11 @@ int	pipex_proccess(t_cmd *cmd)
 	}
 	else
 	{
-		close(fd[WRITE_E])
+		close(fd[WRITE_E]);
 		dup2(fd[READ_E], STDIN_FILENO);
 		waitpid(pid, &status, 0);
 	}
 	if (status && WIFEXITED(status))
 		return (WEXITSTATUS(status));
-	return (EXIT_FAILURE);
+	return (NO_ERROR);
 }
-
-/* 
-int	last_child(char **argv, int argc)
-{
-	int	pid;
-	int	status;
-
-	status = 0;
-	pid = fork();
-	if (pid == -1)
-		return (ft_error("Fork: "));
-	if (pid == 0)
-		path_exec(argv[argc - 1]);
-	else
-		waitpid(pid, &status, 0);
-	if (status && WIFEXITED(status))
-		return (WEXITSTATUS(status));
-	return (EXIT_FAILURE);
-} */

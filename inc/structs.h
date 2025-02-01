@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 12:16:00 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/01/28 17:26:32 by dlopez-l         ###   ########.fr       */
+/*   Updated: 2025/02/01 14:51:33 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ typedef struct s_cmd_table
 	char	*delimeter;
 	int		n_cmd;
 	int		**pipes;
-	int		n_pipes
+	int		n_pipes;
 	t_list	*pids;
 	int		return_val;
 }			t_cmd_table;
