@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/23 23:34:06 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/02/01 16:33:51 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/02/01 16:50:13 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,9 +71,9 @@ t_error_code	pipe_manager(t_cmd_table *table)
 		res = UNKNOWN_ERROR;
 	return (res);
 } */
- t_error_code	executor(t_cmd_table *table)
+t_error_code	executor(t_cmd_table *table)
 {
-// ESTE EXECUTOR FUNCIONA CON UN SOLO COMANDO
+	// ESTE EXECUTOR FUNCIONA CON UN SOLO COMANDO
 	t_list	*cmd_list;
 	int		cmd_index;
 	t_error_code	res;
