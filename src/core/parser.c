@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 19:16:03 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/02/01 16:34:24 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/02/02 12:16:17 by dlopez-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,17 +92,25 @@ void	add_cmds(t_token_list *tok, t_cmd_table **table)
 
 void	count_pipes(t_cmd_table *table)
 {
-	t_list	*curr;
+	t_list	*cmd_list;
+	t_cmd	*cmd;
+	t_list	*token_list;
 	t_tok	*tok;
 
-	curr = table->cmds;
+	cmd_list = table->cmds;
 	table->n_pipes = 0;
-	while (curr)
+	while (cmd_list)
 	{
-		tok = (t_tok *)curr->content;
-		if (tok->type == PIPE)
-			table->n_pipes += 1;
-		curr = curr->next;
+		cmd = (t_cmd *)cmd_list->content;
+		token_list = cmd->tokens;
+		while (token_list)
+		{
+			tok = (t_tok *)token_list->content;
+			if (tok->type == PIPE)
+				table->n_pipes += 1;
+			token_list = token_list->next;
+		}
+		cmd_list = cmd_list->next;
 	}
 }
 
