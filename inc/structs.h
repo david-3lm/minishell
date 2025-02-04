@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: dlopez-l <dlopez-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 12:16:00 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/02/01 14:51:33 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/02/04 16:46:51 by dlopez-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,23 @@ typedef enum tok_type
 	PIPE = 4,
 	VARIABLE = 5
 }	t_tok_type;
+
+/*
+	STDOUT = >,
+	STDOUT2 = >>,
+	STDIN = <,
+	HEREDOC = <<
+*/
+
+typedef enum redir_type
+{
+	STDOUT = 0,
+	STDOUT2 = 1,
+	STDIN = 2,
+	HEREDOC = 3,
+	BADREDIR = 4
+}	t_redir_type;
+
 
 //this .h inspired from https://github.com/DimitriDaSilva/42_minishell
 
@@ -91,12 +108,12 @@ type:
 
 typedef struct s_redir
 {
-	char	*direction;
-	char	type[2];
+	char			*direction;
+	t_redir_type	type;
 }			t_redir;
 
 /*ERROR CODES*/
-typedef enum	e_error_code
+typedef enum e_error_code
 {
 	NO_ERROR = 0,
 	MEM_ALLOC_ERROR,
@@ -104,6 +121,6 @@ typedef enum	e_error_code
 	UNEXPECTED_EOF,
 	SYNTAX_ERROR,
 	UNKNOWN_ERROR
-} t_error_code;
+}	t_error_code;
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: dlopez-l <dlopez-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 19:16:03 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/02/02 12:16:17 by dlopez-l         ###   ########.fr       */
+/*   Updated: 2025/02/04 17:32:00 by dlopez-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ void	debug_parser(t_cmd_table *table)
 				token = (t_tok *)token_list->content;
 				if (token && token->value)
 					ft_printf("  Token: [Type: %d, Value: '%s']\n", token->type, token->value);
+				if (token->type == REDIR)
+					ft_printf("  Redir: \n");
 				token_list = token_list->next;
 			}
 		}
@@ -52,6 +54,32 @@ void	debug_parser(t_cmd_table *table)
 		cmd_index++;
 	}
 	ft_printf("==========================\n");
+}
+
+t_cmd	*add_redir(t_token_list *tok_list)
+{
+	t_tok	*tok;
+	t_redir	*redir;
+	t_cmd	*cmd;
+
+	tok = (t_tok *)tok_list->tokens;
+	redir = malloc(sizeof(t_redir));
+	cmd = malloc(sizeof(t_cmd));
+	if (!redir || !cmd)
+		return (NULL);
+	if (ft_strncmp(tok->value, ">", 1) == 0)
+		redir->type = STDOUT;
+	else if (ft_strncmp(tok->value, ">>", 2) == 0)
+		redir->type = STDOUT2;
+	else if (ft_strncmp(tok->value, "<", 1) == 0)
+		redir->type = STDIN;
+	else if (ft_strncmp(tok->value, "<<", 2) == 0)
+		redir->type = HEREDOC;
+	else
+		redir->type = BADREDIR; //////////////////////////IGUAL HAY QUE DEVOLVER ERROR
+	//GESTIONAR LA DIRECCION
+	ft_lstadd_back(&cmd->redirs, ft_lstnew(redir));
+	return (cmd);
 }
 
 
@@ -70,11 +98,18 @@ void	add_cmds(t_token_list *tok, t_cmd_table **table)
 			break ;
 		if (current_cmd == NULL || (token_content->type != COMMAND && token_content->type != STRING))
 		{
-			current_cmd = malloc(sizeof(t_cmd));
+			if (token_content->type == REDIR)
+			{
+				current_cmd = add_redir((t_token_list *)tok->tokens);
+			}
+			else
+			{
+				current_cmd = malloc(sizeof(t_cmd));
+				current_cmd->tokens = NULL;
+				current_cmd->redirs = NULL;
+			}
 			if (!current_cmd)
 				return ;
-			current_cmd->tokens = NULL;
-			current_cmd->redirs = NULL;
 			ft_lstadd_back(&(*table)->cmds, ft_lstnew(current_cmd));
 			(*table)->n_cmd += 1;
 		}
