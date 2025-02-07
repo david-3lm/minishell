@@ -4,7 +4,7 @@ OBJ = $(SRC:.c=.o)
 LIB_DIR = ./libimp
 LIB = $(LIB_DIR)/libft.a
 MAIN_HEADER = ./inc/minishell.h
-HEADERS = ./inc/defines.h ./inc/minishell.h ./inc/pipex.h ./inc/structs.h 
+HEADERS = ./inc/defines.h ./inc/pipex.h ./inc/minishell.h ./inc/structs.h 
 CC = gcc
 CFLAGS = -Wall -Werror -Wextra #-fsanitize=address -g3
 RM = rm -f

@@ -25,6 +25,7 @@ t_error_code	executor(t_cmd_table *table);
 void	purge_input(t_token_list *list, const char *str);
 t_error_code	lexer(char *input);
 void	debug_parser(t_cmd_table *table);
+t_cmd	*add_redir(t_token_list *tok_list);
 void	add_cmds(t_token_list *tok, t_cmd_table **table);
 void	count_pipes(t_cmd_table *table);
 t_error_code	parser(t_token_list *list);
