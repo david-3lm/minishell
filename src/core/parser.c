@@ -6,7 +6,7 @@
 /*   By: dlopez-l <dlopez-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 19:16:03 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/02/11 18:03:48 by dlopez-l         ###   ########.fr       */
+/*   Updated: 2025/02/11 18:14:52 by dlopez-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,9 @@ void	debug_parser(t_cmd_table *table)
 	}
 	ft_printf("==========================\n");
 }
-
+/// @brief Esta funcion devuelve la direccion de la redireccion
+/// @param tok el token siguiente al que esta trabajando
+/// @return char * de la direccion
 char	*get_direction(t_tok *tok)
 {
 	printf("DIRECCION DEL TOK => %s CON TIPO %d\n", (tok->value), tok->type);
@@ -63,7 +65,9 @@ char	*get_direction(t_tok *tok)
 		return NULL;
 	return (tok->value);
 }
-
+/// @brief Esta funcion crea un comando pero solo rellena redireccion
+/// @param tok_list una referencia al token que contiene el <<, >>, ...
+/// @return el comando creado
 t_cmd	*add_redir(t_list *tok_list)
 {
 	t_tok	*tok;
