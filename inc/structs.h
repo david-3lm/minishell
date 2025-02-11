@@ -6,7 +6,7 @@
 /*   By: dlopez-l <dlopez-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 12:16:00 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/02/04 16:46:51 by dlopez-l         ###   ########.fr       */
+/*   Updated: 2025/02/11 16:33:41 by dlopez-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ typedef enum redir_type
 	BADREDIR = 4
 }	t_redir_type;
 
-
 //this .h inspired from https://github.com/DimitriDaSilva/42_minishell
 
 /*
@@ -61,7 +60,6 @@ typedef struct s_tok
 	t_tok_type	type;
 	char		*value;
 }				t_tok;
-
 
 /*
 A command table
