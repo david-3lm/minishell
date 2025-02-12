@@ -6,7 +6,7 @@
 /*   By: dlopez-l <dlopez-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 19:16:03 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/02/04 17:32:00 by dlopez-l         ###   ########.fr       */
+/*   Updated: 2025/02/11 18:14:52 by dlopez-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	debug_parser(t_cmd_table *table)
 				if (token && token->value)
 					ft_printf("  Token: [Type: %d, Value: '%s']\n", token->type, token->value);
 				if (token->type == REDIR)
-					ft_printf("  Redir: \n");
+					ft_printf("  Redir: [Type: %d, Direction: '%s']\n", ((t_redir *)cmd->redirs->content)->type, ((t_redir *)cmd->redirs->content)->direction);
 				token_list = token_list->next;
 			}
 		}
@@ -55,29 +55,42 @@ void	debug_parser(t_cmd_table *table)
 	}
 	ft_printf("==========================\n");
 }
-
-t_cmd	*add_redir(t_token_list *tok_list)
+/// @brief Esta funcion devuelve la direccion de la redireccion
+/// @param tok el token siguiente al que esta trabajando
+/// @return char * de la direccion
+char	*get_direction(t_tok *tok)
+{
+	printf("DIRECCION DEL TOK => %s CON TIPO %d\n", (tok->value), tok->type);
+	if (tok->type != COMMAND && tok->type != STRING)
+		return NULL;
+	return (tok->value);
+}
+/// @brief Esta funcion crea un comando pero solo rellena redireccion
+/// @param tok_list una referencia al token que contiene el <<, >>, ...
+/// @return el comando creado
+t_cmd	*add_redir(t_list *tok_list)
 {
 	t_tok	*tok;
 	t_redir	*redir;
 	t_cmd	*cmd;
 
-	tok = (t_tok *)tok_list->tokens;
+	tok = (t_tok *)tok_list->content;
 	redir = malloc(sizeof(t_redir));
 	cmd = malloc(sizeof(t_cmd));
 	if (!redir || !cmd)
 		return (NULL);
-	if (ft_strncmp(tok->value, ">", 1) == 0)
-		redir->type = STDOUT;
-	else if (ft_strncmp(tok->value, ">>", 2) == 0)
+	if (ft_strncmp(tok->value, ">>", 2) == 0)
 		redir->type = STDOUT2;
-	else if (ft_strncmp(tok->value, "<", 1) == 0)
-		redir->type = STDIN;
+	else if (ft_strncmp(tok->value, ">", 1) == 0)
+		redir->type = STDOUT;
 	else if (ft_strncmp(tok->value, "<<", 2) == 0)
 		redir->type = HEREDOC;
+	else if (ft_strncmp(tok->value, "<", 1) == 0)
+		redir->type = STDIN;
 	else
 		redir->type = BADREDIR; //////////////////////////IGUAL HAY QUE DEVOLVER ERROR
-	//GESTIONAR LA DIRECCION
+	redir->direction = get_direction((t_tok *)tok_list->next->content);
+	printf("DIRECCION DEL REDIR => %s\n", (redir->direction));
 	ft_lstadd_back(&cmd->redirs, ft_lstnew(redir));
 	return (cmd);
 }
@@ -100,7 +113,7 @@ void	add_cmds(t_token_list *tok, t_cmd_table **table)
 		{
 			if (token_content->type == REDIR)
 			{
-				current_cmd = add_redir((t_token_list *)tok->tokens);
+				current_cmd = add_redir(current_token);
 			}
 			else
 			{
@@ -160,6 +173,6 @@ t_error_code	parser(t_token_list *list)
 	add_cmds(list, &table);
 	debug_parser(table);
 	count_pipes(table);
-	printf("numero de pipes --> %d \n", table->n_pipes);
 	return (executor(table));
+	printf("numero de pipes --> %d \n", table->n_pipes);
 }
