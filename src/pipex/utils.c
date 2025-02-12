@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 12:50:13 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/02/01 16:28:14 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/02/08 15:53:59 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	path_exec(t_cmd *cmd)
 	char	*executable;
 
 	i = 0;
-	printf("Tokens: %s\n", ((t_tok *)cmd->tokens->content)->value);
+	// ft_putendl_fd("Tokens: %s\n", ((t_tok *)cmd->tokens->content)->value, 2);
 	full_cmd = get_cmd(cmd->tokens);
 	mypaths = get_paths();
 	while (mypaths[++i])
