@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlopez-l <dlopez-l@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 12:16:00 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/02/11 16:33:41 by dlopez-l         ###   ########.fr       */
+/*   Updated: 2025/02/12 11:46:43 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,10 @@ typedef struct s_cmd_table
 	int		n_pipes;
 	t_list	*pids;
 	int		return_val;
+
+	// ESTO LO HA TOCADO CAROL
+	int		std_backup[2];
+	int		pipe_fd[2];
 }			t_cmd_table;
 
 /*

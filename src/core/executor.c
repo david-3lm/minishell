@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/23 23:34:06 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/02/08 16:15:17 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/02/13 12:01:56 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,8 +80,7 @@ t_error_code	executor(t_cmd_table *table)
 	cmd_list = table->cmds;
 	res = NO_ERROR;
 	// last_res = NO_ERROR;
-	table->std_backup[READ_E] = STDIN_FILENO;
-	table->std_backup[WRITE_E] = STDOUT_FILENO;
+	save_original_fd(table->std_backup);
 	while (cmd_list)
 	{
 		cmd = (t_cmd *)cmd_list->content;
@@ -90,7 +89,7 @@ t_error_code	executor(t_cmd_table *table)
 			printf("index --> %d, n_pipes --> %d \n", cmd_index, table->n_pipes);
 			if (table->n_pipes > cmd_index)
 			{
-				res = pipex_proccess(cmd);
+				res = pipex_proccess(cmd, table);
 				cmd_index++;
 			}
 			else
@@ -98,11 +97,7 @@ t_error_code	executor(t_cmd_table *table)
 		}
 		cmd_list = cmd_list->next;
 	}
-	// close(STDIN_FILENO);
-	// close(STDOUT_FILENO);
-	dup(table->std_backup[READ_E]);
-	dup(table->std_backup[WRITE_E]);
-
+	restore_fds(table->std_backup);
 	while (waitpid(-1, NULL, 0) != -1)
 		continue;
 	//DEFINE EXIT CODE WITH WEXITSTATUS
@@ -118,9 +113,8 @@ t_error_code	executor(t_cmd_table *table)
 	// (void )table;
 	t_error_code	res;
 
-	if (table && table->cmds)
-		res = pipe_manager(table);
-	else
-		res = UNKNOWN_ERROR;
+	if (table->cmds == NULL)
+		return (NO_ERROR); // salir sin error porque no hay comandos a ejecutar
+	
 	return (res);
 } */
