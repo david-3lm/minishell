@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlopez-l <dlopez-l@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 11:23:27 by dlopez-l          #+#    #+#             */
-/*   Updated: 2024/11/26 18:37:14 by dlopez-l         ###   ########.fr       */
+/*   Updated: 2025/02/13 11:54:31 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,16 +47,20 @@ int	main(void)
 {
 	struct sigaction	s_sigaction;
 	char				*rl;
+	t_error_code		code;
 
 	s_sigaction.sa_sigaction = handle_signal;
 	s_sigaction.sa_flags = SA_SIGINFO;
 	sigemptyset(&s_sigaction.sa_mask);
 	sigaction(SIGINT, &s_sigaction, 0);
 	rl = readline("\033[1;32m🎅 Concepción ↝ \033[0m");
-	while (rl != NULL)
+	while (true)
 	{
 		add_history(rl);
-		printf("%d", lexer(rl));
+		code = lexer(rl);
+		ft_printf("main => %d\n", code);
+		if (code != NO_ERROR)
+			return (1);
 		rl = readline("\033[1;32m🎅 Concepción ↝ \033[0m");
 	}
 	return (0);
