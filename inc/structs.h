@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 12:16:00 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/02/12 11:46:43 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/02/13 12:55:02 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,19 +26,19 @@ typedef enum tok_type
 }	t_tok_type;
 
 /*
-	STDOUT = >,
-	STDOUT2 = >>,
-	STDIN = <,
-	HEREDOC = <<
+	RD_SOUT = >,
+	RD_SOUT2 = >>,
+	RD_SIN = <,
+	RD_HD = <<
 */
 
 typedef enum redir_type
 {
-	STDOUT = 0,
-	STDOUT2 = 1,
-	STDIN = 2,
-	HEREDOC = 3,
-	BADREDIR = 4
+	RD_SOUT = 0,
+	RD_SOUT2 = 1,
+	RD_SIN = 2,
+	RD_HD = 3,
+	RD_BAD = 4
 }	t_redir_type;
 
 //this .h inspired from https://github.com/DimitriDaSilva/42_minishell

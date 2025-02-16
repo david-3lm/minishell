@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 16:37:57 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/02/01 14:52:57 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/02/13 18:43:27 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,20 @@ bool	is_command(t_cmd cmd)
 		return (false);
 }
 
+int	count_redirs(t_cmd cmd)
+{
+	t_list	*redir_list;
+	int		count;
+
+	count = 0;
+	redir_list = cmd.redirs;
+	while (redir_list != NULL)
+	{
+		redir_list = redir_list->next
+		count++;
+	}
+	return (count);
+}
 
 bool	is_pipe(t_cmd cmd)
 {

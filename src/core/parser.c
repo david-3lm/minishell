@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlopez-l <dlopez-l@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 19:16:03 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/02/11 18:14:52 by dlopez-l         ###   ########.fr       */
+/*   Updated: 2025/02/16 10:50:16 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ char	*get_direction(t_tok *tok)
 		return NULL;
 	return (tok->value);
 }
+
 /// @brief Esta funcion crea un comando pero solo rellena redireccion
 /// @param tok_list una referencia al token que contiene el <<, >>, ...
 /// @return el comando creado
@@ -80,15 +81,15 @@ t_cmd	*add_redir(t_list *tok_list)
 	if (!redir || !cmd)
 		return (NULL);
 	if (ft_strncmp(tok->value, ">>", 2) == 0)
-		redir->type = STDOUT2;
+		redir->type = RD_SOUT2;
 	else if (ft_strncmp(tok->value, ">", 1) == 0)
-		redir->type = STDOUT;
+		redir->type = RD_SOUT;
 	else if (ft_strncmp(tok->value, "<<", 2) == 0)
-		redir->type = HEREDOC;
+		redir->type = RD_HD;
 	else if (ft_strncmp(tok->value, "<", 1) == 0)
-		redir->type = STDIN;
+		redir->type = RD_SIN;
 	else
-		redir->type = BADREDIR; //////////////////////////IGUAL HAY QUE DEVOLVER ERROR
+		redir->type = RD_BAD; //////////////////////////IGUAL HAY QUE DEVOLVER ERROR
 	redir->direction = get_direction((t_tok *)tok_list->next->content);
 	printf("DIRECCION DEL REDIR => %s\n", (redir->direction));
 	ft_lstadd_back(&cmd->redirs, ft_lstnew(redir));
@@ -130,7 +131,7 @@ void	add_cmds(t_token_list *tok, t_cmd_table **table)
 		if (!new_token)
 			return ;
 		new_token->type = token_content->type;
-		new_token->value = strdup(token_content->value);
+		new_token->value = strdup(token_content->value); //usar el de la libft
 		ft_lstadd_back(&(current_cmd->tokens), ft_lstnew(new_token));
 		if (token_content->type == PIPE || token_content->type == REDIR)
 			current_cmd = NULL;

@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 11:23:27 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/02/13 11:54:31 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/02/13 17:54:35 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int	main(void)
 	s_sigaction.sa_flags = SA_SIGINFO;
 	sigemptyset(&s_sigaction.sa_mask);
 	sigaction(SIGINT, &s_sigaction, 0);
-	rl = readline("\033[1;32m🎅 Concepción ↝ \033[0m");
+	rl = readline("\033[1;32m🌋 Kontxesi ↝ \033[0m");
 	while (true)
 	{
 		add_history(rl);
@@ -61,7 +61,12 @@ int	main(void)
 		ft_printf("main => %d\n", code);
 		if (code != NO_ERROR)
 			return (1);
-		rl = readline("\033[1;32m🎅 Concepción ↝ \033[0m");
+		rl = readline("\033[1;32m🌋 Kontxesi ↝ \033[0m");
+		if (rl == NULL)
+		{
+			ft_printf("hola");
+			return (1);
+		}
 	}
 	return (0);
 }
