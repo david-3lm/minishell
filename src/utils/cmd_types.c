@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 16:37:57 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/02/13 18:43:27 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/02/16 12:47:05 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,17 +48,20 @@ bool	is_command(t_cmd cmd)
 		return (false);
 }
 
-int	count_redirs(t_cmd cmd)
+int	count_redirs(t_cmd_table *table)
 {
-	t_list	*redir_list;
 	int		count;
+	t_list	*cmd_list;
+	t_cmd	*cmd;
 
 	count = 0;
-	redir_list = cmd.redirs;
-	while (redir_list != NULL)
-	{
-		redir_list = redir_list->next
-		count++;
+	cmd_list = table->cmds;
+	cmd = (t_cmd *)cmd_list->content;
+	while (cmd_list)
+	{	
+		if (((t_tok *)cmd->tokens)->type == REDIR)
+			count++;
+		cmd_list = cmd_list->next;
 	}
 	return (count);
 }

@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/23 23:34:06 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/02/13 18:05:07 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/02/16 11:39:59 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ t_error_code	executor(t_cmd_table *table)
 	cmd_list = table->cmds;
 	res = NO_ERROR;
 	// last_res = NO_ERROR;
+	// if (count_redirs()
 	save_original_fd(table->std_backup);
 	while (cmd_list)
 	{

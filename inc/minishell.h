@@ -34,6 +34,7 @@ void	add_token(t_token_list *list, char *value);
 t_tok_type	get_next_type(t_list *cmd);
 t_tok_type get_token_type(t_list *cmd);
 bool	is_command(t_cmd cmd);
+int	count_redirs(t_cmd_table *table);
 bool	is_pipe(t_cmd cmd);
 void	debug(t_token_list *list);
 int	main(void);
@@ -52,4 +53,5 @@ int	ft_error(char *str);
 void	save_original_fd(int fd[2]);
 void	restore_fds(int fd[2]);
 int	pipex_proccess(t_cmd *cmd, t_cmd_table *table);
+void	manage_redir(t_tok *tok);
 #endif
