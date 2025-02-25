@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 11:45:46 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/02/01 15:50:21 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/02/25 11:48:36 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,30 +52,42 @@
 	return (EXIT_FAILURE);
 } */
 
-/* int	pipex(t_cmd_table *table)
+t_error_code	pipex(t_cmd_table *table)
 {
-	// leer la command table, identificar los cmd y los pipes
-	// si es pipe, hacer ese pipe y pasar al siguiente 
-	// el numero de pipes
 	t_list	*cmd_list;
-	t_cmd	*current_cmd;
-	// int		files[2];
-	int		i;
-	int		output;
-	int		last_output;
-	
-	i = 0;
+	int		cmd_index;
+	t_error_code	res;
+	// t_error_code	last_res;
+	t_cmd	*cmd;
+
+	cmd_index = 0;
 	cmd_list = table->cmds;
-	// pipe(files);
-	while (i < table->n_pipes)
+	res = NO_ERROR;
+	// last_res = NO_ERROR;
+	// if (count_redirs()
+	save_original_fd(table->std_backup);
+	while (cmd_list)
 	{
-		current_cmd = (t_cmd *)cmd_list->content;
-		output = pipex_proccess(current_cmd);
+		cmd = (t_cmd *)cmd_list->content;
+		if (is_command(*cmd))
+		{
+			printf("index --> %d, n_pipes --> %d \n", cmd_index, table->n_pipes);
+			if (table->n_pipes > cmd_index)
+			{
+				res = pipex_proccess(cmd, table);
+				cmd_index++;
+			}
+			else
+				last_command_exec(cmd);
+		}
 		cmd_list = cmd_list->next;
-		i++;
 	}
-	last_output = last_child(current_cmd);
-	if (last_output && output != last_output)
-		output = last_output;
-	return (output);
-} */
+	restore_fds(table->std_backup);
+	while (waitpid(-1, NULL, 0) != -1)
+		continue;
+	//DEFINE EXIT CODE WITH WEXITSTATUS
+	
+	// if (last_res != NO_ERROR && res != last_res)
+	// 	res = last_res;
+	return (res);
+}

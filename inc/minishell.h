@@ -53,5 +53,6 @@ int	ft_error(char *str);
 void	save_original_fd(int fd[2]);
 void	restore_fds(int fd[2]);
 int	pipex_proccess(t_cmd *cmd, t_cmd_table *table);
+t_error_code	pipex(t_cmd_table *table);
 void	manage_redir(t_tok *tok);
 #endif
