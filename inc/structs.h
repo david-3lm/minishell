@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 12:16:00 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/02/27 11:39:45 by dlopez-l         ###   ########.fr       */
+/*   Updated: 2025/02/27 19:58:06 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ typedef struct s_cmd_table
 	// redirs = (t_redir *) content
 	int		std_backup[2];
 	int		pipe_fd[2];
+	int		red_files[2];
 	t_list	*redirs;
 }			t_cmd_table;
 

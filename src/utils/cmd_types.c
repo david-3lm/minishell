@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 16:37:57 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/02/16 12:47:05 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/02/27 20:05:14 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ bool	is_command(t_cmd cmd)
 
 	token_list = cmd.tokens;
 	token = (t_tok *)token_list->content;
-	if (token && token->type == 0)
+	if (token && token->type == COMMAND)
 		return (true);
 	else
 		return (false);
@@ -73,7 +73,20 @@ bool	is_pipe(t_cmd cmd)
 
 	token_list = cmd.tokens;
 	token = (t_tok *)token_list->content;
-	if (token && token->type == 4)
+	if (token && token->type == PIPE)
+		return (true);
+	else
+		return (false);
+}
+
+bool	is_redir(t_cmd cmd)
+{
+	t_tok 	*token;
+	t_list	*token_list;
+
+	token_list = cmd.tokens;
+	token = (t_tok *)token_list->content;
+	if (token && token->type == REDIR)
 		return (true);
 	else
 		return (false);

@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 11:45:46 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/02/25 11:48:36 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/02/27 20:39:01 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,13 +59,17 @@ t_error_code	pipex(t_cmd_table *table)
 	t_error_code	res;
 	// t_error_code	last_res;
 	t_cmd	*cmd;
+	t_redir	*redir;
 
 	cmd_index = 0;
 	cmd_list = table->cmds;
 	res = NO_ERROR;
 	// last_res = NO_ERROR;
-	// if (count_redirs()
 	save_original_fd(table->std_backup);
+	redir = get_redir_in(table->redirs);
+	if (redir != NULL)
+		manage_redir_in(table, *redir);
+	redir = NULL;
 	while (cmd_list)
 	{
 		cmd = (t_cmd *)cmd_list->content;
@@ -78,11 +82,19 @@ t_error_code	pipex(t_cmd_table *table)
 				cmd_index++;
 			}
 			else
+			{
+				redir = get_redir_out(table->redirs);
+				if (redir != NULL)
+					manage_redir_out(table, *redir);
 				last_command_exec(cmd);
+			}
 		}
+		if (is_redir(*cmd))
+			cmd_list = cmd_list->next;
 		cmd_list = cmd_list->next;
 	}
 	restore_fds(table->std_backup);
+	close_red_files(table->red_files);
 	while (waitpid(-1, NULL, 0) != -1)
 		continue;
 	//DEFINE EXIT CODE WITH WEXITSTATUS

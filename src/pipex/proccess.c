@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 12:05:04 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/02/13 12:02:04 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/02/27 20:37:46 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ void	restore_fds(int fd[2])
 	dup2(STDIN_FILENO, fd[READ_E]);
 	dup2(STDOUT_FILENO, fd[WRITE_E]);
 }
+
 
 int	pipex_proccess(t_cmd *cmd, t_cmd_table *table)
 {
