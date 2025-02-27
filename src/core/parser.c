@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 19:16:03 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/02/16 10:50:16 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/02/27 11:44:26 by dlopez-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ char	*get_direction(t_tok *tok)
 /// @brief Esta funcion crea un comando pero solo rellena redireccion
 /// @param tok_list una referencia al token que contiene el <<, >>, ...
 /// @return el comando creado
-t_cmd	*add_redir(t_list *tok_list)
+t_cmd	*add_redir(t_list *tok_list, t_cmd_table **table)
 {
 	t_tok	*tok;
 	t_redir	*redir;
@@ -93,6 +93,7 @@ t_cmd	*add_redir(t_list *tok_list)
 	redir->direction = get_direction((t_tok *)tok_list->next->content);
 	printf("DIRECCION DEL REDIR => %s\n", (redir->direction));
 	ft_lstadd_back(&cmd->redirs, ft_lstnew(redir));
+	ft_lstadd_back(&(*table)->redirs, ft_lstnew(redir));
 	return (cmd);
 }
 
@@ -114,7 +115,8 @@ void	add_cmds(t_token_list *tok, t_cmd_table **table)
 		{
 			if (token_content->type == REDIR)
 			{
-				current_cmd = add_redir(current_token);
+				current_cmd = add_redir(current_token, table);
+				ft_printf("He añadido este redir => %s\n", ((t_redir *)(*table)->redirs->content)->direction);
 			}
 			else
 			{
