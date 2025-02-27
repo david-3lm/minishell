@@ -19,7 +19,6 @@
 
 void	handle_signal(int signal, siginfo_t *info, void *ctx);
 void prueba_test(void);
-int	last_command_exec(t_cmd *cmd);
 t_error_code	executor(t_cmd_table *table);
 void	purge_input(t_token_list *list, const char *str);
 t_error_code	lexer(char *input);
@@ -53,6 +52,8 @@ int	ft_error(char *str);
 void	save_original_fd(int fd[2]);
 void	restore_fds(int fd[2]);
 int	pipex_proccess(t_cmd *cmd, t_cmd_table *table);
-t_error_code	pipex(t_cmd_table *table);
+int	last_command_exec(t_cmd *cmd);
+t_error_code	run_pipex(t_cmd_table *table, t_cmd *cmd, int cmd_index);
+t_error_code	recorrer_table(t_cmd_table *table);
 void	manage_redir(t_tok *tok);
 #endif

@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 16:37:57 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/02/16 12:47:05 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/02/27 11:01:59 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ bool	is_command(t_cmd cmd)
 		return (false);
 }
 
-int	count_redirs(t_cmd_table *table)
+/* int	count_redirs(t_cmd_table *table)
 {
 	int		count;
 	t_list	*cmd_list;
@@ -64,7 +64,7 @@ int	count_redirs(t_cmd_table *table)
 		cmd_list = cmd_list->next;
 	}
 	return (count);
-}
+} */
 
 bool	is_pipe(t_cmd cmd)
 {
@@ -74,6 +74,19 @@ bool	is_pipe(t_cmd cmd)
 	token_list = cmd.tokens;
 	token = (t_tok *)token_list->content;
 	if (token && token->type == 4)
+		return (true);
+	else
+		return (false);
+}
+
+bool	is_redir(t_cmd cmd)
+{
+	t_tok 	*token;
+	t_list	*token_list;
+
+	token_list = cmd.tokens;
+	token = (t_tok *)token_list->content;
+	if (token && token->type == REDIR)
 		return (true);
 	else
 		return (false);
