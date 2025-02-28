@@ -55,7 +55,7 @@ void	save_original_fd(int fd[2]);
 void	restore_fds(int fd[2]);
 int	pipex_proccess(t_cmd *cmd, t_cmd_table *table);
 t_error_code	pipex(t_cmd_table *table);
-void	manage_redir_in(t_cmd_table *table, t_redir in_redir);
+int	manage_redir_in(t_cmd_table *table, t_redir in_redir);
 void	manage_redir_out(t_cmd_table *table, t_redir out_redir);
 t_redir	*get_redir_in(t_list *list);
 t_redir	*get_redir_out(t_list *list);

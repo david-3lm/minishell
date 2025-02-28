@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 11:45:46 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/02/27 20:39:01 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/02/28 02:07:53 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,14 +68,17 @@ t_error_code	pipex(t_cmd_table *table)
 	save_original_fd(table->std_backup);
 	redir = get_redir_in(table->redirs);
 	if (redir != NULL)
-		manage_redir_in(table, *redir);
+	{
+		if (manage_redir_in(table, *redir) == 1)
+			return (NO_ERROR);
+	}
 	redir = NULL;
 	while (cmd_list)
 	{
 		cmd = (t_cmd *)cmd_list->content;
 		if (is_command(*cmd))
 		{
-			printf("index --> %d, n_pipes --> %d \n", cmd_index, table->n_pipes);
+			printf( YELLOW "index --> %d, n_pipes --> %d %s\n", cmd_index, table->n_pipes, RESET_COLOR);
 			if (table->n_pipes > cmd_index)
 			{
 				res = pipex_proccess(cmd, table);

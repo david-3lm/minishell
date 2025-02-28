@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/23 23:34:06 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/02/25 11:59:47 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/02/28 01:57:57 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	last_command_exec(t_cmd *cmd)
 		return (ft_error("Fork: "));
 	if (pid == 0)
 	{
-		printf("he entrado a hacer el ultimo comando \n");
+		printf( YELLOW "he entrado a hacer el ultimo comando %s \n", RESET_COLOR);
 		path_exec(cmd);
 	}
 /* 	else

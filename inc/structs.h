@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 12:16:00 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/02/27 19:58:06 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/02/28 01:21:00 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,6 +125,8 @@ typedef enum e_error_code
 	NULL_POINTER_ERROR,
 	UNEXPECTED_EOF,
 	SYNTAX_ERROR,
+	// CAROL
+	NO_INFILE,
 	UNKNOWN_ERROR
 }	t_error_code;
 

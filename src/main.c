@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 11:23:27 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/02/13 17:54:35 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/02/28 02:11:17 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,10 @@ void	debug(t_token_list *list)
 	node = list->tokens;
 	while (node->next != NULL)
 	{
-		ft_printf("%s => %s\n", get_type_name(((t_tok *)node->content)->type), ((t_tok *)node->content)->value);
+		ft_printf(YELLOW "%s => %s %s \n", get_type_name(((t_tok *)node->content)->type), ((t_tok *)node->content)->value, RESET_COLOR);
 		node = node->next;
 	}
-	ft_printf("%s => %s\n", get_type_name(((t_tok *) node->content)->type), ((t_tok *) node->content)->value);
+	ft_printf(YELLOW "%s => %s %s \n", get_type_name(((t_tok *) node->content)->type), ((t_tok *) node->content)->value, RESET_COLOR);
 
 }
 
@@ -58,13 +58,13 @@ int	main(void)
 	{
 		add_history(rl);
 		code = lexer(rl);
-		ft_printf("main => %d\n", code);
+		ft_printf(YELLOW "main => %d %s\n", code, RESET_COLOR);
 		if (code != NO_ERROR)
 			return (1);
 		rl = readline("\033[1;32m🌋 Kontxesi ↝ \033[0m");
 		if (rl == NULL)
 		{
-			ft_printf("hola");
+			ft_printf("🎷🦆");
 			return (1);
 		}
 	}

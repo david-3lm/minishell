@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 19:16:03 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/02/27 11:44:26 by dlopez-l         ###   ########.fr       */
+/*   Updated: 2025/02/28 02:15:30 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	debug_parser(t_cmd_table *table)
 
 	cmd_list = table->cmds;
 	cmd_index = 0;
-	ft_printf("=== Command Table Debug ===\n");
+	ft_printf(YELLOW " === Command Table Debug ===\n");
 	while (cmd_list)
 	{
 		cmd = (t_cmd *)cmd_list->content;
@@ -40,7 +40,7 @@ void	debug_parser(t_cmd_table *table)
 			{
 				token = (t_tok *)token_list->content;
 				if (token && token->value)
-					ft_printf("  Token: [Type: %d, Value: '%s']\n", token->type, token->value);
+					ft_printf(" Token: [Type: %d, Value: '%s']\n", token->type, token->value);
 				if (token->type == REDIR)
 					ft_printf("  Redir: [Type: %d, Direction: '%s']\n", ((t_redir *)cmd->redirs->content)->type, ((t_redir *)cmd->redirs->content)->direction);
 				token_list = token_list->next;
@@ -53,14 +53,14 @@ void	debug_parser(t_cmd_table *table)
 		cmd_list = cmd_list->next;
 		cmd_index++;
 	}
-	ft_printf("==========================\n");
+	ft_printf("========================== \n" RESET_COLOR);
 }
 /// @brief Esta funcion devuelve la direccion de la redireccion
 /// @param tok el token siguiente al que esta trabajando
 /// @return char * de la direccion
 char	*get_direction(t_tok *tok)
 {
-	printf("DIRECCION DEL TOK => %s CON TIPO %d\n", (tok->value), tok->type);
+	printf(YELLOW "DIRECCION DEL TOK => %s CON TIPO %d %s \n", (tok->value), tok->type, RESET_COLOR);
 	if (tok->type != COMMAND && tok->type != STRING)
 		return NULL;
 	return (tok->value);
@@ -91,7 +91,7 @@ t_cmd	*add_redir(t_list *tok_list, t_cmd_table **table)
 	else
 		redir->type = RD_BAD; //////////////////////////IGUAL HAY QUE DEVOLVER ERROR
 	redir->direction = get_direction((t_tok *)tok_list->next->content);
-	printf("DIRECCION DEL REDIR => %s\n", (redir->direction));
+	printf(YELLOW "DIRECCION DEL REDIR => %s %s\n", (redir->direction), RESET_COLOR);
 	ft_lstadd_back(&cmd->redirs, ft_lstnew(redir));
 	ft_lstadd_back(&(*table)->redirs, ft_lstnew(redir));
 	return (cmd);
@@ -116,7 +116,7 @@ void	add_cmds(t_token_list *tok, t_cmd_table **table)
 			if (token_content->type == REDIR)
 			{
 				current_cmd = add_redir(current_token, table);
-				ft_printf("He añadido este redir => %s\n", ((t_redir *)(*table)->redirs->content)->direction);
+				ft_printf(YELLOW "He añadido este redir => %s %s\n", ((t_redir *)(*table)->redirs->content)->direction, RESET_COLOR);
 			}
 			else
 			{
@@ -177,5 +177,5 @@ t_error_code	parser(t_token_list *list)
 	debug_parser(table);
 	count_pipes(table);
 	return (executor(table));
-	printf("numero de pipes --> %d \n", table->n_pipes);
+	printf(YELLOW "numero de pipes --> %d %s\n", table->n_pipes, RESET_COLOR);
 }
