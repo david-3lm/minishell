@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/23 23:34:06 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/02/28 01:57:57 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/02/28 13:10:24 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,6 @@ int	last_command_exec(t_cmd *cmd)
 t_error_code	executor(t_cmd_table *table)
 {
 	t_error_code	res;
-	res = pipex(table);
+	res = recorrer_table(table);
 	return (res);
 }

@@ -6,58 +6,52 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 11:45:46 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/02/28 02:07:53 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/02/28 13:10:53 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-/* int	old_pipex(char **argv, int argc)
+int	last_command_exec(t_cmd *cmd)
 {
-	int	i;
-	int	output;
-	int	last_output;
+	pid_t	pid;
+	// int		status;
 
-	i = 0;
-	output = 0;
-	while (i < argc - 1)
-	{
-		output = old_pipex_proccess(argv[i]);
-		i++;
-	}
-	last_output = old_last_child(argv, argc);
-	if (last_output && output != last_output)
-		output = last_output;
-	return (output);
-} */
-
-/* int	old_last_child(char **argv, int argc)
-{
-	int	pid;
-	int	status;
-
-	status = 0;
 	pid = fork();
 	if (pid == -1)
 		return (ft_error("Fork: "));
 	if (pid == 0)
 	{
-		dup2(files->outfile, STDOUT_FILENO);
-		path_exec(argv[argc - 2]);
+		printf("he entrado a hacer el ultimo comando \n");
+		path_exec(cmd);
 	}
-	else
+/* 	else
 		waitpid(pid, &status, 0);
 	if (status && WIFEXITED(status))
-		return (WEXITSTATUS(status));
-	return (EXIT_FAILURE);
-} */
-
-t_error_code	pipex(t_cmd_table *table)
+		return (WEXITSTATUS(status)); */
+	return (NO_ERROR);
+}
+t_error_code	run_pipex(t_cmd_table *table, t_cmd *cmd, int cmd_index)
 {
+	t_error_code	res;
+
+	printf("index --> %d, n_pipes --> %d \n", cmd_index, table->n_pipes);
+	if (table->n_pipes > cmd_index)
+	{
+		res = pipex_proccess(cmd, table);
+		cmd_index++;
+	}
+	else
+		last_command_exec(cmd);
+	return (res);
+}
+
+t_error_code	recorrer_table(t_cmd_table *table)
+{
+	// teno que cambiar el nombre de esta funcion
 	t_list	*cmd_list;
 	int		cmd_index;
 	t_error_code	res;
-	// t_error_code	last_res;
 	t_cmd	*cmd;
 	t_redir	*redir;
 
@@ -100,9 +94,5 @@ t_error_code	pipex(t_cmd_table *table)
 	close_red_files(table->red_files);
 	while (waitpid(-1, NULL, 0) != -1)
 		continue;
-	//DEFINE EXIT CODE WITH WEXITSTATUS
-	
-	// if (last_res != NO_ERROR && res != last_res)
-	// 	res = last_res;
 	return (res);
 }
