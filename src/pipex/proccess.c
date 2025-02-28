@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 12:05:04 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/02/28 02:07:12 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/02/28 15:20:21 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,14 +50,16 @@ int	ft_error(char *str)
 
 void	save_original_fd(int fd[2])
 {
-	dup2(fd[READ_E], STDIN_FILENO);
-	dup2(fd[WRITE_E], STDOUT_FILENO);
+	fd[READ_E] = dup(STDIN_FILENO);
+	fd[WRITE_E] = dup(STDOUT_FILENO);
+	printf("valor de stdbackup[0] --> %i \n", fd[READ_E]);
+	printf("valor de stdbackup[1] --> %i \n", fd[WRITE_E]);
 }
 
 void	restore_fds(int fd[2])
 {
-	dup2(STDIN_FILENO, fd[READ_E]);
-	dup2(STDOUT_FILENO, fd[WRITE_E]);
+	dup2(fd[READ_E], STDIN_FILENO);
+	dup2(fd[WRITE_E], STDOUT_FILENO);
 }
 
 

@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 11:45:46 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/02/28 13:10:53 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/02/28 15:20:26 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ t_error_code	recorrer_table(t_cmd_table *table)
 	redir = get_redir_in(table->redirs);
 	if (redir != NULL)
 	{
-		if (manage_redir_in(table, *redir) == 1)
+		if (manage_redir_in(table, *redir) == -1)
 			return (NO_ERROR);
 	}
 	redir = NULL;
@@ -82,7 +82,8 @@ t_error_code	recorrer_table(t_cmd_table *table)
 			{
 				redir = get_redir_out(table->redirs);
 				if (redir != NULL)
-					manage_redir_out(table, *redir);
+					if (manage_redir_out(table, *redir) == -1)
+						return (NO_ERROR);
 				last_command_exec(cmd);
 			}
 		}
@@ -90,9 +91,9 @@ t_error_code	recorrer_table(t_cmd_table *table)
 			cmd_list = cmd_list->next;
 		cmd_list = cmd_list->next;
 	}
-	restore_fds(table->std_backup);
 	close_red_files(table->red_files);
 	while (waitpid(-1, NULL, 0) != -1)
 		continue;
+	restore_fds(table->std_backup);
 	return (res);
 }
