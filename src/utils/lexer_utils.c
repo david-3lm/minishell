@@ -33,6 +33,9 @@ void	add_token(t_token_list *list, char *value)
 	if (!new_tok)
 		return ;
 	new_tok->type = get_ttype(value);
-	new_tok->value = ft_strdup(value);
+	if (new_tok->type == STRING)
+		new_tok->value = ft_substr(value, 1, ft_strlen(value) - 2);
+	else
+		new_tok->value = ft_strdup(value);
 	ft_lstadd_back(&(list->tokens), ft_lstnew(new_tok));
 }

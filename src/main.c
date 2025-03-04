@@ -64,7 +64,7 @@ int	main(void)
 		rl = readline("\033[1;32m🌋 Kontxesi ↝ \033[0m");
 		if (rl == NULL)
 		{
-			ft_printf("Ta luego🎷🦆");
+			ft_printf("Ta luego (mensaje que seguro hace reir a carol) 🎷🦆");
 			return (1);
 		}
 	}
