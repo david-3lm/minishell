@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 12:05:04 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/02/28 15:20:21 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/03/03 15:11:56 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int	pipex_proccess(t_cmd *cmd, t_cmd_table *table)
 {
 	pid_t	pid;
 
-	printf(YELLOW "entro en pipex proccess %s \n", RESET_COLOR);
+	printf(PINK "entro en pipex proccess %s \n", RESET_COLOR);
 	if (pipe(table->pipe_fd) == -1)
 		return (ft_error("pipe: "));
 	pid = fork();

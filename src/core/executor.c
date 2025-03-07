@@ -6,16 +6,16 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/23 23:34:06 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/02/28 14:22:47 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/03/03 15:10:25 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-void prueba_test(void)
+/* void debug_pink(char *str)
 {
-	ft_putendl_fd("hola prubea test \n", 2);
-}
+	printf(PINK, "%s", RESET_COLOR, str);
+} */
 
 t_error_code	executor(t_cmd_table *table)
 {

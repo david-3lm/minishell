@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 12:49:42 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/02/28 02:02:57 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/03/07 14:24:40 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,6 @@
 
 # define EXIT_DEFAULT_O 2
 # define EXIT_HEREDOC_O 3
-
-// ESTO ES PORQUE ASI TENEMOS LOS COLORINCHIS
-# define YELLOW "\e[0;35m"
-# define RESET_COLOR "\033[0m"
 
 typedef struct s_files
 {

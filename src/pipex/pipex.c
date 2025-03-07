@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 11:45:46 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/02/28 15:20:26 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/03/06 12:33:32 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,8 @@ t_error_code	recorrer_table(t_cmd_table *table)
 	// last_res = NO_ERROR;
 	save_original_fd(table->std_backup);
 	redir = get_redir_in(table->redirs);
+	// esta parte de las redirecciones se puede refactorizar, 
+	// todo en una funcion que mire si hay in/heredoc y lo gestione ahi en su sitio
 	if (redir != NULL)
 	{
 		if (manage_redir_in(table, *redir) == -1)
@@ -72,7 +74,7 @@ t_error_code	recorrer_table(t_cmd_table *table)
 		cmd = (t_cmd *)cmd_list->content;
 		if (is_command(*cmd))
 		{
-			printf( YELLOW "index --> %d, n_pipes --> %d %s\n", cmd_index, table->n_pipes, RESET_COLOR);
+			printf( PINK "index --> %d, n_pipes --> %d %s\n", cmd_index, table->n_pipes, RESET_COLOR);
 			if (table->n_pipes > cmd_index)
 			{
 				res = pipex_proccess(cmd, table);

@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 16:21:37 by cde-migu          #+#    #+#             */
-/*   Updated: 2024/12/19 15:06:16 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/03/06 12:30:33 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,4 +83,20 @@ void	here_doc(char *limit, int argc)
 	infile = ft_open_here_doc();
 	dup2(infile, STDIN_FILENO);
 	close(infile);
+}
+
+bool	*is_heredoc(t_list *redir_lst)
+{
+	t_redir *redir;
+	t_list	*copy;
+	
+	copy = redir_lst;
+	while (copy != NULL)
+	{
+		redir = (t_redir *)copy->content;
+		if (redir->type == RD_HD)
+			return (true);
+		copy = copy->next;
+	}
+	return (false);
 }
