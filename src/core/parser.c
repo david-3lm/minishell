@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 19:16:03 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/03/03 15:11:33 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/03/07 14:26:04 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ void	debug_parser(t_cmd_table *table)
 	}
 	ft_printf("========================== \n" RESET_COLOR);
 }
+
 /// @brief Esta funcion devuelve la direccion de la redireccion
 /// @param tok el token siguiente al que esta trabajando
 /// @return char * de la direccion
@@ -64,6 +65,22 @@ char	*get_direction(t_tok *tok)
 	if (tok->type != COMMAND && tok->type != STRING)
 		return NULL;
 	return (tok->value);
+}
+
+int		size_redir(char *value)
+{
+	int	i;
+	int	count;
+
+	i = 0;
+	count = 0;
+	while (value[i])
+	{
+		if (value[i] == '<' || value[i] == '>')
+			count++;
+		i++;
+	}
+	return (count);
 }
 
 /// @brief Esta funcion crea un comando pero solo rellena redireccion
@@ -80,16 +97,25 @@ t_cmd	*add_redir(t_list *tok_list, t_cmd_table **table)
 	cmd = malloc(sizeof(t_cmd));
 	if (!redir || !cmd)
 		return (NULL);
-	if (ft_strncmp(tok->value, ">>", 2) == 0)
-		redir->type = RD_SOUT2;
-	else if (ft_strncmp(tok->value, ">", 1) == 0)
-		redir->type = RD_SOUT;
-	else if (ft_strncmp(tok->value, "<<", 2) == 0)
-		redir->type = RD_HD;
-	else if (ft_strncmp(tok->value, "<", 1) == 0)
-		redir->type = RD_SIN;
+	if (size_redir(tok->value) == 2)
+	{
+		if (ft_strncmp(tok->value, ">>", 2) == 0)
+			redir->type = RD_SOUT2;
+		else if (ft_strncmp(tok->value, "<<", 2) == 0)
+			redir->type = RD_HD;
+	}
+	else if (size_redir(tok->value) == 1)
+	{
+		if (ft_strncmp(tok->value, ">", 1) == 0)
+			redir->type = RD_SOUT;
+		else if (ft_strncmp(tok->value, "<", 1) == 0)
+			redir->type = RD_SIN;
+	}
 	else
-		redir->type = RD_BAD; //////////////////////////IGUAL HAY QUE DEVOLVER ERROR
+	{
+		ft_printf(YELLOW "TERRIBLE REDIR\n" RESET_COLOR);
+		redir->type = RD_BAD; ////////IGUAL HAY QUE DEVOLVER ERROR
+	}
 	redir->direction = get_direction((t_tok *)tok_list->next->content);
 	printf(PINK "DIRECCION DEL REDIR => %s %s\n", (redir->direction), RESET_COLOR);
 	ft_lstadd_back(&cmd->redirs, ft_lstnew(redir));
