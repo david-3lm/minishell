@@ -36,7 +36,7 @@ void	debug(t_token_list *list)
 	node = list->tokens;
 	while (node->next != NULL)
 	{
-		debug_pink(PINK "%s => %s %s \n", get_type_name(((t_tok *)node->content)->type), ((t_tok *)node->content)->value, RESET_COLOR);
+		ft_printf(PINK "%s => %s %s \n", get_type_name(((t_tok *)node->content)->type), ((t_tok *)node->content)->value, RESET_COLOR);
 		node = node->next;
 	}
 	ft_printf(PINK "%s => %s %s \n", get_type_name(((t_tok *) node->content)->type), ((t_tok *) node->content)->value, RESET_COLOR);

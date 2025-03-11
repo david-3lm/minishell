@@ -12,10 +12,10 @@
 
 #include "../../inc/minishell.h"
 
-/* void debug_pink(char *str)
+void debug_pink(char *str)
 {
-	printf(PINK, "%s", RESET_COLOR, str);
-} */
+	printf(PINK "%s" RESET_COLOR, str);
+}
 
 t_error_code	executor(t_cmd_table *table)
 {
