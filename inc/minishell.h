@@ -17,17 +17,11 @@
 # include <term.h>
 # include <signal.h>
 
-void	handle_signal(int signal, siginfo_t *info, void *ctx);
-void	purge_input(t_token_list *list, const char *str);
-t_error_code	lexer(char *input);
-t_error_code	executor(t_cmd_table *table);
-void	debug_parser(t_cmd_table *table);
-char	*get_direction(t_tok *tok);
-int		size_redir(char *value);
-t_cmd	*add_redir(t_list *tok_list, t_cmd_table **table);
-void	add_cmds(t_token_list *tok, t_cmd_table **table);
-void	count_pipes(t_cmd_table *table);
-t_error_code	parser(t_token_list *list);
+void	debug(t_token_list *list);
+int	main(void);
+t_tok_type	get_ttype(char *tok);
+int	count_quotes(char *str);
+void	add_token(t_token_list *list, char *value);
 t_tok_type	get_next_type(t_list *cmd);
 t_tok_type get_token_type(t_list *cmd);
 bool	is_command(t_cmd cmd);
@@ -42,6 +36,9 @@ char	**get_paths();
 void	path_exec(t_cmd *cmd);
 void	free_all(char **arr);
 void	ft_usage(void);
+int	last_command_exec(t_cmd *cmd);
+t_error_code	run_pipex(t_cmd_table *table, t_cmd *cmd, int cmd_index);
+t_error_code	recorrer_table(t_cmd_table *table);
 char	*ft_new_limit(char *limit);
 int	ft_write_here_doc(char *limit);
 void	create_here_doc(char *limit);
