@@ -1,5 +1,5 @@
 NAME = minishell
-SRC = ./src/core/actions.c ./src/core/lexer.c ./src/core/parser.c ./src/core/executor.c ./src/utils/error_handler.c ./src/utils/lexer_utils.c ./src/utils/cmd_types.c ./src/main.c ./src/pipex/utils.c ./src/pipex/here_doc.c ./src/pipex/proccess.c ./src/pipex/pipex.c ./src/redir/redirs.c 
+SRC = ./src/core/actions.c ./src/core/lexer.c ./src/core/executor.c ./src/core/parser.c ./src/utils/error_handler.c ./src/utils/cmd_types.c ./src/utils/lexer_utils.c ./src/pipex/utils.c ./src/pipex/here_doc.c ./src/pipex/proccess.c ./src/pipex/pipex.c ./src/redir/redirs.c ./src/main.c 
 OBJ = $(SRC:.c=.o)
 LIB_DIR = ./libimp
 LIB = $(LIB_DIR)/libft.a

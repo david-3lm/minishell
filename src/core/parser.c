@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 19:16:03 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/03/07 14:26:04 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/03/07 14:44:45 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ t_cmd	*add_redir(t_list *tok_list, t_cmd_table **table)
 	}
 	else
 	{
-		ft_printf(YELLOW "TERRIBLE REDIR\n" RESET_COLOR);
+		ft_printf(PINK "TERRIBLE REDIR\n" RESET_COLOR);
 		redir->type = RD_BAD; ////////IGUAL HAY QUE DEVOLVER ERROR
 	}
 	redir->direction = get_direction((t_tok *)tok_list->next->content);

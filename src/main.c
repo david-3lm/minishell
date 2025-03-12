@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 11:23:27 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/03/03 15:11:02 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/03/07 14:45:28 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	debug(t_token_list *list)
 	node = list->tokens;
 	while (node->next != NULL)
 	{
-		debug_pink(PINK "%s => %s %s \n", get_type_name(((t_tok *)node->content)->type), ((t_tok *)node->content)->value, RESET_COLOR);
+		printf(PINK "%s => %s %s \n", get_type_name(((t_tok *)node->content)->type), ((t_tok *)node->content)->value, RESET_COLOR);
 		node = node->next;
 	}
 	ft_printf(PINK "%s => %s %s \n", get_type_name(((t_tok *) node->content)->type), ((t_tok *) node->content)->value, RESET_COLOR);
