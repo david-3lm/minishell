@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 16:21:37 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/03/07 14:51:42 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/03/13 11:45:45 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,15 @@ char	*ft_new_limit(char *limit)
 	return (new_limit);
 }
 
-int	ft_write_here_doc(char *limit)
+int	write_here_doc(char *limit)
 {
 	int		read_bytes;
 	int		infile;
 	char	buf[1024];
+	char	*new_limit;
 
-	infile = open("here_doc", O_RDWR | O_CREAT | O_TRUNC, 0777);
+	infile = open(TMP_FILE, O_RDWR | O_CREAT | O_TRUNC, 0777);
+	new_limit = ft_new_limit(limit);
 	while (1)
 	{
 		write(1, ">", 1);
@@ -43,7 +45,7 @@ int	ft_write_here_doc(char *limit)
 			close(infile);
 			return (1);
 		}
-		if (ft_strncmp(ft_new_limit(limit), buf, read_bytes) == 0)
+		if (ft_strncmp(new_limit, buf, read_bytes) == 0)
 			break ;
 		write(infile, buf, read_bytes);
 	}
@@ -53,18 +55,18 @@ int	ft_write_here_doc(char *limit)
 
 void	create_here_doc(char *limit)
 {
-	if (ft_write_here_doc(limit))
+	if (write_here_doc(limit))
 	{
-		perror("Error writing here_doc");
+		perror("Error creating tmp file");
 		exit(EXIT_FAILURE);
 	}
 }
 
-int	ft_open_here_doc(void)
+int	open_here_doc(void)
 {
 	int	infile;
 
-	infile = open("here_doc", O_RDONLY);
+	infile = open(TMP_FILE, O_RDONLY);
 	if (infile < 0)
 	{
 		perror("open here_doc");
@@ -73,16 +75,16 @@ int	ft_open_here_doc(void)
 	return (infile);
 }
 
-void	here_doc(t_redir *redir)
+int	manage_here_doc(t_redir redir, t_cmd_table *table)
 {
-	int	infile;
 	char	*limit;
 
-	limit = redir->direction;
+	limit = redir.direction;
 	create_here_doc(limit);
-	infile = ft_open_here_doc();
-	dup2(infile, STDIN_FILENO);
-	close(infile);
+	table->red_files[READ_E] = open_here_doc();
+	dup2(table->red_files[READ_E], STDIN_FILENO);
+	// close(infile);
+	return (table->red_files[READ_E]);
 }
 
 bool	is_heredoc(t_list *redir_lst)

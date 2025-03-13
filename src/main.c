@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 11:23:27 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/03/12 11:00:02 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/03/12 11:23:47 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,18 @@
 const char	*get_type_name(t_tok_type type)
 {
 	if (type == COMMAND)
-		return "COMMAND";
+		return ("COMMAND");
 	if (type == STRING)
-		return "STRING";
+		return ("STRING");
 	if (type == FILES)
-		return "FILE";
+		return ("FILE");
 	if (type == REDIR)
-		return "REDIR";
+		return ("REDIR");
 	if (type == PIPE)
-		return "PIPE";
+		return ("PIPE");
 	if (type == VARIABLE)
-		return "VARIABLE";
-	return "UNKNOWN";
+		return ("VARIABLE");
+	return ("UNKNOWN");
 }
 
 void	debug(t_token_list *list)
