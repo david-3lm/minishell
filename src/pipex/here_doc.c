@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 16:21:37 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/03/13 11:45:45 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/03/13 14:51:19 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	write_here_doc(char *limit)
 	new_limit = ft_new_limit(limit);
 	while (1)
 	{
-		write(1, ">", 1);
+		write(1, "> ", 2);
 		read_bytes = read(STDIN_FILENO, buf, 1024);
 		if (read_bytes == 0)
 			break ;
