@@ -1,35 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd.c                                              :+:      :+:    :+:   */
+/*   envv.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/14 11:54:05 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/03/18 18:28:58 by cde-migu         ###   ########.fr       */
+/*   Created: 2025/03/18 16:28:50 by cde-migu          #+#    #+#             */
+/*   Updated: 2025/03/18 16:38:45 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-// esto no va a funcionar ahora, hayq ue hacer un hueco en la estructura para guardar el pwd
+// crear elemento t_env
 
-t_error_code	bi_pwd(void)
+t_env	env_init(char **orig_envp, t_cmd_table *table)
 {
-	char	*pwd;
-	t_error_code error;
-
-	error = NO_ERROR;
-	pwd = getcwd(pwd, 0);
-	if (pwd == NULL)
-	{
-		perror("Error");
-		error = UNKNOWN_ERROR;
-	}
-	else
-	{
-		ft_printf("%s \n", pwd);
-		free(pwd);
-	}
-	return (error);
+	t_env	*env;
+	int		i;
+	
+	i = 0;
+	table->envv = NULL;
+	
 }

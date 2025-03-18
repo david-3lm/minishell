@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 12:16:00 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/02/28 14:58:01 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/03/18 16:38:27 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ typedef struct s_cmd_table
 	int		pipe_fd[2];
 	int		red_files[2];
 	t_list	*redirs;
+	t_list	*envv;
 }			t_cmd_table;
 
 /*
@@ -100,6 +101,7 @@ typedef struct s_cmd
 {
 	t_list	*tokens;
 	t_list	*redirs;
+	int		(*builtin)(t_cmd_table *);
 }			t_cmd;
 
 /*
@@ -116,6 +118,13 @@ typedef struct s_redir
 	char			*direction;
 	t_redir_type	type;
 }			t_redir;
+
+typedef struct s_env
+{
+	char	*key;
+	char	*value;
+}	t_env;
+
 
 /*ERROR CODES*/
 typedef enum e_error_code
