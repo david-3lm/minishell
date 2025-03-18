@@ -1,10 +1,10 @@
 NAME = minishell
-SRC = ./src/core/actions.c ./src/core/lexer.c ./src/core/parser.c ./src/core/executor.c ./src/utils/error_handler.c ./src/utils/cmd_types.c ./src/utils/lexer_utils.c ./src/pipex/utils.c ./src/pipex/here_doc.c ./src/pipex/proccess.c ./src/pipex/pipex.c ./src/redir/redirs.c ./src/main.c ./src/built-ins/pwd.c ./src/built-ins/exit.c 
+SRC = ./src/core/actions.c ./src/core/lexer.c ./src/core/executor.c ./src/core/parser.c ./src/utils/cmd_types.c ./src/utils/error_handler.c ./src/utils/lexer_utils.c ./src/pipex/proccess.c ./src/pipex/utils.c ./src/pipex/here_doc.c ./src/pipex/pipex.c ./src/redir/redirs.c ./src/built-ins/builtins.c ./src/built-ins/exit.c ./src/built-ins/pwd.c ./src/main.c ./src/env/envv.c 
 OBJ = $(SRC:.c=.o)
 LIB_DIR = ./libimp
 LIB = $(LIB_DIR)/libft.a
 MAIN_HEADER = ./inc/minishell.h
-HEADERS = ./inc/defines.h ./inc/pipex.h ./inc/structs.h ./inc/minishell.h 
+HEADERS = ./inc/pipex.h ./inc/defines.h ./inc/minishell.h ./inc/structs.h 
 CC = gcc
 CFLAGS = -Wall -Werror -Wextra #-fsanitize=address -g3
 RM = rm -f
@@ -73,6 +73,9 @@ norma:
 debug: CFLAGS += -g3 -O0
 debug: re
 # gdb 
+
+light: CFLAGS = 
+light: re
 
 update:
 	./update_make.sh

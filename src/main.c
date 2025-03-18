@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: dlopez-l <dlopez-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 11:23:27 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/03/12 11:23:47 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/03/18 19:11:10 by dlopez-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,21 +43,25 @@ void	debug(t_token_list *list)
 
 }
 
-int	main(void)
+int	main(int argc, char **argv, char **envp)
 {
 	struct sigaction	s_sigaction;
 	char				*rl;
 	t_error_code		code;
-
+	t_list				*envl;
+	
+	(void)argc;
+	(void)argv;
 	s_sigaction.sa_sigaction = handle_signal;
 	s_sigaction.sa_flags = SA_SIGINFO;
 	sigemptyset(&s_sigaction.sa_mask);
 	sigaction(SIGINT, &s_sigaction, 0);
+	envl = env_init(envp);
 	rl = readline("\033[1;32m🌋 Kontxesi ↝ \033[0m");
 	while (true)
 	{
 		add_history(rl);
-		code = lexer(rl);
+		code = lexer(rl, envl);
 		ft_printf(PINK "main => %d %s\n", code, RESET_COLOR);
 		if (code != NO_ERROR)
 			return (1);
