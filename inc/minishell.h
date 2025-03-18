@@ -16,7 +16,6 @@
 # include <stdio.h>
 # include <term.h>
 # include <signal.h>
-# include <limits.h>
 
 void	handle_signal(int signal, siginfo_t *info, void *ctx);
 void	purge_input(t_token_list *list, const char *str);
@@ -64,4 +63,6 @@ t_redir	*get_redir_out(t_list *list);
 void	close_red_files(int files[2]);
 void	debug(t_token_list *list);
 int	main(void);
+t_error_code	bi_pwd(void);
+void	exit(void);
 #endif
