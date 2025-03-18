@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: dlopez-l <dlopez-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 19:16:03 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/03/07 14:44:45 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/03/18 19:10:57 by dlopez-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -191,7 +191,7 @@ void	count_pipes(t_cmd_table *table)
 	}
 }
 
-t_error_code	parser(t_token_list *list)
+t_error_code	parser(t_token_list *list, t_list *envl)
 {
 	t_cmd_table	*table;
 
@@ -199,6 +199,7 @@ t_error_code	parser(t_token_list *list)
 	if (!table)
 		return (MEM_ALLOC_ERROR);
 	table->n_cmd = 0;
+	table->envv = envl;
 	add_cmds(list, &table);
 	debug_parser(table);
 	count_pipes(table);

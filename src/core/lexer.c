@@ -6,7 +6,7 @@
 /*   By: dlopez-l <dlopez-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 19:16:08 by dlopez-l          #+#    #+#             */
-/*   Updated: 2024/12/03 12:49:34 by dlopez-l         ###   ########.fr       */
+/*   Updated: 2025/03/18 19:10:43 by dlopez-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	purge_input(t_token_list *list, const char *str)
 	}
 }
 
-t_error_code	lexer(char *input)
+t_error_code	lexer(char *input, t_list *envl)
 {
 	t_token_list	*list;
 	char			**sp;
@@ -61,5 +61,5 @@ t_error_code	lexer(char *input)
 			add_token(list, sp[i]);
 		i++;
 	}
-	return (parser(list));
+	return (parser(list, envl));
 }
