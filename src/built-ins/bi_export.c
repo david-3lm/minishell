@@ -11,3 +11,8 @@
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
+
+void    bi_export(void)
+{
+    printf("holaexport");
+}
