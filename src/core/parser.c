@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlopez-l <dlopez-l@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 19:16:03 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/03/18 19:10:57 by dlopez-l         ###   ########.fr       */
+/*   Updated: 2025/03/21 11:33:10 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -204,5 +204,4 @@ t_error_code	parser(t_token_list *list, t_list *envl)
 	debug_parser(table);
 	count_pipes(table);
 	return (executor(table));
-	printf(PINK "numero de pipes --> %d %s\n", table->n_pipes, RESET_COLOR);
 }

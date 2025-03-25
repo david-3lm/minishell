@@ -1,18 +1,53 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   echo.c                                             :+:      :+:    :+:   */
+/*   bi_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 19:03:41 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/03/18 19:03:52 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/03/25 15:28:52 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-void    bi_unset(void)
+
+void    bi_unset(t_cmd_table *table, t_cmd *cmd)
 {
-    printf("holaunset");
+	// que reciba solo un argumento
+	char	*to_unset;
+	t_list	*env_lst;
+	t_env	*env;
+	int		i;
+
+	i = 0;
+	env_lst = table->envv;
+	to_unset = (char *)cmd->tokens->next->content;
+	while (env_lst != NULL)
+	{
+		env = (t_env *)env_lst->content;
+		if (ft_strncmp(to_unset, env->key, ft_strlen(to_unset)) == 0)
+			ft_lstdel_index(table->envv, i);
+		env_lst = env_lst->next;
+		i++;
+	}
+}
+
+void	ft_lstdel_index(t_list *lst, int index)
+{
+	int		i;
+	t_list	*aux;
+	t_list	*to_delete;
+
+	i = 0;
+	aux = lst;
+	while (i < index - 1)
+	{
+		aux = aux->next;
+		i++;
+	}
+	to_delete = aux->next;
+	aux->next = aux->next->next;
+	free(to_delete);
 }
