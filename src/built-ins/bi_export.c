@@ -34,6 +34,7 @@ bool	token_exists(t_list *env_list, char *str)
 	while (tmp != NULL)
 	{
 		env = (t_env *)tmp->content;
+		ft_printf("%s\n", env->key);
 		if (env->key != NULL && ft_strcmp(env->key, str) == 0)
 			return (true);
 		tmp = tmp->next;
@@ -54,6 +55,20 @@ void	change_token(t_list *env_list, t_env *env)
 	}
 }
 
+void	manage_empty_export(t_cmd_table *table)
+{
+	t_list	*tmp;
+	t_env	*env;
+
+	tmp = table->envv;
+	while (tmp != NULL)
+	{
+		env = (t_env *)tmp->content;
+		ft_printf("declare -x %s=%s\n", env->key, env->value);
+		tmp = tmp->next;
+	}
+}
+
 void    bi_export(t_cmd_table *table, t_cmd *cmd)
 {
 	t_list	*env_lst;
@@ -61,15 +76,21 @@ void    bi_export(t_cmd_table *table, t_cmd *cmd)
 
 	env_lst = table->envv;
 	env = malloc(sizeof(t_env));
+	ft_printf("Env => %s\n", ((t_env *)env_lst->content)->key);
 	if (!env)
 		return ;
-	purge_equal((char *)cmd->tokens->next->content, &env);
-	// TODO: si ya existe el token
-	if (token_exists(env_lst, env->key))
-	{
-		change_token(env_lst, env);
-	}
-	else
-		ft_lstadd_back(&(table->envv), ft_lstnew(env));
 	// TODO: si no tiene argumentos
+	if (cmd->tokens->next == NULL)
+		manage_empty_export(table);
+	else
+	{
+		purge_equal(((t_tok *)cmd->tokens->next->content)->value, &env);
+		// TODO: si ya existe el token
+		if (token_exists(env_lst, env->key))
+		{
+			change_token(env_lst, env);
+		}
+		else
+			ft_lstadd_back(&(table->envv), ft_lstnew(env));
+	}
 }

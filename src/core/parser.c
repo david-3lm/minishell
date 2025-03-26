@@ -200,8 +200,22 @@ t_error_code	parser(t_token_list *list, t_list *envl)
 		return (MEM_ALLOC_ERROR);
 	table->n_cmd = 0;
 	table->envv = envl;
+	printf("PRUEBA => %s\n", ((t_env *)envl->content)->key);
 	add_cmds(list, &table);
 	debug_parser(table);
 	count_pipes(table);
+
+	/////TESTS//////
+	t_cmd	*current_cmd;
+	current_cmd = table->cmds->content;
+	t_tok	*token_content;
+	token_content = (t_tok *)current_cmd->tokens->content;
+	ft_printf("%s\n", token_content->value);
+	if (ft_strcmp(token_content->value, "export")== 0)
+	{
+		bi_export(table, current_cmd);
+		return (0);
+	}
+	//////END TESTS/////
 	return (executor(table));
 }
