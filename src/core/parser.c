@@ -216,6 +216,16 @@ t_error_code	parser(t_token_list *list, t_list *envl)
 		bi_export(table, current_cmd);
 		return (0);
 	}
+	if (ft_strcmp(token_content->value, "env")== 0)
+	{
+		bi_env(table, current_cmd);
+		return (0);
+	}
+	if (ft_strcmp(token_content->value, "unset")== 0)
+	{
+		bi_unset(table, current_cmd);
+		return (0);
+	}
 	//////END TESTS/////
 	return (executor(table));
 }

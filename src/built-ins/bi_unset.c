@@ -23,7 +23,7 @@ void    bi_unset(t_cmd_table *table, t_cmd *cmd)
 
 	i = 0;
 	env_lst = table->envv;
-	to_unset = (char *)cmd->tokens->next->content;
+	to_unset = (char *)((t_tok *)cmd->tokens->next->content)->value;
 	while (env_lst != NULL)
 	{
 		env = (t_env *)env_lst->content;
