@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 19:16:03 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/03/21 11:33:10 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/04/01 19:09:31 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -200,13 +200,13 @@ t_error_code	parser(t_token_list *list, t_list *envl)
 		return (MEM_ALLOC_ERROR);
 	table->n_cmd = 0;
 	table->envv = envl;
-	printf("PRUEBA => %s\n", ((t_env *)envl->content)->key);
+	// printf("PRUEBA => %s\n", ((t_env *)envl->content)->key);
 	add_cmds(list, &table);
 	debug_parser(table);
 	count_pipes(table);
 
 	/////TESTS//////
-	t_cmd	*current_cmd;
+	/* t_cmd	*current_cmd;
 	current_cmd = table->cmds->content;
 	t_tok	*token_content;
 	token_content = (t_tok *)current_cmd->tokens->content;
@@ -225,7 +225,7 @@ t_error_code	parser(t_token_list *list, t_list *envl)
 	{
 		bi_unset(table, current_cmd);
 		return (0);
-	}
+	} */
 	//////END TESTS/////
 	return (executor(table));
 }

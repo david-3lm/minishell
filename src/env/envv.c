@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   envv.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlopez-l <dlopez-l@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 16:28:50 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/03/18 19:08:59 by dlopez-l         ###   ########.fr       */
+/*   Updated: 2025/04/01 19:08:02 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ t_list	*get_env(char *str)
 	env->value = malloc(ft_strlen(str) - i + 1);
 	ft_strlcpy(env->key, str, i + 1);
 	ft_strlcpy(env->value, &str[i + 1], ft_strlen(str) - i);
-	printf(PINK "KEY => { %s } | VALUE => { %s }\n" RESET_COLOR, env->key, env->value);
+	//printf(PINK "KEY => { %s } | VALUE => { %s }\n" RESET_COLOR, env->key, env->value);
 	return (ft_lstnew(env));
 }
 
