@@ -6,15 +6,25 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 19:03:41 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/04/08 15:57:36 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/04/08 18:05:13 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
 /* 
-	- sin argumentos te lleva a HOME;
-	- 
+	static void		print_error(char **args)
+{
+	ft_putstr_fd("cd: ", 2);
+	if (args[2])
+		ft_putstr_fd("string not in pwd: ", 2);
+	else
+	{
+		ft_putstr_fd(strerror(errno), 2);
+		ft_putstr_fd(": ", 2);
+	}
+	ft_putendl_fd(args[1], 2);
+}
  */
 
 void    bi_cd(t_cmd_table *table, t_cmd *cmd)
@@ -25,15 +35,13 @@ void    bi_cd(t_cmd_table *table, t_cmd *cmd)
 	tok = cmd->tokens;
 	path = ((t_tok *)tok->content)->value;
 	ft_change_path(table, path);
-	
+	/* if (cd_ret < 0)
+			cd_ret *= -1;
+	if (cd_ret != 0)
+			print_error(args);
+		TODO: GESTIONAR CODIGOS DE ERROR
+	*/
 }
-
-/* 
-	- primero coger las variabs de entorno pwd y old pwd
-	- modificar valor de oldpwd por el valor actual antes de cambiar de direccion
-	- si cd no tiene argumento, redirigir a donde señala HOME
-	- 
- */
 
 void	ft_change_old_pwd(t_cmd_table *table)
 {
@@ -71,6 +79,11 @@ int	ft_change_path(t_cmd_table *table, char *arg)
 		}
 	}
 	// TODO: hacer con path absoluto y relativo
+	else
+	{
+		ft_change_old_pwd(table);
+		error_code = chdir(arg);
+	}
 	error_code = chdir(path);
 	return (error_code);
 }
