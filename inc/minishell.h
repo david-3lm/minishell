@@ -20,7 +20,6 @@
 void    bi_cd(t_cmd_table *table, t_cmd *cmd);
 void	ft_change_old_pwd(t_cmd_table *table);
 int	ft_change_path(t_cmd_table *table, char *arg);
-void    bi_echo(t_cmd_table *table, t_cmd *cmd);
 void    bi_env(t_cmd_table *table, t_cmd *cmd);
 t_env	*mini_get_env(t_cmd_table *table, char *var);
 void	bi_exit(t_cmd_table *table, t_cmd *cmd);
@@ -31,6 +30,8 @@ void	manage_empty_export(t_cmd_table *table);
 void    bi_export(t_cmd_table *table, t_cmd *cmd);
 t_error_code	bi_pwd(t_cmd_table *table, t_cmd *cmd);
 void    bi_unset(t_cmd_table *table, t_cmd *cmd);
+void	print_lines(t_list *cmd, int out);
+int	bi_echo(t_cmd_table *table, t_cmd *cmd);
 void	handle_signal(int signal, siginfo_t *info, void *ctx);
 void debug_pink(char *str);
 t_error_code	executor(t_cmd_table *table);
