@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlopez-l <dlopez-l@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 11:23:27 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/03/18 19:11:10 by dlopez-l         ###   ########.fr       */
+/*   Updated: 2025/04/11 20:09:25 by dlopez-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,8 @@ int	main(int argc, char **argv, char **envp)
 	s_sigaction.sa_flags = SA_SIGINFO;
 	sigemptyset(&s_sigaction.sa_mask);
 	sigaction(SIGINT, &s_sigaction, 0);
+	// sigaction(SIGQUIT, &s_sigaction, 0);
+	signal(SIGQUIT, SIG_IGN);
 	envl = env_init(envp);
 	rl = readline("\033[1;32m🌋 Kontxesi ↝ \033[0m");
 	while (true)
