@@ -6,7 +6,7 @@
 /*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 11:23:27 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/04/11 20:09:25 by dlopez-l         ###   ########.fr       */
+/*   Updated: 2025/04/11 20:27:59 by dlopez-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ int	main(int argc, char **argv, char **envp)
 	s_sigaction.sa_flags = SA_SIGINFO;
 	sigemptyset(&s_sigaction.sa_mask);
 	sigaction(SIGINT, &s_sigaction, 0);
-	// sigaction(SIGQUIT, &s_sigaction, 0);
 	signal(SIGQUIT, SIG_IGN);
 	envl = env_init(envp);
 	rl = readline("\033[1;32m🌋 Kontxesi ↝ \033[0m");
@@ -67,7 +66,7 @@ int	main(int argc, char **argv, char **envp)
 		ft_printf(PINK "main => %d %s\n", code, RESET_COLOR);
 		if (code != NO_ERROR)
 			return (1);
-		rl = readline("\033[1;32m🌋 Kontxesi ↝ \033[0m");
+		rl = readline("\033[1;32m🌋 Kontxesi ↝ \033[0m"); 
 		if (rl == NULL)
 		{
 			ft_printf("Ta luego (mensaje que seguro hace reir a carol) 🎷🦆");

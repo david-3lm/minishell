@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 19:16:03 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/04/01 19:09:31 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/04/11 20:51:21 by dlopez-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -206,7 +206,7 @@ t_error_code	parser(t_token_list *list, t_list *envl)
 	count_pipes(table);
 
 	/////TESTS//////
-	/* t_cmd	*current_cmd;
+	t_cmd	*current_cmd;
 	current_cmd = table->cmds->content;
 	t_tok	*token_content;
 	token_content = (t_tok *)current_cmd->tokens->content;
@@ -225,7 +225,22 @@ t_error_code	parser(t_token_list *list, t_list *envl)
 	{
 		bi_unset(table, current_cmd);
 		return (0);
-	} */
+	}
+	if (ft_strcmp(token_content->value, "pwd")== 0)
+	{
+		bi_pwd(table, current_cmd);
+		return (0);
+	}
+	if (ft_strcmp(token_content->value, "exit")== 0)
+	{
+		bi_exit(table, current_cmd);
+		return (0);
+	}
+	if (ft_strcmp(token_content->value, "echo")== 0)
+	{
+		bi_echo(table, current_cmd);
+		return (0);
+	}
 	//////END TESTS/////
 	return (executor(table));
 }

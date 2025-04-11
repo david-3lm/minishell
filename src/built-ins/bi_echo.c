@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bi_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 19:03:41 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/04/08 15:46:31 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/04/11 21:02:08 by dlopez-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,18 +16,15 @@
 	- si es solo echo sin argumento, salto de linea
 	- una variable para comprobar si tiene o no -n
  */
-void	print_lines(t_list *cmd, int out)
+void	print_lines(t_list *tok, int out)
 {
 	char	*str;
-	t_list	*tok;
-	t_cmd	*c;
 
-
-	c = (t_cmd *)cmd->content;
-	tok = c->tokens;
 	while (tok)
 	{
 		str = ((t_tok *)tok->content)->value;
+		printf("==>%s\n", str);
+
 		if (str)
 			ft_putstr_fd(str, out);
 		tok = tok->next;
@@ -45,7 +42,7 @@ int	bi_echo(t_cmd_table *table, t_cmd *cmd)
 	(void)table;
 	n_opt = false;
 	next = cmd->tokens->next;
-	aux = (char *)next->content;
+	aux = (char *)((t_tok *)next->content)->value;
 	i = 0;
 	if (aux[i] && aux[i] == '-' && aux[i + 1] == 'n')
 	{
