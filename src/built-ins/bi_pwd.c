@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 11:54:05 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/03/25 15:46:12 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/04/14 15:21:11 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ t_error_code	bi_pwd(t_cmd_table *table, t_cmd *cmd)
 	(void)cmd;
 	(void)table;
 
+	printf("estoy haciendo pwd builtin \n");
 	error = NO_ERROR;
 	pwd = NULL;
 	pwd = getcwd(pwd, 0);

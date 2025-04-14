@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 19:16:03 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/04/11 20:51:21 by dlopez-l         ###   ########.fr       */
+/*   Updated: 2025/04/14 16:08:47 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -240,6 +240,10 @@ t_error_code	parser(t_token_list *list, t_list *envl)
 	{
 		bi_echo(table, current_cmd);
 		return (0);
+	}
+	if (ft_strcmp(token_content->value, "cd")== 0)
+	{
+		bi_cd(table, current_cmd);
 	}
 	//////END TESTS/////
 	return (executor(table));

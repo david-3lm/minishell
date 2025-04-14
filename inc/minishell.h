@@ -17,6 +17,7 @@
 # include <term.h>
 # include <signal.h>
 
+int	cd_home(t_cmd_table *table);
 void    bi_cd(t_cmd_table *table, t_cmd *cmd);
 void	ft_change_old_pwd(t_cmd_table *table);
 int	ft_change_path(t_cmd_table *table, char *arg);
@@ -30,13 +31,13 @@ void	manage_empty_export(t_cmd_table *table);
 void    bi_export(t_cmd_table *table, t_cmd *cmd);
 t_error_code	bi_pwd(t_cmd_table *table, t_cmd *cmd);
 void    bi_unset(t_cmd_table *table, t_cmd *cmd);
-void	print_lines(t_list *cmd, int out);
+void	print_lines(t_list *tok, int out);
 int	bi_echo(t_cmd_table *table, t_cmd *cmd);
-void	handle_signal(int signal, siginfo_t *info, void *ctx);
 void debug_pink(char *str);
 t_error_code	executor(t_cmd_table *table);
 void	purge_input(t_token_list *list, const char *str);
 t_error_code	lexer(char *input, t_list *envl);
+void	handle_signal(int signal, siginfo_t *info, void *ctx);
 void	debug_parser(t_cmd_table *table);
 char	*get_direction(t_tok *tok);
 int		size_redir(char *value);
@@ -47,8 +48,6 @@ t_error_code	parser(t_token_list *list, t_list *envl);
 void	debug_env(t_list *env);
 t_list	*get_env(char *str);
 t_list	*env_init(char **orig_envp);
-void	debug(t_token_list *list);
-int	main(int argc, char **argv, char **envp);
 char	*ft_new_limit(char *limit);
 int	write_here_doc(char *limit);
 void	create_here_doc(char *limit);
@@ -81,4 +80,6 @@ bool	is_redir(t_cmd cmd);
 t_tok_type	get_ttype(char *tok);
 int	count_quotes(char *str);
 void	add_token(t_token_list *list, char *value);
+void	debug(t_token_list *list);
+int	main(int argc, char **argv, char **envp);
 #endif

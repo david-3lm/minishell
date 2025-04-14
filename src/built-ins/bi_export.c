@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 19:03:41 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/03/25 16:50:09 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/04/14 15:21:34 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ void    bi_export(t_cmd_table *table, t_cmd *cmd)
 	t_list	*env_lst;
 	t_env	*env;
 
+	printf("estoy haciendo export builtin \n");
 	env_lst = table->envv;
 	env = malloc(sizeof(t_env));
 	ft_printf("Env => %s\n", ((t_env *)env_lst->content)->key);

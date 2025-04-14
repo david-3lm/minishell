@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 19:03:41 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/04/08 12:26:21 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/04/14 15:21:56 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void    bi_env(t_cmd_table *table, t_cmd *cmd)
 	t_env	*env;
 	(void)cmd;
 
+	printf("estoy haciendo env builtin \n");
 	env_lst = table->envv;
 	while (env_lst != NULL)
 	{

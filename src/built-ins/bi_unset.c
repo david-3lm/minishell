@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bi_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlopez-l <dlopez-l@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 19:03:41 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/04/01 14:57:24 by dlopez-l         ###   ########.fr       */
+/*   Updated: 2025/04/14 15:20:55 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void    bi_unset(t_cmd_table *table, t_cmd *cmd)
 	///////////////////
 
 	ft_printf("TENGO QUE UNSETERAR => %s\n", to_unset);
+	printf("estoy haciendo unset builtin \n");
 	while (env_lst != NULL)
 	{
 		env = (t_env *)env_lst->content;

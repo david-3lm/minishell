@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 11:45:46 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/04/01 18:50:23 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/04/14 16:10:07 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,16 @@ int	last_command_exec(t_cmd *cmd)
 	pid_t	pid;
 	// int		status;
 
-	pid = fork();
-	if (pid == -1)
-		return (ft_error("Fork: "));
-	if (pid == 0)
-	{
-		printf("he entrado a hacer el ultimo comando \n");
-		path_exec(cmd);
-	}
+	// if (is_builtin(cmd) == true)
+	// 	check_built_ins(table, cmd);
+		pid = fork();
+		if (pid == -1)
+			return (ft_error("Fork: "));
+		if (pid == 0)
+		{
+			printf("he entrado a hacer el ultimo comando \n");
+			path_exec(cmd);
+		}
 /* 	else
 		waitpid(pid, &status, 0);
 	if (status && WIFEXITED(status))
