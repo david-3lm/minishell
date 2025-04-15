@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 19:16:03 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/04/14 16:08:47 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/04/15 12:27:07 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,6 +149,7 @@ void	add_cmds(t_token_list *tok, t_cmd_table **table)
 				current_cmd = malloc(sizeof(t_cmd));
 				current_cmd->tokens = NULL;
 				current_cmd->redirs = NULL;
+				current_cmd->builtin = builtin_arr(token_content->value);
 			}
 			if (!current_cmd)
 				return ;
@@ -211,7 +212,13 @@ t_error_code	parser(t_token_list *list, t_list *envl)
 	t_tok	*token_content;
 	token_content = (t_tok *)current_cmd->tokens->content;
 	ft_printf("%s\n", token_content->value);
-	if (ft_strcmp(token_content->value, "export")== 0)
+
+	if (current_cmd->builtin != NULL)
+	{
+		current_cmd->builtin(table, current_cmd);
+	}
+	
+/* 	if (ft_strcmp(token_content->value, "export")== 0)
 	{
 		bi_export(table, current_cmd);
 		return (0);
@@ -244,7 +251,7 @@ t_error_code	parser(t_token_list *list, t_list *envl)
 	if (ft_strcmp(token_content->value, "cd")== 0)
 	{
 		bi_cd(table, current_cmd);
-	}
+	} */
 	//////END TESTS/////
 	return (executor(table));
 }
