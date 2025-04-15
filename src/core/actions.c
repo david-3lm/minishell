@@ -6,7 +6,7 @@
 /*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 16:00:57 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/04/11 20:05:30 by dlopez-l         ###   ########.fr       */
+/*   Updated: 2025/04/15 18:47:41 by dlopez-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,9 @@ void	handle_signal(int signal, siginfo_t *info, void *ctx)
 	(void) info;
 	(void) ctx;
 
-	if (signal == SIGINT)
+	if (!g_heredoc && signal == SIGINT)
+		g_heredoc = 1;
+	else if (signal == SIGINT)
 	{
 		write(1, "\n", 1);
 		rl_on_new_line();

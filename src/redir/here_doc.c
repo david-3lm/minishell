@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 16:21:37 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/03/13 14:51:19 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/04/15 18:50:36 by dlopez-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
+
+int g_heredoc;
 
 char	*ft_new_limit(char *limit)
 {
@@ -40,12 +42,13 @@ int	write_here_doc(char *limit)
 		read_bytes = read(STDIN_FILENO, buf, 1024);
 		if (read_bytes == 0)
 			break ;
-		else if (read_bytes < 0)
+		else if (read_bytes < 0 && !g_heredoc)
 		{
 			close(infile);
+			printf("SALGOOO \n");
 			return (1);
 		}
-		if (ft_strncmp(new_limit, buf, read_bytes) == 0)
+		if (g_heredoc == 1 || (ft_strncmp(new_limit, buf, read_bytes) == 0 ))
 			break ;
 		write(infile, buf, read_bytes);
 	}
@@ -80,6 +83,7 @@ int	manage_here_doc(t_redir redir, t_cmd_table *table)
 	char	*limit;
 
 	limit = redir.direction;
+	g_heredoc = 0;
 	create_here_doc(limit);
 	table->red_files[READ_E] = open_here_doc();
 	dup2(table->red_files[READ_E], STDIN_FILENO);
