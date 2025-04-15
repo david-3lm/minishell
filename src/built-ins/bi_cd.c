@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 19:03:41 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/04/14 17:12:04 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/04/15 19:10:30 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,13 @@ void    bi_cd(t_cmd_table *table, t_cmd *cmd)
 	char *path;
 	t_list *tok;
 
-	printf("estoy haciendo cd builtin \n");
 	tok = cmd->tokens->next;
-	path = ((t_tok *)tok->content)->value;
-	// ft_putendl_fd(path, 2);
-	if (!path[0])
-		cd_home(table);
+	printf("estoy haciendo cd builtin \n");
+	if (tok)
+		path = ((t_tok *)tok->content)->value;
 	else
-		ft_change_path(table, path);
+		cd_home(table);
+	ft_change_path(table, path);
 	/* if (cd_ret < 0)
 			cd_ret *= -1;
 	if (cd_ret != 0)
