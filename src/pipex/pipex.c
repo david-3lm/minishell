@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 11:45:46 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/04/14 16:10:07 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/04/16 19:45:41 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,19 +76,23 @@ t_error_code	iterate_table(t_cmd_table *table)
 		cmd = (t_cmd *)cmd_list->content;
 		if (is_command(*cmd))
 		{
-			printf( PINK "index --> %d, n_pipes --> %d %s\n", cmd_index, table->n_pipes, RESET_COLOR);
-			if (table->n_pipes > cmd_index)
-			{
-				res = pipex_proccess(cmd, table);
-				cmd_index++;
-			}
+			if (current_cmd->builtin != NULL)
+				current_cmd->builtin(table, current_cmd);
 			else
 			{
-				redir = get_redir_out(table->redirs);
-				if (redir != NULL)
-					if (manage_redir_out(table, *redir) == -1)
-						return (NO_ERROR);
-				last_command_exec(cmd);
+				if (table->n_pipes > cmd_index)
+				{
+					res = pipex_proccess(cmd, table);
+					cmd_index++;
+				}
+				else
+				{
+					redir = get_redir_out(table->redirs);
+					if (redir != NULL)
+						if (manage_redir_out(table, *redir) == -1)
+							return (NO_ERROR);
+					last_command_exec(cmd);
+				}
 			}
 		}
 		if (is_redir(*cmd))

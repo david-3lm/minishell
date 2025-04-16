@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 19:16:03 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/04/15 18:20:33 by dlopez-l         ###   ########.fr       */
+/*   Updated: 2025/04/16 19:46:18 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -213,13 +213,6 @@ t_error_code	parser(t_token_list *list, t_list *envl)
 	token_content = (t_tok *)current_cmd->tokens->content;
 	ft_printf("%s\n", token_content->value);
 
-
-// ESTO TIENE QUE IR A EXECUTOR
-	if (current_cmd->builtin != NULL)
-	{
-		current_cmd->builtin(table, current_cmd);
-	}
-//	HASTA AQUI
 /* 	if (ft_strcmp(token_content->value, "export")== 0)
 	{
 		bi_export(table, current_cmd);
