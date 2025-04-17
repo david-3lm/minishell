@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 12:58:31 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/04/17 16:12:00 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/04/17 18:43:56 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,65 @@ void	bi_exit(t_cmd_table *table, t_cmd *cmd)
 	ft_putendl_fd("exit", STDERR_FILENO);
 	exit(EXIT_SUCCESS);
 	// exit libera? o tengo que liberar yo cosas?
+}
+
+bool ft_is_strnum(char *str)
+{
+	int	i;
+
+	i = 0;
+	if (status[i] == '+' || status[i] == '-')
+		i++;
+	if (!status[i])
+		return (false);
+	while (status[i])
+	{
+		if (!(status[i] >= '0' && status[i] <= '9'))
+			return (false);
+		i++;
+	}
+	return (true);
+}
+
+int	ft_get_exit_code(t_cmd *cmd)
+{
+	char	*value;
+	int		res;
+	
+	value = ((t_tok *)tok->content)->value;
+	// He visto que Dani hace trim a ese valor para quitarle esto "" \f\r\n\t\v"" ¿hace falta?
+	if (!ft_is_strnum(value))
+	{
+		printf("exit\n");
+		ft_dprintf(2, "kontxesi: exit: %s: numeric argument required\n",
+			exit_args[1]);
+	}
+	else
+	{
+		// aqui Dani hace un chequeo con los longs y tal para mirar el overflow pero creo que puedo tirar con el atoi
+		// @David tu que crees? si no, lo hago tambien sin problema	
+		res = (int)ft_atoi_unsigned_char(value);
+	}
+	return (res);
+}
+
+void	bi_exit(t_cmd_table *table, t_cmd *cmd)
+{
+	int	size;
+	int	exit_code;
+	
+	exit_code = EXIT_FAILURE;
+	size = ft_lstsize(cmd->tokens);
+	printf("estoy haciendo exit builtin \n");
+	if (size == 1)
+		exit_code = EXIT_SUCCESS;
+		//TODO: ¿deberia liberar cositas???
+	else if (size == 2)
+		exit_code = ft_get_exit_code(cmd);
+	else
+		ft_putstr_fd("kontxesi: exit: too many arguments\n", ERROR_E);
+	ft_putendl_fd("exit", STDERR_FILENO);
+	exit(exit_code);
 }
 
 /* CCLAUDE42
