@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/16 10:52:37 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/03/13 14:48:10 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/04/21 15:54:34 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,12 +102,3 @@ void	close_red_files(int files[2])
 		i++;
 	}
 }
-
-/* t_redir	*get_redir(t_list *redir_list)
-{
-	t_redir *redir;
-	int		num_redir;
-	
-	num_redir =  ft_lstsize(redir);
-	
-} */

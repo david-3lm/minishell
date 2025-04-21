@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/23 23:34:06 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/04/21 15:46:17 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/04/21 16:10:18 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,10 @@ void debug_pink(char *str)
 t_error_code	executor(t_cmd_table *table)
 {
 	t_error_code	res;
+	
+	res = NO_ERROR;
+	if (!table || !table->cmds)
+		return res;
 	save_original_fd(table->std_backup);
 	res = iterate_table(table);
 	restore_and_close_fds(table->std_backup);
