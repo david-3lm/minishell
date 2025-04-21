@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 12:05:04 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/03/03 15:11:56 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/04/21 15:45:08 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,12 @@ void	save_original_fd(int fd[2])
 	printf("valor de stdbackup[1] --> %i \n", fd[WRITE_E]);
 }
 
-void	restore_fds(int fd[2])
+void	restore_and_close_fds(int fd[2])
 {
 	dup2(fd[READ_E], STDIN_FILENO);
 	dup2(fd[WRITE_E], STDOUT_FILENO);
+	close(fd[READ_E]);
+	close(fd[WRITE_E]);
 }
 
 
@@ -77,12 +79,14 @@ int	pipex_proccess(t_cmd *cmd, t_cmd_table *table)
 	{
 		close(table->pipe_fd[READ_E]);
 		dup2(table->pipe_fd[WRITE_E], STDOUT_FILENO);
+		close(table->pipe_fd[WRITE_E]);
 		path_exec(cmd);
 	}
 	else
 	{
 		close(table->pipe_fd[WRITE_E]);
 		dup2(table->pipe_fd[READ_E], STDIN_FILENO);
+		close(table->pipe_fd[READ_E]);
 		// waitpid(pid, &status, 0);
 	}
 	// if (status && WIFEXITED(status))

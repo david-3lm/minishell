@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 11:45:46 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/04/21 15:00:05 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/04/21 15:46:12 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,7 @@ t_error_code	iterate_table(t_cmd_table *table)
 	cmd_index = 0;
 	cmd_list = table->cmds;
 	res = NO_ERROR;
-	// last_res = NO_ERROR;
-	save_original_fd(table->std_backup);
+	// save_original_fd(table->std_backup);
 	redir = get_redir_in(table->redirs);
 	// esta parte de las redirecciones se puede refactorizar, 
 	// todo en una funcion que mire si hay in/heredoc y lo gestione ahi en su sitio
@@ -102,6 +101,5 @@ t_error_code	iterate_table(t_cmd_table *table)
 	close_red_files(table->red_files);
 	while (waitpid(-1, NULL, 0) != -1)
 		continue;
-	restore_fds(table->std_backup);
 	return (res);
 }
