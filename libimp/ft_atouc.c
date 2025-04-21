@@ -6,9 +6,11 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 18:24:04 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/04/17 18:28:53 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/04/21 14:55:39 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "libft.h"
 
 static int	ft_isspace(char c)
 {
@@ -35,7 +37,7 @@ unsigned char ft_atouc(const char *str)
     }
 	else if (*str == '+')
         str++;
-	if (!ft_isdigit(*nptr))
+	if (!ft_isdigit(*str))
 		return (0);
     while (*str >= '0' && *str <= '9')
 	{

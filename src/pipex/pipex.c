@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 11:45:46 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/04/16 19:45:41 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/04/21 15:00:05 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	last_command_exec(t_cmd *cmd)
 			return (ft_error("Fork: "));
 		if (pid == 0)
 		{
-			printf("he entrado a hacer el ultimo comando \n");
+			// printf("he entrado a hacer el ultimo comando \n");
 			path_exec(cmd);
 		}
 /* 	else
@@ -76,8 +76,8 @@ t_error_code	iterate_table(t_cmd_table *table)
 		cmd = (t_cmd *)cmd_list->content;
 		if (is_command(*cmd))
 		{
-			if (current_cmd->builtin != NULL)
-				current_cmd->builtin(table, current_cmd);
+			if (cmd->builtin != NULL)
+				cmd->builtin(table, cmd);
 			else
 			{
 				if (table->n_pipes > cmd_index)

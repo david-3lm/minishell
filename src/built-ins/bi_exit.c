@@ -6,13 +6,13 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 12:58:31 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/04/17 18:43:56 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/04/21 15:03:15 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-void	bi_exit(t_cmd_table *table, t_cmd *cmd)
+/* void	bi_exit(t_cmd_table *table, t_cmd *cmd)
 {
 	(void)cmd;
 	(void)table;
@@ -20,20 +20,21 @@ void	bi_exit(t_cmd_table *table, t_cmd *cmd)
 	ft_putendl_fd("exit", STDERR_FILENO);
 	exit(EXIT_SUCCESS);
 	// exit libera? o tengo que liberar yo cosas?
-}
+} */
 
 bool ft_is_strnum(char *str)
 {
 	int	i;
 
 	i = 0;
-	if (status[i] == '+' || status[i] == '-')
+	printf("\t exit value --> %s \n", str);
+	if (str[i] == '+' || str[i] == '-')
 		i++;
-	if (!status[i])
+	if (!str[i])
 		return (false);
-	while (status[i])
+	while (str[i])
 	{
-		if (!(status[i] >= '0' && status[i] <= '9'))
+		if (!(str[i] >= '0' && str[i] <= '9'))
 			return (false);
 		i++;
 	}
@@ -45,19 +46,20 @@ int	ft_get_exit_code(t_cmd *cmd)
 	char	*value;
 	int		res;
 	
-	value = ((t_tok *)tok->content)->value;
+	value = ((t_tok *)cmd->tokens->next->content)->value;
 	// He visto que Dani hace trim a ese valor para quitarle esto "" \f\r\n\t\v"" ¿hace falta?
 	if (!ft_is_strnum(value))
 	{
-		printf("exit\n");
-		ft_dprintf(2, "kontxesi: exit: %s: numeric argument required\n",
-			exit_args[1]);
+		ft_printf("exit\n");
+		ft_printf("kontxesi: exit: %s: numeric argument required\n",
+			value);
+		res = 2;
 	}
 	else
 	{
 		// aqui Dani hace un chequeo con los longs y tal para mirar el overflow pero creo que puedo tirar con el atoi
 		// @David tu que crees? si no, lo hago tambien sin problema	
-		res = (int)ft_atoi_unsigned_char(value);
+		res = (int)ft_atouc(value);
 	}
 	return (res);
 }
@@ -66,6 +68,7 @@ void	bi_exit(t_cmd_table *table, t_cmd *cmd)
 {
 	int	size;
 	int	exit_code;
+	(void)table;
 	
 	exit_code = EXIT_FAILURE;
 	size = ft_lstsize(cmd->tokens);
