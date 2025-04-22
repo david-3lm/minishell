@@ -6,13 +6,13 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 19:03:41 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/04/14 15:20:55 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/04/22 15:04:47 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-void    bi_unset(t_cmd_table *table, t_cmd *cmd)
+int	bi_unset(t_cmd_table *table, t_cmd *cmd)
 {
 	// que reciba solo un argumento
 	char	*to_unset;
@@ -41,5 +41,6 @@ void    bi_unset(t_cmd_table *table, t_cmd *cmd)
 		env_lst = env_lst->next;
 		i++;
 	}
+	return (table->error_code);
 }
 

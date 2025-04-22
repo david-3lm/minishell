@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 18:24:04 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/04/21 14:55:39 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/04/22 15:57:19 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,30 +21,30 @@ static int	ft_isspace(char c)
 	return (0);
 }
 
-unsigned char ft_atouc(const char *str)
+unsigned char	ft_atouc(const char *str)
 {
-	unsigned char result;
-	int sign;
+	unsigned char	result;
+	int				sign;
 
 	sign = 1;
 	result = 0;
 	while (ft_isspace(*str))
 		str++;
-    if (*str == '-')
+	if (*str == '-')
 	{
-        sign = -1;
-        str++;
-    }
+		sign = -1;
+		str++;
+	}
 	else if (*str == '+')
-        str++;
+		str++;
 	if (!ft_isdigit(*str))
 		return (0);
-    while (*str >= '0' && *str <= '9')
+	while (*str >= '0' && *str <= '9')
 	{
-        result = result * 10 + (*str - '0');
-        str++;
-    }
-    if (sign == -1)
+		result = result * 10 + (*str - '0');
+		str++;
+	}
+	if (sign == -1)
 		result = (unsigned char)(256 - result);
-    return (result);
+	return (result);
 }

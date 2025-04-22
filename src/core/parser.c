@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 19:16:03 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/04/22 12:50:24 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/04/22 15:03:11 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -203,6 +203,7 @@ t_error_code	parser(t_token_list *list, t_list *envl)
 		return (MEM_ALLOC_ERROR);
 	table->n_cmd = 0;
 	table->envv = envl;
+	table->error_code = NO_ERROR;
 	add_cmds(list, &table);
 	debug_parser(table); //borrar
 	count_pipes(table);

@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 19:03:41 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/04/14 15:20:36 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/04/22 14:55:45 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,6 @@ void	print_lines(t_list *tok, int out)
 	while (tok)
 	{
 		str = ((t_tok *)tok->content)->value;
-		printf("==>%s\n", str);
-
 		if (str)
 			ft_putstr_fd(str, out);
 		tok = tok->next;
@@ -40,7 +38,6 @@ int	bi_echo(t_cmd_table *table, t_cmd *cmd)
 	bool	n_opt;
 
 	(void)table;
-	printf("estoy haciendo echo builtin \n");
 	n_opt = false;
 	next = cmd->tokens->next;
 	aux = (char *)((t_tok *)next->content)->value;
@@ -59,5 +56,6 @@ int	bi_echo(t_cmd_table *table, t_cmd *cmd)
 	print_lines(next, STDOUT_FILENO);
 	if (n_opt == false)
 		ft_putchar_fd('\n', STDOUT_FILENO);
-	return (EXIT_SUCCESS);
+	table->error_code = NO_ERROR;
+	return (table->error_code);
 }

@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 19:03:41 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/04/22 13:50:06 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/04/22 15:01:36 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,24 +69,24 @@ void	manage_empty_export(t_cmd_table *table)
 	}
 }
 
-void    bi_export(t_cmd_table *table, t_cmd *cmd)
+int    bi_export(t_cmd_table *table, t_cmd *cmd)
 {
 	t_list	*env_lst;
 	t_env	*env;
 
-	printf("estoy haciendo export builtin \n");
 	env_lst = table->envv;
 	env = malloc(sizeof(t_env));
 	ft_printf("Env => %s\n", ((t_env *)env_lst->content)->key);
 	if (!env)
-		return ;
-	// TODO: si no tiene argumentos
+	{
+		table->error_code = UNKNOWN_ERROR;
+		return (table->error_code);
+	}
 	if (cmd->tokens->next == NULL)
 		manage_empty_export(table);
 	else
 	{
 		purge_equal(((t_tok *)cmd->tokens->next->content)->value, &env);
-		// TODO: si ya existe el token
 		if (token_exists(env_lst, env->key))
 		{
 			change_token(env_lst, env);
@@ -94,4 +94,6 @@ void    bi_export(t_cmd_table *table, t_cmd *cmd)
 		else
 			ft_lstadd_back(&(table->envv), ft_lstnew(env));
 	}
+	// comprobar retorno adecuado de error code
+	return (table->error_code);
 }

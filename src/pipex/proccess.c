@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 12:05:04 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/04/22 12:40:05 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/04/22 16:03:14 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,20 +19,30 @@ int	ft_error(char *str)
 	return (EXIT_FAILURE);
 }
 
-void	save_original_fd(int fd[2])
+void	save_original_fd(t_cmd_table *table)
 {
-	fd[READ_E] = dup(STDIN_FILENO);
-	fd[WRITE_E] = dup(STDOUT_FILENO);
-	printf("valor de stdbackup[0] --> %i \n", fd[READ_E]);
-	printf("valor de stdbackup[1] --> %i \n", fd[WRITE_E]);
+	table->std_backup[READ_E] = dup(STDIN_FILENO);
+	table->std_backup[WRITE_E] = dup(STDOUT_FILENO);
+	if (!table->std_backup[READ_E] || !table->std_backup[WRITE_E])
+	{
+		table->error_code = DUP_ERROR;
+		error_handler(table);
+	}
 }
 
-void	restore_and_close_fds(int fd[2])
+void	restore_and_close_fds(t_cmd_table *table)
 {
-	dup2(fd[READ_E], STDIN_FILENO);
-	dup2(fd[WRITE_E], STDOUT_FILENO);
-	close(fd[READ_E]);
-	close(fd[WRITE_E]);
+	if ((dup2(table->std_backup[READ_E], STDIN_FILENO) == -1)|| (dup2(table->std_backup[WRITE_E], STDOUT_FILENO) == -1))
+	{
+		table->error_code = DUP_ERROR;
+		error_handler(table);
+	}
+	// dup2(fd[WRITE_E], STDOUT_FILENO);
+	if (close(table->std_backup[READ_E]) || close(table->std_backup[WRITE_E]))
+	{
+		table->error_code = CLOSE_ERROR;
+		error_handler(table);
+	}
 }
 
 
@@ -52,11 +62,8 @@ int	pipex_proccess(t_cmd *cmd, t_cmd_table *table)
 		dup2(table->pipe_fd[WRITE_E], STDOUT_FILENO);
 		close(table->pipe_fd[WRITE_E]);
 		if (cmd->builtin)
-		{
 			exit(cmd->builtin(table, cmd));
-		}
-		else
-			path_exec(cmd);
+		path_exec(cmd);
 	}
 	else
 	{

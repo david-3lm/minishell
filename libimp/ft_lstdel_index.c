@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstdel_index.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlopez-l <dlopez-l@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 15:27:01 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/04/01 15:02:17 by dlopez-l         ###   ########.fr       */
+/*   Updated: 2025/04/22 15:56:09 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ void	ft_lstdel_index(t_list **lst, int index)
 	t_list	*aux;
 	t_list	*to_delete;
 
-
 	if (index >= ft_lstsize(*lst))
 		return ;
 	i = 0;
@@ -26,8 +25,7 @@ void	ft_lstdel_index(t_list **lst, int index)
 	if (index == 0)
 	{
 		*lst = (*lst)->next;
-		free(to_delete->content);
-		return ;
+		return (free(to_delete->content));
 	}
 	aux = NULL;
 	while (to_delete)
