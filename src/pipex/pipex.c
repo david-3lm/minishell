@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 11:45:46 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/04/22 11:23:45 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/04/22 13:52:30 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ int	last_command_exec(t_cmd *cmd)
 		return (WEXITSTATUS(status)); */
 	return (NO_ERROR);
 }
+
 t_error_code	run_pipex(t_cmd_table *table, t_cmd *cmd, int cmd_index)
 {
 	t_error_code	res;
@@ -71,18 +72,19 @@ t_error_code	redir_manager(t_cmd_table *table, int type)
 
 void	handle_command(t_cmd *cmd, t_cmd_table *table, int *cmd_index, t_error_code *res)
 {
+	if (table->n_pipes > *cmd_index)
+	{
+		*res = pipex_proccess(cmd, table);
+		(*cmd_index)++;
+	}
+	else
+	{
+		redir_manager(table, OUT_REDIR);
 		if (cmd->builtin)
 			cmd->builtin(table, cmd);
-		else if (table->n_pipes > *cmd_index)
-		{
-			*res = pipex_proccess(cmd, table);
-			(*cmd_index)++;
-		}
 		else
-		{
-			redir_manager(table, OUT_REDIR);
 			last_command_exec(cmd);
-		}
+	}
 }
 
 /* t_error_code	iterate_table(t_cmd_table *table)
@@ -142,6 +144,7 @@ t_error_code	execute_cmd_table(t_cmd_table *table)
 	while (cmd_list)
 	{
 		cmd = (t_cmd *)cmd_list->content;
+		// printf("current cmd --> %s \n", ((t_tok *)cmd->tokens)->value );
 		if (is_command(*cmd))
 			handle_command(cmd, table, &cmd_index, &res);
 		if (is_redir(*cmd))

@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 19:16:03 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/04/16 19:46:18 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/04/22 12:50:24 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,9 @@ char	*get_direction(t_tok *tok)
 		return NULL;
 	return (tok->value);
 }
-
+/// @brief Da el tamaño del redir
+/// @param value el string del redir
+/// @return cuantos '<' o '>' tiene el redir
 int		size_redir(char *value)
 {
 	int	i;
@@ -201,52 +203,8 @@ t_error_code	parser(t_token_list *list, t_list *envl)
 		return (MEM_ALLOC_ERROR);
 	table->n_cmd = 0;
 	table->envv = envl;
-	// printf("PRUEBA => %s\n", ((t_env *)envl->content)->key);
 	add_cmds(list, &table);
-	debug_parser(table);
+	debug_parser(table); //borrar
 	count_pipes(table);
-
-	/////TESTS//////
-	t_cmd	*current_cmd;
-	current_cmd = table->cmds->content;
-	t_tok	*token_content;
-	token_content = (t_tok *)current_cmd->tokens->content;
-	ft_printf("%s\n", token_content->value);
-
-/* 	if (ft_strcmp(token_content->value, "export")== 0)
-	{
-		bi_export(table, current_cmd);
-		return (0);
-	}
-	if (ft_strcmp(token_content->value, "env")== 0)
-	{
-		bi_env(table, current_cmd);
-		return (0);
-	}
-	if (ft_strcmp(token_content->value, "unset")== 0)
-	{
-		bi_unset(table, current_cmd);
-		return (0);
-	}
-	if (ft_strcmp(token_content->value, "pwd")== 0)
-	{
-		bi_pwd(table, current_cmd);
-		return (0);
-	}
-	if (ft_strcmp(token_content->value, "exit")== 0)
-	{
-		bi_exit(table, current_cmd);
-		return (0);
-	}
-	if (ft_strcmp(token_content->value, "echo")== 0)
-	{
-		bi_echo(table, current_cmd);
-		return (0);
-	}
-	if (ft_strcmp(token_content->value, "cd")== 0)
-	{
-		bi_cd(table, current_cmd);
-	} */
-	//////END TESTS/////
 	return (executor(table));
 }

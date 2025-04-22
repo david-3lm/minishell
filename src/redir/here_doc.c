@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 16:21:37 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/04/15 18:50:36 by dlopez-l         ###   ########.fr       */
+/*   Updated: 2025/04/22 11:30:13 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ int	write_here_doc(char *limit)
 		else if (read_bytes < 0 && !g_heredoc)
 		{
 			close(infile);
-			printf("SALGOOO \n");
 			return (1);
 		}
 		if (g_heredoc == 1 || (ft_strncmp(new_limit, buf, read_bytes) == 0 ))

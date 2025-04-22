@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 12:05:04 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/04/21 15:55:38 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/04/22 12:40:05 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,14 +50,19 @@ int	pipex_proccess(t_cmd *cmd, t_cmd_table *table)
 	{
 		close(table->pipe_fd[READ_E]);
 		dup2(table->pipe_fd[WRITE_E], STDOUT_FILENO);
-		// close(table->pipe_fd[WRITE_E]);
-		path_exec(cmd);
+		close(table->pipe_fd[WRITE_E]);
+		if (cmd->builtin)
+		{
+			exit(cmd->builtin(table, cmd));
+		}
+		else
+			path_exec(cmd);
 	}
 	else
 	{
 		close(table->pipe_fd[WRITE_E]);
 		dup2(table->pipe_fd[READ_E], STDIN_FILENO);
-		// close(table->pipe_fd[READ_E]);
+		close(table->pipe_fd[READ_E]);
 		// waitpid(pid, &status, 0);
 	}
 	// if (status && WIFEXITED(status))
