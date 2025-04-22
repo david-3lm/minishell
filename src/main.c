@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 11:23:27 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/04/22 14:03:06 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/04/22 18:33:57 by dlopez-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int	main(int argc, char **argv, char **envp)
 		rl = readline("\033[1;32m🌋 Kontxesi ↝ \033[0m"); 
 		if (rl == NULL)
 		{
-			ft_printf("Ta luego (mensaje que seguro hace reir a carol) 🎷🦆");
+			ft_printf("Gora Kontxesi 🎷🦆");
 			return (1);
 		}
 	}

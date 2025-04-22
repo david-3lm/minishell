@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bi_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 19:03:41 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/04/22 15:04:47 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/04/22 17:31:04 by dlopez-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,6 @@ int	bi_unset(t_cmd_table *table, t_cmd *cmd)
 		env = (t_env *)env_lst->content;
 		if (ft_strncmp(to_unset, env->key, ft_strlen(to_unset)) == 0)
 		{
-			// debug_env(table->envv);
-			
 			ft_printf("REVISO LA ENV => %s\n", env->key);
 			ft_lstdel_index(&table->envv, i);
 		}

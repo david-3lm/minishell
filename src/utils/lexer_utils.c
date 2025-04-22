@@ -6,7 +6,7 @@
 /*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 17:14:29 by dlopez-l          #+#    #+#             */
-/*   Updated: 2024/11/19 21:38:55 by dlopez-l         ###   ########.fr       */
+/*   Updated: 2025/04/22 18:04:31 by dlopez-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,10 @@ t_tok_type	get_ttype(char *tok)
 		return (REDIR);
 	if (ft_strchr(tok, '|'))
 		return (PIPE);
-	if (ft_strchr(tok, '$'))
-		return (VARIABLE);
 	if (tok[0] == '\'' || tok[0] == '"')
 		return (STRING);
+	if (ft_strchr(tok, '$'))
+		return (COMMAND);
 	return (COMMAND);
 }
 

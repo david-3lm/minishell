@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 19:16:03 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/04/22 15:03:11 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/04/22 18:25:01 by dlopez-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,6 +125,36 @@ t_cmd	*add_redir(t_list *tok_list, t_cmd_table **table)
 	return (cmd);
 }
 
+char	*check_expansion(char *token, t_cmd_table *table)
+{
+	char	*str;
+	t_list	*env_lst;
+	t_env	*env;
+	int		i;
+
+	str = ft_strrchr(token, '$');
+	if (!str)
+		return (ft_strdup(token));
+	env_lst = table->envv;
+	while (token[i] && token[i] != '$')
+		i++;
+	token = ft_substr(token, 0, i);
+	str++;
+	ft_printf("token => %s\n", token);
+	while (env_lst != NULL)
+	{
+		env = (t_env *)env_lst->content;
+		if (ft_strncmp(str, env->key, ft_strlen(str)) == 0)
+		{
+			token = ft_strjoin(token, ft_strdup(env->value));
+			ft_printf("str => %s\n", token);
+			return (ft_strdup(token));
+		}
+		env_lst = env_lst->next;
+	}
+	return (0);
+}
+
 
 void	add_cmds(t_token_list *tok, t_cmd_table **table)
 {
@@ -162,7 +192,8 @@ void	add_cmds(t_token_list *tok, t_cmd_table **table)
 		if (!new_token)
 			return ;
 		new_token->type = token_content->type;
-		new_token->value = strdup(token_content->value); //usar el de la libft
+		//new_token->value = strdup(token_content->value); //usar el de la libft
+		new_token->value = check_expansion(token_content->value, *table);
 		ft_lstadd_back(&(current_cmd->tokens), ft_lstnew(new_token));
 		if (token_content->type == PIPE || token_content->type == REDIR)
 			current_cmd = NULL;
