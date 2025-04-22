@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 11:45:46 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/04/21 17:35:26 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/04/22 11:23:45 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,10 @@ int	last_command_exec(t_cmd *cmd)
 	if (pid == -1)
 		return (ft_error("Fork: "));
 	if (pid == 0)
+	{
+		printf("ultimo comando \n");
 		path_exec(cmd);
+	}
 /* 	else
 		waitpid(pid, &status, 0);
 	if (status && WIFEXITED(status))
@@ -66,7 +69,23 @@ t_error_code	redir_manager(t_cmd_table *table, int type)
 	return error;
 }
 
-t_error_code	iterate_table(t_cmd_table *table)
+void	handle_command(t_cmd *cmd, t_cmd_table *table, int *cmd_index, t_error_code *res)
+{
+		if (cmd->builtin)
+			cmd->builtin(table, cmd);
+		else if (table->n_pipes > *cmd_index)
+		{
+			*res = pipex_proccess(cmd, table);
+			(*cmd_index)++;
+		}
+		else
+		{
+			redir_manager(table, OUT_REDIR);
+			last_command_exec(cmd);
+		}
+}
+
+/* t_error_code	iterate_table(t_cmd_table *table)
 {
 	// tengo que cambiar el nombre de esta funcion
 	t_list	*cmd_list;
@@ -99,6 +118,32 @@ t_error_code	iterate_table(t_cmd_table *table)
 				}
 			}
 		}
+		if (is_redir(*cmd))
+			cmd_list = cmd_list->next;
+		cmd_list = cmd_list->next;
+	}
+	close_red_files(table->red_files);
+	while (waitpid(-1, NULL, 0) != -1)
+		continue;
+	return (res);
+} */
+
+t_error_code	execute_cmd_table(t_cmd_table *table)
+{
+	t_list			*cmd_list;
+	int				cmd_index;
+	t_error_code	res;
+	t_cmd			*cmd;
+
+	cmd_index = 0;
+	cmd_list = table->cmds;
+	res = NO_ERROR;
+	redir_manager(table, IN_REDIR);
+	while (cmd_list)
+	{
+		cmd = (t_cmd *)cmd_list->content;
+		if (is_command(*cmd))
+			handle_command(cmd, table, &cmd_index, &res);
 		if (is_redir(*cmd))
 			cmd_list = cmd_list->next;
 		cmd_list = cmd_list->next;
