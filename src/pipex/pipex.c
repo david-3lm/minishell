@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 11:45:46 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/04/22 13:52:30 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/04/22 14:00:10 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,49 +86,6 @@ void	handle_command(t_cmd *cmd, t_cmd_table *table, int *cmd_index, t_error_code
 			last_command_exec(cmd);
 	}
 }
-
-/* t_error_code	iterate_table(t_cmd_table *table)
-{
-	// tengo que cambiar el nombre de esta funcion
-	t_list	*cmd_list;
-	int		cmd_index;
-	t_error_code	res;
-	t_cmd	*cmd;
-
-	cmd_index = 0;
-	cmd_list = table->cmds;
-	res = NO_ERROR;
-	redir_manager(table, IN_REDIR);
-	while (cmd_list)
-	{
-		cmd = (t_cmd *)cmd_list->content;
-		if (is_command(*cmd))
-		{
-			if (cmd->builtin != NULL)
-				cmd->builtin(table, cmd);
-			else
-			{
-				if (table->n_pipes > cmd_index)
-				{
-					res = pipex_proccess(cmd, table);
-					cmd_index++;
-				}
-				else
-				{
-					redir_manager(table, OUT_REDIR);
-					last_command_exec(cmd);
-				}
-			}
-		}
-		if (is_redir(*cmd))
-			cmd_list = cmd_list->next;
-		cmd_list = cmd_list->next;
-	}
-	close_red_files(table->red_files);
-	while (waitpid(-1, NULL, 0) != -1)
-		continue;
-	return (res);
-} */
 
 t_error_code	execute_cmd_table(t_cmd_table *table)
 {

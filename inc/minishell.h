@@ -31,7 +31,7 @@ bool	token_exists(t_list *env_list, char *str);
 void	change_token(t_list *env_list, t_env *env);
 void	manage_empty_export(t_cmd_table *table);
 void    bi_export(t_cmd_table *table, t_cmd *cmd);
-t_error_code	bi_pwd(t_cmd_table *table, t_cmd *cmd);
+int	bi_pwd(t_cmd_table *table, t_cmd *cmd);
 void    bi_unset(t_cmd_table *table, t_cmd *cmd);
 void	print_lines(t_list *tok, int out);
 int	bi_echo(t_cmd_table *table, t_cmd *cmd);

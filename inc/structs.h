@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 12:16:00 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/04/15 18:39:09 by dlopez-l         ###   ########.fr       */
+/*   Updated: 2025/04/22 14:26:30 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ typedef struct s_cmd_table
 	int		red_files[2];
 	t_list	*redirs;
 	t_list	*envv;
+	int		error_code;
 }			t_cmd_table;
 
 /*
@@ -130,7 +131,13 @@ typedef struct s_env
 typedef enum e_error_code
 {
 	NO_ERROR = 0,
-	MEM_ALLOC_ERROR,
+	MEM_ALLOC_ERROR = 2,
+	DUP_ERROR = 10,
+	FORK_ERROR = 11,
+	CLOSE_ERROR = 13,
+	EXECVE_ERROR = 20,
+	PATH_ERROR = 21,
+	PIPE_ERROR = 22,
 	NULL_POINTER_ERROR,
 	UNEXPECTED_EOF,
 	SYNTAX_ERROR,
