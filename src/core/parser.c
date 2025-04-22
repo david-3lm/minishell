@@ -6,7 +6,7 @@
 /*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 19:16:03 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/04/22 18:25:01 by dlopez-l         ###   ########.fr       */
+/*   Updated: 2025/04/22 19:01:49 by dlopez-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,7 @@ t_cmd	*add_redir(t_list *tok_list, t_cmd_table **table)
 	return (cmd);
 }
 
-char	*check_expansion(char *token, t_cmd_table *table)
+char	*check_expansion(char *token, t_cmd_table *table, t_tok *tok)
 {
 	char	*str;
 	t_list	*env_lst;
@@ -133,9 +133,14 @@ char	*check_expansion(char *token, t_cmd_table *table)
 	int		i;
 
 	str = ft_strrchr(token, '$');
-	if (!str)
+	ft_printf("EXPAND => %d\n", tok->expand);
+	if (!str || !tok->expand)
 		return (ft_strdup(token));
 	env_lst = table->envv;
+	while (str[i] && ft_isalnum(str[i]) && str[i] == '_')
+		i++;
+	str = ft_substr(0, i);
+	i = 0;
 	while (token[i] && token[i] != '$')
 		i++;
 	token = ft_substr(token, 0, i);
@@ -192,8 +197,7 @@ void	add_cmds(t_token_list *tok, t_cmd_table **table)
 		if (!new_token)
 			return ;
 		new_token->type = token_content->type;
-		//new_token->value = strdup(token_content->value); //usar el de la libft
-		new_token->value = check_expansion(token_content->value, *table);
+		new_token->value = check_expansion(token_content->value, *table, token_content);
 		ft_lstadd_back(&(current_cmd->tokens), ft_lstnew(new_token));
 		if (token_content->type == PIPE || token_content->type == REDIR)
 			current_cmd = NULL;

@@ -6,7 +6,7 @@
 /*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/23 23:34:06 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/04/22 17:44:40 by dlopez-l         ###   ########.fr       */
+/*   Updated: 2025/04/22 18:40:46 by dlopez-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void debug_pink(char *str)
 }
 
 int	executor(t_cmd_table *table)
-{	
+{
 	if (!table || !table->cmds)
 		return (UNKNOWN_ERROR);
 	save_original_fd(table);
