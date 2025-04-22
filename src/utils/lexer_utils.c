@@ -6,7 +6,7 @@
 /*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 17:14:29 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/04/22 18:56:00 by dlopez-l         ###   ########.fr       */
+/*   Updated: 2025/04/22 19:20:57 by dlopez-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,13 +52,12 @@ void	add_token(t_token_list *list, char *value)
 	new_tok = malloc(sizeof(t_tok));
 	if (!new_tok)
 		return ;
+	new_tok->expand = 1;
 	new_tok->type = get_ttype(value);
 	if (new_tok->type == STRING && count_quotes(value) == 2)
 	{
 		if (value[0] == '\'')
 			new_tok->expand = 0;
-		else
-			new_tok->expand = 1;
 		new_tok->value = ft_substr(value, 1, ft_strlen(value) - 2);
 	}
 	else if (new_tok->type == STRING && count_quotes(value) != 2)

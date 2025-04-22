@@ -6,7 +6,7 @@
 /*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 19:16:03 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/04/22 19:01:49 by dlopez-l         ###   ########.fr       */
+/*   Updated: 2025/04/22 19:18:50 by dlopez-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,13 +133,13 @@ char	*check_expansion(char *token, t_cmd_table *table, t_tok *tok)
 	int		i;
 
 	str = ft_strrchr(token, '$');
-	ft_printf("EXPAND => %d\n", tok->expand);
 	if (!str || !tok->expand)
 		return (ft_strdup(token));
 	env_lst = table->envv;
 	while (str[i] && ft_isalnum(str[i]) && str[i] == '_')
 		i++;
-	str = ft_substr(0, i);
+	str = ft_substr(str, 0, i);
+	ft_printf("EXPAND => %s %d\n",str, tok->expand);
 	i = 0;
 	while (token[i] && token[i] != '$')
 		i++;
