@@ -6,7 +6,7 @@
 /*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 19:16:03 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/04/22 19:38:44 by dlopez-l         ###   ########.fr       */
+/*   Updated: 2025/04/22 19:54:51 by dlopez-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,44 +124,71 @@ t_cmd	*add_redir(t_list *tok_list, t_cmd_table **table)
 	ft_lstadd_back(&(*table)->redirs, ft_lstnew(redir));
 	return (cmd);
 }
-//TODO: hay que cambiar la forma de hacer esto
-// se debe ir recorriendo el token y cuando encuentre $ concatenar el valor
-//despues seguir con token
-char	*check_expansion(char *token, t_cmd_table *table, t_tok *tok)
-{
-	char	*str;
-	t_list	*env_lst;
-	t_env	*env;
-	int		i;
 
-	i = 0;
-	str = ft_strrchr(token, '$');
-	if (!str || !tok->expand)
-		return (ft_strdup(token));
-	env_lst = table->envv;
-	str++;
-	while (str[i] && (ft_isalpha(str[i])))
-		i++;
-	str = ft_substr(str, 0, i);
-	ft_printf("EXPAND => %d %d\n",i, tok->expand);
-	i = 0;
-	while (token[i] && token[i] != '$')
-		i++;
-	token = ft_substr(token, 0, i);
-	while (env_lst != NULL)
-	{
-		env = (t_env *)env_lst->content;
-		if (ft_strncmp(str, env->key, ft_strlen(str)) == 0)
-		{
-			token = ft_strjoin(token, ft_strdup(env->value));
-			ft_printf("str => %s\n", token);
-			return (ft_strdup(token));
-		}
-		env_lst = env_lst->next;
-	}
-	return (0);
+char	*ft_strjoin_free(char *s1, char *s2)
+{
+	char	*joined;
+
+	if (!s1 && !s2)
+		return (NULL);
+	else if (!s1)
+		return (s2);
+	else if (!s2)
+		return (s1);
+	
+	joined = ft_strjoin(s1, s2);
+	free(s1);
+	free(s2);
+	return (joined);
 }
 
+char	*check_expansion(char *token, t_cmd_table *table, t_tok *tok)
+{
+	char	*result;
+	char	*var_name;
+	char	*var_value;
+	int		i = 0;
+	int		start;
+	t_env	*env;
+	t_list	*env_lst;
+
+	if (!tok->expand)
+		return (ft_strdup(token));
+	result = ft_calloc(1, sizeof(char));
+	while (token[i])
+	{
+		if (token[i] == '$')
+		{
+			i++;
+			start = i;
+			while (token[i] && (ft_isalnum(token[i]) || token[i] == '_'))
+				i++;
+			var_name = ft_substr(token, start, i - start);
+			var_value = NULL;
+			env_lst = table->envv;
+			while (env_lst)
+			{
+				env = (t_env *)env_lst->content;
+				if (ft_strcmp(env->key, var_name) == 0)
+				{
+					var_value = env->value;
+					break;
+				}
+				env_lst = env_lst->next;
+			}
+			result = ft_strjoin_free(result, ft_strdup(var_value ? var_value : ""));
+			free(var_name);
+		}
+		else
+		{
+			start = i;
+			while (token[i] && token[i] != '$')
+				i++;
+			result = ft_strjoin_free(result, ft_substr(token, start, i - start));
+		}
+	}
+	return (result);
+}
 
 void	add_cmds(t_token_list *tok, t_cmd_table **table)
 {
