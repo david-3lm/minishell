@@ -6,7 +6,7 @@
 /*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 19:16:03 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/04/22 19:18:50 by dlopez-l         ###   ########.fr       */
+/*   Updated: 2025/04/22 19:38:44 by dlopez-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,9 @@ t_cmd	*add_redir(t_list *tok_list, t_cmd_table **table)
 	ft_lstadd_back(&(*table)->redirs, ft_lstnew(redir));
 	return (cmd);
 }
-
+//TODO: hay que cambiar la forma de hacer esto
+// se debe ir recorriendo el token y cuando encuentre $ concatenar el valor
+//despues seguir con token
 char	*check_expansion(char *token, t_cmd_table *table, t_tok *tok)
 {
 	char	*str;
@@ -132,20 +134,20 @@ char	*check_expansion(char *token, t_cmd_table *table, t_tok *tok)
 	t_env	*env;
 	int		i;
 
+	i = 0;
 	str = ft_strrchr(token, '$');
 	if (!str || !tok->expand)
 		return (ft_strdup(token));
 	env_lst = table->envv;
-	while (str[i] && ft_isalnum(str[i]) && str[i] == '_')
+	str++;
+	while (str[i] && (ft_isalpha(str[i])))
 		i++;
 	str = ft_substr(str, 0, i);
-	ft_printf("EXPAND => %s %d\n",str, tok->expand);
+	ft_printf("EXPAND => %d %d\n",i, tok->expand);
 	i = 0;
 	while (token[i] && token[i] != '$')
 		i++;
 	token = ft_substr(token, 0, i);
-	str++;
-	ft_printf("token => %s\n", token);
 	while (env_lst != NULL)
 	{
 		env = (t_env *)env_lst->content;
