@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bi_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 19:03:41 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/04/22 17:31:04 by dlopez-l         ###   ########.fr       */
+/*   Updated: 2025/04/24 16:35:20 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,11 @@ int	bi_unset(t_cmd_table *table, t_cmd *cmd)
 	i = 0;
 	env_lst = table->envv;
 	///////PROTEGER CUANDO SE LLAME UNSET VACIO
+	if (!(t_tok *)cmd->tokens->next)
+	{
+		table->error_code = NO_ERROR;
+		return (table->error_code);
+	}
 	to_unset = (char *)((t_tok *)cmd->tokens->next->content)->value;
 	///////////////////
 
