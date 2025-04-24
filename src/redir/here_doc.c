@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 16:21:37 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/04/22 11:30:13 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/04/24 12:30:07 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,25 @@
 
 int g_heredoc;
 
-char	*ft_new_limit(char *limit)
+char	*ft_new_limit(char *limit, t_cmd_table *table)
 {
 	size_t	limit_len;
 	char	*new_limit;
 
 	limit_len = ft_strlen(limit);
 	new_limit = malloc(limit_len + 2);
+	if (!new_limit)
+	{
+		table->error_code = MEM_ALLOC_ERROR;
+		error_handler(table->error_code);
+	}
 	ft_strlcpy(new_limit, limit, limit_len + 1);
 	new_limit[limit_len] = '\n';
 	new_limit[limit_len + 1] = '\0';
 	return (new_limit);
 }
 
-int	write_here_doc(char *limit)
+void	write_here_doc(char *limit, t_cmd_table *table)
 {
 	int		read_bytes;
 	int		infile;
@@ -35,7 +40,12 @@ int	write_here_doc(char *limit)
 	char	*new_limit;
 
 	infile = open(TMP_FILE, O_RDWR | O_CREAT | O_TRUNC, 0777);
-	new_limit = ft_new_limit(limit);
+	if (infile == -1)
+	{
+		table->error_code = OPEN_ERROR;
+		error_handler(table->error_code);
+	}
+	new_limit = ft_new_limit(limit, table);
 	while (1)
 	{
 		write(1, "> ", 2);
@@ -45,34 +55,29 @@ int	write_here_doc(char *limit)
 		else if (read_bytes < 0 && !g_heredoc)
 		{
 			close(infile);
-			return (1);
+			table->error_code = UNKNOWN_ERROR;
+			error_handler(table->error_code);
 		}
 		if (g_heredoc == 1 || (ft_strncmp(new_limit, buf, read_bytes) == 0 ))
 			break ;
 		write(infile, buf, read_bytes);
 	}
-	close(infile);
-	return (0);
-}
-
-void	create_here_doc(char *limit)
-{
-	if (write_here_doc(limit))
+	if (close(infile) == -1)
 	{
-		perror("Error creating tmp file");
-		exit(EXIT_FAILURE);
+		table->error_code = CLOSE_ERROR;
+		error_handler(table->error_code);
 	}
 }
 
-int	open_here_doc(void)
+int	open_here_doc(t_cmd_table *table)
 {
 	int	infile;
 
 	infile = open(TMP_FILE, O_RDONLY);
 	if (infile < 0)
 	{
-		perror("open here_doc");
-		exit(EXIT_FAILURE);
+		table->error_code = OPEN_ERROR;
+		error_handler(table->error_code);
 	}
 	return (infile);
 }
@@ -83,10 +88,14 @@ int	manage_here_doc(t_redir redir, t_cmd_table *table)
 
 	limit = redir.direction;
 	g_heredoc = 0;
-	create_here_doc(limit);
-	table->red_files[READ_E] = open_here_doc();
-	dup2(table->red_files[READ_E], STDIN_FILENO);
-	// close(infile);
+	write_here_doc(limit, table);
+	table->red_files[READ_E] = open_here_doc(table);
+	if (dup2(table->red_files[READ_E], STDIN_FILENO) == -1)
+	{
+		table->error_code = DUP_ERROR;
+		error_handler(table->error_code);
+	}
+	// close(table->red_files[READ_E]);
 	return (table->red_files[READ_E]);
 }
 

@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 12:50:13 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/02/08 15:53:59 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/04/24 12:30:14 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ char	**get_paths()
 	return (my_paths);
 }
 
-void	path_exec(t_cmd *cmd)
+void	path_exec(t_cmd *cmd, t_cmd_table *table)
 {
 	int		i;
 	char	**full_cmd;
@@ -77,11 +77,13 @@ void	path_exec(t_cmd *cmd)
 		if (access(executable, X_OK) == 0)
 			execve(executable, full_cmd, mypaths);
 		free(executable);
+		table->error_code = PATH_ERROR;
 	}
-	perror("Error: path_exec --> ");
 	free_all(mypaths);
 	free_all(full_cmd);
-	exit(EXIT_FAILURE);
+	table->error_code = WRONG_CMD_ERROR;
+	error_handler(table->error_code);
+	exit(WRONG_CMD_ERROR);
 }
 
 void	free_all(char **arr)
@@ -95,13 +97,4 @@ void	free_all(char **arr)
 		i++;
 	}
 	free(arr);
-}
-
-void	ft_usage(void)
-{
-	ft_printf("\033[31mError: Bad argument\n\e[0m");
-	ft_printf("Ex: ./pipex_bonus <file1> <cmd1> <cmd2> <...> <file2>\n");
-	ft_printf("\t./pipex_bonus \"here_doc\" <LIMITER> <cmd> \
-					<cmd1> <...> <file>\n");
-	exit(EXIT_SUCCESS);
 }

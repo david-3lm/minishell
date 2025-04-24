@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/23 23:34:06 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/04/22 18:40:46 by dlopez-l         ###   ########.fr       */
+/*   Updated: 2025/04/24 12:45:34 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,9 @@ void debug_pink(char *str)
 
 int	executor(t_cmd_table *table)
 {
-	if (!table || !table->cmds)
-		return (UNKNOWN_ERROR);
 	save_original_fd(table);
 	table->error_code = execute_cmd_table(table);
 	restore_and_close_fds(table);
+	printf("error code executor --> %d \n", table->error_code);
 	return (table->error_code);
 }

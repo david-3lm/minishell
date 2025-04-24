@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 19:16:03 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/04/22 19:54:51 by dlopez-l         ###   ########.fr       */
+/*   Updated: 2025/04/24 12:43:00 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,6 +161,11 @@ char	*check_expansion(char *token, t_cmd_table *table, t_tok *tok)
 		{
 			i++;
 			start = i;
+			if (token[i] == '?')
+			{
+				printf("anterior error code --> %d \n", table->error_code);
+				return (ft_itoa(table->error_code));
+			}
 			while (token[i] && (ft_isalnum(token[i]) || token[i] == '_'))
 				i++;
 			var_name = ft_substr(token, start, i - start);
@@ -267,9 +272,9 @@ t_error_code	parser(t_token_list *list, t_list *envl)
 		return (MEM_ALLOC_ERROR);
 	table->n_cmd = 0;
 	table->envv = envl;
-	table->error_code = NO_ERROR;
 	add_cmds(list, &table);
 	debug_parser(table); //borrar
 	count_pipes(table);
+	table->error_code = NO_ERROR;
 	return (executor(table));
 }

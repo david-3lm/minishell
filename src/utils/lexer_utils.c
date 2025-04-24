@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 17:14:29 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/04/22 19:20:57 by dlopez-l         ###   ########.fr       */
+/*   Updated: 2025/04/24 12:32:40 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ void	add_token(t_token_list *list, char *value)
 	{
 		new_tok->value = ft_substr(value, 1, ft_strlen(value) - 2);
 		printf("Falta una quote\n"); //AQUI DEVOLVER ERROR
+		return ;
 	}
 	else
 		new_tok->value = ft_strdup(value);

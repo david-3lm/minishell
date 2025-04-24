@@ -6,75 +6,57 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 11:45:46 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/04/22 14:00:10 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/04/24 12:30:29 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-int	last_command_exec(t_cmd *cmd)
+int	last_command_exec(t_cmd *cmd, t_cmd_table *table)
 {
 	pid_t	pid;
 	
 	pid = fork();
 	if (pid == -1)
-		return (ft_error("Fork: "));
+	{
+		table->error_code = FORK_ERROR;
+		error_handler(table->error_code);
+	}
 	if (pid == 0)
 	{
 		printf("ultimo comando \n");
-		path_exec(cmd);
+		path_exec(cmd, table);
 	}
 /* 	else
 		waitpid(pid, &status, 0);
 	if (status && WIFEXITED(status))
 		return (WEXITSTATUS(status)); */
-	return (NO_ERROR);
+	return (table->error_code);
 }
 
-t_error_code	run_pipex(t_cmd_table *table, t_cmd *cmd, int cmd_index)
+void	redir_manager(t_cmd_table *table, int type)
 {
-	t_error_code	res;
-
-	printf("index --> %d, n_pipes --> %d \n", cmd_index, table->n_pipes);
-	if (table->n_pipes > cmd_index)
-	{
-		res = pipex_proccess(cmd, table);
-		cmd_index++;
-	}
-	else
-		last_command_exec(cmd);
-	return (res);
-}
-
-t_error_code	redir_manager(t_cmd_table *table, int type)
-{
-	t_error_code	error;
 	t_redir			*redir;
-	
-	error = NO_ERROR;
+
 	if (type == IN_REDIR)
 	{
 		redir = get_redir_in(table->redirs);
 		if (redir != NULL)
-			if (manage_redir_in(table, *redir) == -1)
-				return (error);
-			// error opening fd
+			manage_redir_in(table, *redir);
 	}
 	else if (type == OUT_REDIR)
 	{
 		redir = get_redir_out(table->redirs);
 		if (redir != NULL)
-			if (manage_redir_out(table, *redir) == -1)
-				return (error);
+			manage_redir_out(table, *redir);
 	}
-	return error;
 }
 
-void	handle_command(t_cmd *cmd, t_cmd_table *table, int *cmd_index, t_error_code *res)
+int	handle_command(t_cmd *cmd, t_cmd_table *table, int *cmd_index)
 {
 	if (table->n_pipes > *cmd_index)
 	{
-		*res = pipex_proccess(cmd, table);
+		table->error_code = pipex_proccess(cmd, table);
 		(*cmd_index)++;
 	}
 	else
@@ -83,27 +65,26 @@ void	handle_command(t_cmd *cmd, t_cmd_table *table, int *cmd_index, t_error_code
 		if (cmd->builtin)
 			cmd->builtin(table, cmd);
 		else
-			last_command_exec(cmd);
+			table->error_code = last_command_exec(cmd, table);
 	}
+	return (table->error_code);
 }
 
-t_error_code	execute_cmd_table(t_cmd_table *table)
+int	execute_cmd_table(t_cmd_table *table)
 {
 	t_list			*cmd_list;
 	int				cmd_index;
-	t_error_code	res;
 	t_cmd			*cmd;
 
 	cmd_index = 0;
 	cmd_list = table->cmds;
-	res = NO_ERROR;
 	redir_manager(table, IN_REDIR);
 	while (cmd_list)
 	{
 		cmd = (t_cmd *)cmd_list->content;
 		// printf("current cmd --> %s \n", ((t_tok *)cmd->tokens)->value );
 		if (is_command(*cmd))
-			handle_command(cmd, table, &cmd_index, &res);
+			table->error_code = handle_command(cmd, table, &cmd_index);
 		if (is_redir(*cmd))
 			cmd_list = cmd_list->next;
 		cmd_list = cmd_list->next;
@@ -111,5 +92,5 @@ t_error_code	execute_cmd_table(t_cmd_table *table)
 	close_red_files(table->red_files);
 	while (waitpid(-1, NULL, 0) != -1)
 		continue;
-	return (res);
+	return (table->error_code);
 }

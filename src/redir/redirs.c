@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/16 10:52:37 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/04/21 15:54:34 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/04/24 12:29:52 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,19 @@ int	manage_redir_in(t_cmd_table *table, t_redir in_redir)
 	{
 		table->red_files[READ_E] = open(in_redir.direction, O_RDONLY);
 		if (table->red_files[READ_E] == -1)
-			perror("open infile");
-		else
-			dup2(table->red_files[READ_E], STDIN_FILENO);
-		printf(PINK "el infile se ha abierto en --> %i %s \n", table->red_files[READ_E], RESET_COLOR);
-		// aqui abro el red files pero lo estoy cerrando luego en algun sitio?
+		{
+			table->error_code = OPEN_ERROR;
+			error_handler(table->error_code);
+		}
+		else if (dup2(table->red_files[READ_E], STDIN_FILENO) == -1)
+		{
+			table->error_code = DUP_ERROR;
+			error_handler(table->error_code);
+		}
 	}
 	else if (in_redir.type == RD_HD)
 		table->red_files[READ_E] = manage_here_doc(in_redir, table);
+	// ¿estoy cerrando el READ_E?
 	return (table->red_files[READ_E]);
 }
 
@@ -36,9 +41,15 @@ int	manage_redir_out(t_cmd_table *table, t_redir out_redir)
 	else if (out_redir.type == RD_SOUT2)
 		table->red_files[WRITE_E] = open(out_redir.direction, O_WRONLY | O_CREAT | O_APPEND, 0777);
 	if (table->red_files[WRITE_E] == -1)
-		perror("open outfile");
-	else
-		dup2(table->red_files[WRITE_E], STDOUT_FILENO);
+	{
+		table->error_code = OPEN_ERROR;
+		error_handler(table->error_code);
+	}
+	else if (dup2(table->red_files[WRITE_E], STDOUT_FILENO) == -1)
+	{
+		table->error_code = DUP_ERROR;
+		error_handler(table->error_code);
+	}
 	printf(PINK "el outfile se ha abierto en --> %i %s \n", table->red_files[WRITE_E], RESET_COLOR);
 	return (table->red_files[WRITE_E]);
 }

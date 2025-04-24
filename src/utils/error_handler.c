@@ -6,25 +6,22 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/23 23:50:11 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/04/22 16:03:51 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/04/24 12:31:11 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-void error_handler(t_cmd_table *table)
+void error_handler(int code)
 {
 	// TODO: con todos los errores, ajustar los mensajes de error
 	// llamar a esta funcion en todos los sitios donde hagamos gestion de errores
-	int	code;
-
-	code = table->error_code;
 	if (code == NO_ERROR)
 		return ;
 	if (code == MEM_ALLOC_ERROR)
 		ft_putendl_fd("Memory allocation failed.", ERROR_E);
 	if (code == WRONG_CMD_ERROR)
-		ft_putendl_fd("Gora Euskal Herria askatuta", ERROR_E);
+		ft_putendl_fd("Gora Euskal Herria askatuta (command not found)", ERROR_E);
 	if (code == DUP_ERROR)
 		ft_putendl_fd("Process terminated with dup error\n", STDERR_FILENO);
 	if (code == FORK_ERROR)
