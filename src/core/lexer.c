@@ -6,7 +6,7 @@
 /*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 19:16:08 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/04/24 17:27:27 by dlopez-l         ###   ########.fr       */
+/*   Updated: 2025/04/24 18:38:39 by dlopez-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,11 @@
 
 int	quotes_are_closed(const char *input)
 {
-	int	i = 0;
-	char	open_quote = '\0';
+	int		i;
+	char	open_quote;
 
+	i = 0;
+	open_quote = '\0';
 	while (input[i])
 	{
 		if (!open_quote && (input[i] == '\'' || input[i] == '"'))
@@ -57,31 +59,64 @@ void	purge_input(t_token_list *list, const char *str)
 	}
 }
 
+void	lexer_split(char *line, t_token_list *list)
+{
+	int		i;
+	int		start;
+	bool	in_quote;
+	char	quote_char;
+
+	i = 0;
+	start = 0;
+	in_quote = false;
+	quote_char = '\0';
+	while (line[i] != '\0')
+	{
+		if (is_quote(line[i])) 
+		{
+			if (!in_quote)
+			{
+				in_quote = true;
+				quote_char = line[i];
+			}
+			else if (line[i] == quote_char)
+			{
+				in_quote = false;
+				quote_char = '\0';
+			}
+		}
+		if ((line[i] == ' ' || line[i] == '\t') && !in_quote)
+		{
+			if (i > start)
+			{
+				char *token = ft_substr(line, start, i - start);
+				add_token(list, token);
+				free(token);
+			}
+			start = i + 1;
+		}
+		i++;
+	}
+	if (i > start)
+	{
+		char *token = ft_substr(line, start, i - start);
+		add_token(list, token);
+		free(token);
+	}
+}
 
 t_error_code	lexer(char *input, t_list *envl)
 {
 	t_token_list	*list;
-	char			**sp;
-	int				i;
 
 	if (!quotes_are_closed(input))
 	{
 		ft_putendl_fd("Error: comillas sin cerrar", 2);	
 		return (2);
 	}
-	sp = ft_split_set(input, " 	\n");
-	i = 0;
 	list = ft_calloc(1, sizeof(t_token_list));
 	if (!list)
 		return (MEM_ALLOC_ERROR);
-	while (sp[i])
-	{
-		if (ft_strchr(sp[i], '|') || ft_strchr(sp[i], '<')
-			|| ft_strchr(sp[i], '>'))
-			purge_input(list, sp[i]);
-		else
-			add_token(list, sp[i]);
-		i++;
-	}
+	lexer_split(input, list);
 	return (parser(list, envl));
 }
