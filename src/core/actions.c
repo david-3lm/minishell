@@ -6,17 +6,14 @@
 /*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 16:00:57 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/04/15 18:47:41 by dlopez-l         ###   ########.fr       */
+/*   Updated: 2025/04/24 16:37:00 by dlopez-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-void	handle_signal(int signal, siginfo_t *info, void *ctx)
+void	handle_signal(int signal)
 {
-	(void) info;
-	(void) ctx;
-
 	if (!g_heredoc && signal == SIGINT)
 		g_heredoc = 1;
 	else if (signal == SIGINT)
