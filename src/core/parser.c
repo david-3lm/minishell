@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 19:16:03 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/04/24 12:43:00 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/04/24 19:52:27 by dlopez-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,8 @@ void	debug_parser(t_cmd_table *table)
 /// @return char * de la direccion
 char	*get_direction(t_tok *tok)
 {
+	if (!tok)
+		return NULL; //OJJO DEVOLVER ERRORES SI NO TIENE DIRECCION?
 	printf(PINK "DIRECCION DEL TOK => %s CON TIPO %d %s \n", (tok->value), tok->type, RESET_COLOR);
 	if (tok->type != COMMAND && tok->type != STRING)
 		return NULL;
@@ -97,7 +99,7 @@ t_cmd	*add_redir(t_list *tok_list, t_cmd_table **table)
 	tok = (t_tok *)tok_list->content;
 	redir = malloc(sizeof(t_redir));
 	cmd = malloc(sizeof(t_cmd));
-	if (!redir || !cmd)
+	if (!redir || !cmd || !tok)
 		return (NULL);
 	if (size_redir(tok->value) == 2)
 	{
@@ -118,8 +120,16 @@ t_cmd	*add_redir(t_list *tok_list, t_cmd_table **table)
 		ft_printf(PINK "TERRIBLE REDIR\n" RESET_COLOR);
 		redir->type = RD_BAD; ////////IGUAL HAY QUE DEVOLVER ERROR
 	}
-	redir->direction = get_direction((t_tok *)tok_list->next->content);
-	printf(PINK "DIRECCION DEL REDIR => %s %s\n", (redir->direction), RESET_COLOR);
+	if (tok_list->next)
+	{
+		redir->direction = get_direction((t_tok *)tok_list->next->content);
+		printf(PINK "DIRECCION DEL REDIR => %s %s\n", (redir->direction), RESET_COLOR);
+	}
+	else
+	{
+		ft_printf("Error: falta la dirección de la redirección\n"); //TODO AÑADIR GESTION DE ERRORES AQUI
+		return (NULL);
+	}
 	ft_lstadd_back(&cmd->redirs, ft_lstnew(redir));
 	ft_lstadd_back(&(*table)->redirs, ft_lstnew(redir));
 	return (cmd);
@@ -213,7 +223,8 @@ void	add_cmds(t_token_list *tok, t_cmd_table **table)
 			if (token_content->type == REDIR)
 			{
 				current_cmd = add_redir(current_token, table);
-				ft_printf(PINK "He añadido este redir => %s %s\n", ((t_redir *)(*table)->redirs->content)->direction, RESET_COLOR);
+				if (!current_cmd)
+					error_handler(WRONG_CMD_ERROR);
 			}
 			else
 			{
