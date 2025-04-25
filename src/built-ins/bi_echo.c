@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bi_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 19:03:41 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/04/22 14:55:45 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/04/25 14:56:18 by dlopez-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 	- si es solo echo sin argumento, salto de linea
 	- una variable para comprobar si tiene o no -n
  */
-void	print_lines(t_list *tok, int out)
+void	print_lines(t_list *tok, int out, bool n_opt)
 {
 	char	*str;
 
@@ -27,6 +27,8 @@ void	print_lines(t_list *tok, int out)
 			ft_putstr_fd(str, out);
 		tok = tok->next;
 	}
+	if (n_opt == false)
+		ft_putchar_fd('\n', STDOUT_FILENO);
 }
 
 
@@ -53,9 +55,7 @@ int	bi_echo(t_cmd_table *table, t_cmd *cmd)
 			next = next->next;
 		}
 	}
-	print_lines(next, STDOUT_FILENO);
-	if (n_opt == false)
-		ft_putchar_fd('\n', STDOUT_FILENO);
+	print_lines(next, STDOUT_FILENO, n_opt);
 	table->error_code = NO_ERROR;
 	return (table->error_code);
 }

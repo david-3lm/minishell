@@ -1,5 +1,5 @@
 NAME = minishell
-SRC = ./src/built-ins/bi_cd.c ./src/built-ins/bi_echo.c ./src/built-ins/bi_env.c ./src/built-ins/bi_exit.c ./src/built-ins/bi_export.c ./src/built-ins/bi_pwd.c ./src/built-ins/builtins.c ./src/built-ins/bi_unset.c ./src/core/actions.c ./src/core/lexer.c ./src/core/executor.c ./src/core/parser.c ./src/env/envv.c ./src/pipex/pipex.c ./src/pipex/proccess.c ./src/pipex/utils.c ./src/redir/here_doc.c ./src/redir/redirs.c ./src/utils/cmd_types.c ./src/utils/error_handler.c ./src/utils/lexer_utils.c ./src/main.c 
+SRC = ./src/built-ins/bi_echo.c ./src/built-ins/builtins.c ./src/built-ins/bi_cd.c ./src/built-ins/bi_env.c ./src/built-ins/bi_exit.c ./src/built-ins/bi_export.c ./src/built-ins/bi_pwd.c ./src/built-ins/bi_unset.c ./src/core/actions.c ./src/core/executor.c ./src/core/parser.c ./src/core/lexer.c ./src/env/envv.c ./src/pipex/pipex.c ./src/pipex/proccess.c ./src/pipex/utils.c ./src/redir/here_doc.c ./src/redir/redirs.c ./src/utils/cmd_types.c ./src/utils/lexer_utils.c ./src/utils/error_handler.c ./src/main.c 
 OBJ = $(SRC:.c=.o)
 LIB_DIR = ./libimp
 LIB = $(LIB_DIR)/libft.a
