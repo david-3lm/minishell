@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 12:19:43 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/04/22 15:07:13 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/04/25 15:49:30 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,16 @@
 
 int	(*builtin_arr(char *str))(t_cmd_table *table, t_cmd *cmd)
 {
-	static void	*builtins[7][2] = {
+	static void	*builtins[][2] = {
 	{"echo", bi_echo},
 	{"cd", bi_cd},
 	{"pwd", bi_pwd},
 	{"export", bi_export},
 	{"unset", bi_unset},
 	{"env", bi_env},
-	{"exit", bi_exit}
+	{"exit", bi_exit},
+	{"karol", bi_karol},
+	{"star", bi_star},
 	};
 	// cambiar los nombres por los nombres de mis funciones
 	// cómo juntar esto con el resto de la ejecucion??
@@ -29,7 +31,7 @@ int	(*builtin_arr(char *str))(t_cmd_table *table, t_cmd *cmd)
 	int			i;
 
 	i = 0;
-	while (i < 7)
+	while (i < 9)
 	{
 		if (str)
 		{
