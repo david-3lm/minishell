@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 12:19:43 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/04/25 15:49:30 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/04/25 16:18:36 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ int	(*builtin_arr(char *str))(t_cmd_table *table, t_cmd *cmd)
 	{"exit", bi_exit},
 	{"karol", bi_karol},
 	{"star", bi_star},
+	{"weather", bi_weather}
 	};
 	// cambiar los nombres por los nombres de mis funciones
 	// cómo juntar esto con el resto de la ejecucion??
@@ -31,7 +32,7 @@ int	(*builtin_arr(char *str))(t_cmd_table *table, t_cmd *cmd)
 	int			i;
 
 	i = 0;
-	while (i < 9)
+	while (i < 10)
 	{
 		if (str)
 		{
