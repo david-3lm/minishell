@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 19:03:41 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/04/22 15:01:36 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/04/25 13:00:30 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,9 +88,7 @@ int    bi_export(t_cmd_table *table, t_cmd *cmd)
 	{
 		purge_equal(((t_tok *)cmd->tokens->next->content)->value, &env);
 		if (token_exists(env_lst, env->key))
-		{
 			change_token(env_lst, env);
-		}
 		else
 			ft_lstadd_back(&(table->envv), ft_lstnew(env));
 	}

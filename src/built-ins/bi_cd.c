@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 19:03:41 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/04/22 16:02:01 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/04/25 12:38:10 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,14 @@ int	cd_home(t_cmd_table *table)
 {
 	char	*path;
 	printf("no hay argumendoto de cd \n");
-	path = mini_get_env(table, "HOME")->value;
-	ft_change_old_pwd(table);
-	if (!path)
+	if (mini_get_env(table, "HOME"))
+		path = mini_get_env(table, "HOME")->value;
+	else
 	{
-		// revisar codigo de error por aqui
 		ft_putendl_fd("kontxesi: cd: HOME not set", ERROR_E);
 		table->error_code = UNKNOWN_ERROR;
 	}
+	ft_change_old_pwd(table);
 	table->error_code = chdir(path);
 	return (table->error_code);
 }
@@ -56,16 +56,16 @@ int	ft_change_path(t_cmd_table *table, char *arg)
 
 	if (ft_strcmp(arg, "-") == 0)
 	{
-		path = mini_get_env(table, "OLDPWD")->value;
-		ft_change_old_pwd(table);
-		if (!path)
+		if (mini_get_env(table, "OLDPWD"))
+			path = mini_get_env(table, "OLDPWD")->value;
+		else 
 		{
 			ft_putendl_fd("kontxesi: cd: OLDPWD not set", ERROR_E);
 			table->error_code = UNKNOWN_ERROR;
 			return (table->error_code);
 		}
-		else
-			table->error_code = chdir(path);
+		ft_change_old_pwd(table);
+		table->error_code = chdir(path);
 	}
 	else
 	{

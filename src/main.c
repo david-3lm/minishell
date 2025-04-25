@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 11:23:27 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/04/24 16:36:46 by dlopez-l         ###   ########.fr       */
+/*   Updated: 2025/04/25 12:55:28 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,6 @@ int	main(int argc, char **argv, char **envp)
 		code = lexer(rl, envl);
 		free(rl);
 		ft_printf(PINK "main => %d\n" RESET_COLOR, code);
-		if (code != NO_ERROR)
-			break;
 	}
 	return (0);
 }

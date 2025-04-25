@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 12:50:13 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/04/24 12:30:14 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/04/25 12:18:03 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,6 @@ void	path_exec(t_cmd *cmd, t_cmd_table *table)
 	char	*executable;
 
 	i = 0;
-	// ft_putendl_fd("Tokens: %s\n", ((t_tok *)cmd->tokens->content)->value, 2);
 	full_cmd = get_cmd(cmd->tokens);
 	mypaths = get_paths();
 	while (mypaths[++i])
@@ -83,7 +82,7 @@ void	path_exec(t_cmd *cmd, t_cmd_table *table)
 	free_all(full_cmd);
 	table->error_code = WRONG_CMD_ERROR;
 	error_handler(table->error_code);
-	exit(WRONG_CMD_ERROR);
+	// exit(WRONG_CMD_ERROR);
 }
 
 void	free_all(char **arr)

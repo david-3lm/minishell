@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 12:58:31 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/04/22 16:02:16 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/04/25 12:54:09 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,11 @@ int	bi_exit(t_cmd_table *table, t_cmd *cmd)
 	else if (size == 2)
 		table->error_code = ft_get_exit_code(cmd);
 	else
+	{
 		ft_putstr_fd("kontxesi: exit: too many arguments\n", ERROR_E);
+		table->error_code = UNKNOWN_ERROR;
+		return (table->error_code);
+	}
 	ft_putendl_fd("exit", STDERR_FILENO);
 	exit(table->error_code);
 	return (table->error_code);

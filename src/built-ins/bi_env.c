@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 19:03:41 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/04/22 14:56:27 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/04/25 12:48:57 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ int	bi_env(t_cmd_table *table, t_cmd *cmd)
 	while (env_lst != NULL)
 	{
 		env = (t_env *)env_lst->content;
-		// TODO: si no tiene value no imprimir la variable
-		printf("%s=%s\n", env->key, env->value);
+		if (ft_strcmp(env->value, ""))
+			printf("%s=%s\n", env->key, env->value);
 		env_lst = env_lst->next;
 	}
 	table->error_code = NO_ERROR;
