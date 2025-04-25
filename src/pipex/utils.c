@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 12:50:13 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/04/25 12:18:03 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/04/25 14:42:11 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ void	path_exec(t_cmd *cmd, t_cmd_table *table)
 	free_all(full_cmd);
 	table->error_code = WRONG_CMD_ERROR;
 	error_handler(table->error_code);
-	// exit(WRONG_CMD_ERROR);
+	exit(table->error_code);
 }
 
 void	free_all(char **arr)

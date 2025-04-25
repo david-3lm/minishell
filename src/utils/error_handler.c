@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/23 23:50:11 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/04/25 13:02:37 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/04/25 14:59:01 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ void error_handler(int code)
 		ft_putendl_fd("Error de pipa (nunca supe como se escribia)", 2);
 	if (code == NULL_POINTER_ERROR)
 		ft_putendl_fd("↯ Null pointer. ↯", ERROR_E);
+	if (code == REDIR_ERROR)
+		ft_putendl_fd("Redireccion erronea", ERROR_E);
 	if (code == UNKNOWN_ERROR)
 		ft_putendl_fd("Ni kontxesi sabe qué ha ido mal ✨ ostia ✨", ERROR_E);
 }

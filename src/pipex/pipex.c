@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 11:45:46 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/04/24 12:30:29 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/04/25 14:51:45 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ int	last_command_exec(t_cmd *cmd, t_cmd_table *table)
 	}
 	if (pid == 0)
 	{
+		// exit(42);
 		printf("ultimo comando \n");
 		path_exec(cmd, table);
 	}
@@ -75,8 +76,10 @@ int	execute_cmd_table(t_cmd_table *table)
 	t_list			*cmd_list;
 	int				cmd_index;
 	t_cmd			*cmd;
+	int				status;
 
 	cmd_index = 0;
+	status = 0;
 	cmd_list = table->cmds;
 	redir_manager(table, IN_REDIR);
 	while (cmd_list)
@@ -90,7 +93,11 @@ int	execute_cmd_table(t_cmd_table *table)
 		cmd_list = cmd_list->next;
 	}
 	close_red_files(table->red_files);
-	while (waitpid(-1, NULL, 0) != -1)
-		continue;
+	while (waitpid(-1, &status, 0) != -1)
+		continue ;
+	if (WIFSIGNALED(status))
+		table->error_code = 128 + WTERMSIG(status);
+	else
+		table->error_code = WEXITSTATUS(status);
 	return (table->error_code);
 }

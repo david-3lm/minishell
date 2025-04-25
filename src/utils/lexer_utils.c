@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 17:14:29 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/04/24 18:10:08 by dlopez-l         ###   ########.fr       */
+/*   Updated: 2025/04/25 14:59:38 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,9 @@ t_tok_type	get_ttype(char *tok)
 	return (COMMAND);
 }
 
-bool is_quote(char c) {
-    return (c == '"' || c == '\'');
+bool	is_quote(char c)
+{
+	return (c == '"' || c == '\'');
 }
 
 int	count_quotes(char *str)
