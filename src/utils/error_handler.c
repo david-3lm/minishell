@@ -15,6 +15,7 @@
 void error_handler(int code)
 {
 	// TODO: con todos los errores, ajustar los mensajes de error
+	// TODO: ERROR si encuentra por ejemplo | | (dos pipes seguidos separados en dos tokens)
 	// llamar a esta funcion en todos los sitios donde hagamos gestion de errores
 	if (code == NO_ERROR)
 		return ;
