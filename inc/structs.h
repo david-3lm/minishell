@@ -22,7 +22,8 @@ typedef enum tok_type
 	FILES = 2,
 	REDIR = 3,
 	PIPE = 4,
-	VARIABLE = 5
+	VARIABLE = 5,
+	PIPE_ERR = 6
 }	t_tok_type;
 
 /*

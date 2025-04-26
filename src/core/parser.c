@@ -295,6 +295,8 @@ void	count_pipes(t_cmd_table *table)
 			tok = (t_tok *)token_list->content;
 			if (tok->type == PIPE)
 				table->n_pipes += 1;
+			if (tok->type == PIPE_ERR)
+				table->error_code = PIPE_ERROR;
 			token_list = token_list->next;
 		}
 		cmd_list = cmd_list->next;

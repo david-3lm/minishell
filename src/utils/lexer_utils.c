@@ -14,12 +14,12 @@
 
 t_tok_type	get_ttype(char *tok)
 {
+	if (tok[0] == '\'' || tok[0] == '"')
+		return (STRING);
 	if (ft_strchr(tok, '<') || ft_strchr(tok, '>'))
 		return (REDIR);
 	if (ft_strchr(tok, '|'))
 		return (PIPE);
-	if (tok[0] == '\'' || tok[0] == '"')
-		return (STRING);
 	if (ft_strchr(tok, '$'))
 		return (COMMAND);
 	return (COMMAND);
@@ -50,6 +50,22 @@ int	count_quotes(char *str)
 	return (count);
 }
 
+int	count_char(char *str, char c)
+{
+	int		i;
+	int		count;
+
+	count = 0;
+	i = 0;
+	while (str[i] != '\0')
+	{
+		if (str[i] == c)
+			count++;
+		i++;
+	}
+	return (count);
+}
+
 void	add_token(t_token_list *list, char *value)
 {
 	t_tok	*new_tok;
@@ -73,5 +89,10 @@ void	add_token(t_token_list *list, char *value)
 	}
 	else
 		new_tok->value = ft_strdup(value);
+	if (new_tok->type == PIPE && count_char(new_tok->value, '|') != 1)
+	{
+		error_handler(PIPE_ERROR);
+		new_tok->type = PIPE_ERR;
+	}
 	ft_lstadd_back(&(list->tokens), ft_lstnew(new_tok));
 }
