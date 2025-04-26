@@ -73,15 +73,32 @@ char	*get_direction(t_tok *tok)
 /// @return cuantos '<' o '>' tiene el redir
 int		size_redir(char *value)
 {
-	int	i;
-	int	count;
+	int		i;
+	int		count;
+	char	redir;
+	char	wrong;
 
 	i = 0;
 	count = 0;
 	while (value[i])
 	{
-		if (value[i] == '<' || value[i] == '>')
+		if (!redir && (value[i] == '<' || value[i] == '>'))
+		{
+			if (value[i] == '<')
+			{
+				redir = value[i];
+				wrong = '>';
+			}
+			else if (value[i] == '>')
+			{
+				wrong = '<';
+				redir = value[i];
+			}
+		}
+		if (value[i] == redir)
 			count++;
+		if (value[i] == wrong)
+			return (-1);
 		i++;
 	}
 	return (count);
@@ -118,12 +135,22 @@ t_cmd	*add_redir(t_list *tok_list, t_cmd_table **table)
 	else
 	{
 		ft_printf(PINK "TERRIBLE REDIR\n" RESET_COLOR);
-		redir->type = RD_BAD; ////////IGUAL HAY QUE DEVOLVER ERROR
+		free(redir);
+		error_handler(REDIR_ERROR);
+		(*table)->error_code = REDIR_ERROR;
+		return (NULL);
 	}
 	if (tok_list->next)
 	{
 		redir->direction = get_direction((t_tok *)tok_list->next->content);
 		printf(PINK "DIRECCION DEL REDIR => %s %s\n", (redir->direction), RESET_COLOR);
+		if (!redir->direction)
+		{
+			free(redir);
+			error_handler(REDIR_ERROR);
+			(*table)->error_code = REDIR_ERROR;
+			return (NULL);
+		}
 	}
 	else
 	{
@@ -286,6 +313,8 @@ t_error_code	parser(t_token_list *list, t_list *envl)
 	add_cmds(list, &table);
 	debug_parser(table); //borrar
 	count_pipes(table);
+	if (table->error_code != NO_ERROR)
+		return (table->error_code);
 	table->error_code = NO_ERROR;
 	return (executor(table));
 }
