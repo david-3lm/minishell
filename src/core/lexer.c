@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 19:16:08 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/04/25 13:01:52 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/04/27 12:33:00 by dlopez-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ void	lexer_split(char *line, t_token_list *list)
 	int		start;
 	bool	in_quote;
 	char	quote_char;
+	char	*token;
 
 	i = 0;
 	start = 0;
@@ -72,7 +73,7 @@ void	lexer_split(char *line, t_token_list *list)
 	quote_char = '\0';
 	while (line[i] != '\0')
 	{
-		if (is_quote(line[i])) 
+		if (is_quote(line[i]))
 		{
 			if (!in_quote)
 			{
@@ -89,7 +90,7 @@ void	lexer_split(char *line, t_token_list *list)
 		{
 			if (i > start)
 			{
-				char *token = ft_substr(line, start, i - start);
+				token = ft_substr(line, start, i - start);
 				add_token(list, token);
 				free(token);
 			}
@@ -99,7 +100,7 @@ void	lexer_split(char *line, t_token_list *list)
 	}
 	if (i > start)
 	{
-		char *token = ft_substr(line, start, i - start);
+		token = ft_substr(line, start, i - start);
 		add_token(list, token);
 		free(token);
 	}

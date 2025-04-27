@@ -6,7 +6,7 @@
 /*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 19:16:03 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/04/24 19:52:27 by dlopez-l         ###   ########.fr       */
+/*   Updated: 2025/04/27 12:31:55 by dlopez-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,16 +62,17 @@ void	debug_parser(t_cmd_table *table)
 char	*get_direction(t_tok *tok)
 {
 	if (!tok)
-		return NULL; //OJJO DEVOLVER ERRORES SI NO TIENE DIRECCION?
+		return (NULL);
 	printf(PINK "DIRECCION DEL TOK => %s CON TIPO %d %s \n", (tok->value), tok->type, RESET_COLOR);
 	if (tok->type != COMMAND && tok->type != STRING)
-		return NULL;
+		return (NULL);
 	return (tok->value);
 }
+
 /// @brief Da el tamaño del redir
 /// @param value el string del redir
 /// @return cuantos '<' o '>' tiene el redir
-int		size_redir(char *value)
+int	size_redir(char *value)
 {
 	int		i;
 	int		count;
@@ -172,7 +173,6 @@ char	*ft_strjoin_free(char *s1, char *s2)
 		return (s2);
 	else if (!s2)
 		return (s1);
-	
 	joined = ft_strjoin(s1, s2);
 	free(s1);
 	free(s2);
@@ -184,11 +184,12 @@ char	*check_expansion(char *token, t_cmd_table *table, t_tok *tok)
 	char	*result;
 	char	*var_name;
 	char	*var_value;
-	int		i = 0;
+	int		i;
 	int		start;
 	t_env	*env;
 	t_list	*env_lst;
 
+	i = 0;
 	if (!tok->expand)
 		return (ft_strdup(token));
 	result = ft_calloc(1, sizeof(char));
@@ -214,11 +215,14 @@ char	*check_expansion(char *token, t_cmd_table *table, t_tok *tok)
 				if (ft_strcmp(env->key, var_name) == 0)
 				{
 					var_value = env->value;
-					break;
+					break ;
 				}
 				env_lst = env_lst->next;
 			}
-			result = ft_strjoin_free(result, ft_strdup(var_value ? var_value : ""));
+			if (var_value)
+				result = ft_strjoin_free(result, ft_strdup(var_value));
+			else
+				result = ft_strjoin_free(result, ft_strdup(""));
 			free(var_name);
 		}
 		else
@@ -226,7 +230,8 @@ char	*check_expansion(char *token, t_cmd_table *table, t_tok *tok)
 			start = i;
 			while (token[i] && token[i] != '$')
 				i++;
-			result = ft_strjoin_free(result, ft_substr(token, start, i - start));
+			result = ft_strjoin_free(result,
+					ft_substr(token, start, i - start));
 		}
 	}
 	return (result);

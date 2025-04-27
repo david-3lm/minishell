@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirs.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/16 10:52:37 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/04/24 12:29:52 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/04/27 12:33:53 by dlopez-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ t_redir	*get_redir_in(t_list *list)
 {
 	t_list	*lst_copy;
 	t_redir	*redir;
-	
+
 	redir = NULL;
 	if (ft_lstsize(list) != 0)
 	{
@@ -81,7 +81,7 @@ t_redir	*get_redir_out(t_list *list)
 {
 	t_list	*lst_copy;
 	t_redir	*redir;
-	
+
 	redir = NULL;
 	if (ft_lstsize(list) != 0)
 	{
