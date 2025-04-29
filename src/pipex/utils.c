@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 12:50:13 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/04/28 19:50:12 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/04/29 18:07:14 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@ char	*get_value(void *token)
 
 char	**get_cmd(t_list *origin)
 {
-	char *full_cmd;
-	char *temp;
+	char	*full_cmd;
+	char	*temp;
 	t_list	*aux;
-	int	size;
-	int	i;
+	int		size;
+	int		i;
 
 	i = 1;
 	size = ft_lstsize(origin);
@@ -40,7 +40,7 @@ char	**get_cmd(t_list *origin)
 	return (ft_split(full_cmd, ' '));
 }
 
-char	**get_paths()
+char	**get_paths(void)
 {
 	char	*env_paths;
 	char	**my_paths;

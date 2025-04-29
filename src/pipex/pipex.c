@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 11:45:46 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/04/29 17:31:33 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/04/29 18:05:51 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	last_command_exec(t_cmd *cmd, t_cmd_table *table)
 {
 	pid_t	pid;
-	
+
 	pid = fork();
 	if (pid == -1)
 	{
@@ -28,10 +28,6 @@ int	last_command_exec(t_cmd *cmd, t_cmd_table *table)
 		printf("ultimo comando \n");
 		path_exec(cmd, table);
 	}
-/* 	else
-		waitpid(pid, &status, 0);
-	if (status && WIFEXITED(status))
-		return (WEXITSTATUS(status)); */
 	return (table->error_code);
 }
 

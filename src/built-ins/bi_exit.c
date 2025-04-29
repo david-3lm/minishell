@@ -6,13 +6,13 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 12:58:31 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/04/25 12:54:09 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/04/29 17:39:42 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-bool ft_is_strnum(char *str)
+bool	ft_is_strnum(char *str)
 {
 	int	i;
 
@@ -35,7 +35,7 @@ int	ft_get_exit_code(t_cmd *cmd)
 {
 	char	*value;
 	int		res;
-	
+
 	value = ((t_tok *)cmd->tokens->next->content)->value;
 	// He visto que Dani hace trim a ese valor para quitarle esto "" \f\r\n\t\v"" ¿hace falta?
 	if (!ft_is_strnum(value))
@@ -57,8 +57,8 @@ int	ft_get_exit_code(t_cmd *cmd)
 int	bi_exit(t_cmd_table *table, t_cmd *cmd)
 {
 	int	size;
-	(void)table;
-	
+
+	(void)table;	
 	table->error_code = EXIT_FAILURE;
 	size = ft_lstsize(cmd->tokens);
 	if (size == 1)

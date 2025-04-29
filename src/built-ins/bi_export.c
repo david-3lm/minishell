@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 19:03:41 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/04/25 13:00:30 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/04/29 17:41:14 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,8 @@ void	change_token(t_list *env_list, t_env *env)
 	tmp = env_list;
 	while (tmp != NULL)
 	{
-		if (env->key != NULL && ft_strcmp(((t_env *)tmp->content)->key, env->key) == 0)
+		if (env->key != NULL && \
+			ft_strcmp(((t_env *)tmp->content)->key, env->key) == 0)
 			tmp->content = env;
 		tmp = tmp->next;
 	}
@@ -69,7 +70,7 @@ void	manage_empty_export(t_cmd_table *table)
 	}
 }
 
-int    bi_export(t_cmd_table *table, t_cmd *cmd)
+int	bi_export(t_cmd_table *table, t_cmd *cmd)
 {
 	t_list	*env_lst;
 	t_env	*env;
@@ -92,6 +93,5 @@ int    bi_export(t_cmd_table *table, t_cmd *cmd)
 		else
 			ft_lstadd_back(&(table->envv), ft_lstnew(env));
 	}
-	// comprobar retorno adecuado de error code
 	return (table->error_code);
 }

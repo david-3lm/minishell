@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 12:05:04 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/04/29 17:31:27 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/04/29 18:08:43 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,12 @@ void	restore_and_close_fds(t_cmd_table *table)
 		table->error_code = DUP_ERROR;
 		error_handler(table->error_code);
 	}
-	// dup2(fd[WRITE_E], STDOUT_FILENO);
 	if (close(table->std_backup[READ_E]) == -1 || close(table->std_backup[WRITE_E]) == -1)
 	{
 		table->error_code = CLOSE_ERROR;
 		error_handler(table->error_code);
 	}
 }
-
 
 int	pipex_proccess(t_cmd *cmd, t_cmd_table *table)
 {

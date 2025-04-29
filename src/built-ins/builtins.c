@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 12:19:43 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/04/25 16:18:36 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/04/29 17:44:17 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,6 @@ int	(*builtin_arr(char *str))(t_cmd_table *table, t_cmd *cmd)
 	{"star", bi_star},
 	{"weather", bi_weather}
 	};
-	// cambiar los nombres por los nombres de mis funciones
-	// cómo juntar esto con el resto de la ejecucion??
-	// hacer que retornen códigos de error
 	int			i;
 
 	i = 0;

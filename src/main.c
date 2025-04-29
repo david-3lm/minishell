@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 11:23:27 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/04/25 12:55:28 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/04/29 18:12:52 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void	debug(t_token_list *list)
 	t_list	*node;
 
 	node = list->tokens;
+	// TODO: eliminar esta funcion y donde se la llama
 	while (node->next != NULL)
 	{
 		printf(PINK "%s => %s %s \n", get_type_name(((t_tok *)node->content)->type), ((t_tok *)node->content)->value, RESET_COLOR);
@@ -61,7 +62,7 @@ int	main(int argc, char **argv, char **envp)
 		if (!rl)
 		{
 			ft_printf("Gora Kontxesi 🎷🦆\n");
-			break;
+			break ;
 		}
 		if (*rl) // solo guarda en el historial si hay algo escrito
 			add_history(rl);
@@ -71,4 +72,3 @@ int	main(int argc, char **argv, char **envp)
 	}
 	return (0);
 }
-

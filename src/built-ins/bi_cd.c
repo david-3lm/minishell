@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 19:03:41 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/04/25 12:38:10 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/04/29 17:33:32 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	cd_home(t_cmd_table *table)
 {
 	char	*path;
-	printf("no hay argumendoto de cd \n");
+
 	if (mini_get_env(table, "HOME"))
 		path = mini_get_env(table, "HOME")->value;
 	else
@@ -30,8 +30,8 @@ int	cd_home(t_cmd_table *table)
 
 int	bi_cd(t_cmd_table *table, t_cmd *cmd)
 {
-	char *path;
-	t_list *tok;
+	char	*path;
+	t_list	*tok;
 
 	tok = cmd->tokens->next;
 	if (tok)
@@ -58,7 +58,7 @@ int	ft_change_path(t_cmd_table *table, char *arg)
 	{
 		if (mini_get_env(table, "OLDPWD"))
 			path = mini_get_env(table, "OLDPWD")->value;
-		else 
+		else
 		{
 			ft_putendl_fd("kontxesi: cd: OLDPWD not set", ERROR_E);
 			table->error_code = UNKNOWN_ERROR;

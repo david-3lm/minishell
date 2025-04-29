@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   envv.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 16:28:50 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/04/27 12:33:34 by dlopez-l         ###   ########.fr       */
+/*   Updated: 2025/04/29 17:46:38 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void	debug_env(t_list *env)
 {
 	t_env	*e;
+	// TODO: eliminar esta funcion y donde se la llama
 
 	if (env == NULL || env->content == NULL)
 		return ;
@@ -37,7 +38,6 @@ t_list	*get_env(char *str)
 	env->value = malloc(ft_strlen(str) - i + 1);
 	ft_strlcpy(env->key, str, i + 1);
 	ft_strlcpy(env->value, &str[i + 1], ft_strlen(str) - i);
-	//printf(PINK "KEY => { %s } | VALUE => { %s }\n" RESET_COLOR, env->key, env->value);
 	return (ft_lstnew(env));
 }
 

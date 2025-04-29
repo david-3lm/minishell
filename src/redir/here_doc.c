@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 16:21:37 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/04/24 12:30:07 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/04/29 18:10:09 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,15 +95,14 @@ int	manage_here_doc(t_redir redir, t_cmd_table *table)
 		table->error_code = DUP_ERROR;
 		error_handler(table->error_code);
 	}
-	// close(table->red_files[READ_E]);
 	return (table->red_files[READ_E]);
 }
 
 bool	is_heredoc(t_list *redir_lst)
 {
-	t_redir *redir;
+	t_redir	*redir;
 	t_list	*copy;
-	
+
 	copy = redir_lst;
 	while (copy != NULL)
 	{
