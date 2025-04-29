@@ -16,6 +16,8 @@
 # include <stdio.h>
 # include <term.h>
 # include <signal.h>
+# include <fcntl.h>
+# include <sys/wait.h>
 
 int	cd_home(t_cmd_table *table);
 int	bi_cd(t_cmd_table *table, t_cmd *cmd);

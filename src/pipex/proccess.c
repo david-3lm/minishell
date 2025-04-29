@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 12:05:04 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/04/28 19:54:05 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/04/29 17:31:27 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ int	pipex_proccess(t_cmd *cmd, t_cmd_table *table)
 	}
 	if (pid == 0)
 	{
+		// signal(SIGQUIT, SIG_DFL);
 		close(table->pipe_fd[READ_E]);
 		if (dup2(table->pipe_fd[WRITE_E], STDOUT_FILENO) == -1)
 		{

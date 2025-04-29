@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 11:45:46 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/04/29 15:32:08 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/04/29 17:31:33 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	last_command_exec(t_cmd *cmd, t_cmd_table *table)
 	}
 	if (pid == 0)
 	{
-		// exit(42);
+		// signal(SIGQUIT, SIG_DFL);
 		printf("ultimo comando \n");
 		path_exec(cmd, table);
 	}

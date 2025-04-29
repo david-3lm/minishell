@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/23 23:36:35 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/04/25 14:57:42 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/04/29 17:30:19 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,20 @@
 # define PIPE_ERROR 22
 # define EXIT_ERROR 255
 
-extern int g_heredoc;
+// pipex
+# define ERROR_E 2
+# define WRITE_E 1
+# define READ_E	 0
+
+# define SPACE ' '
+
+# define EXIT_SUCCESS 0
+# define EXIT_FAILURE 1
+# define R_BYTES 1
+
+# define EXIT_DEFAULT_O 2
+# define EXIT_HEREDOC_O 3
+
+extern int	g_heredoc;
 
 #endif

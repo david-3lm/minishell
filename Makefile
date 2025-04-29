@@ -6,7 +6,7 @@ LIB = $(LIB_DIR)/libft.a
 MAIN_HEADER = ./inc/minishell.h
 HEADERS = ./inc/pipex.h ./inc/defines.h ./inc/minishell.h ./inc/structs.h 
 CC = gcc
-CFLAGS = -Wall -Werror -Wextra -g3 #-fsanitize=address 
+CFLAGS = -Wall -Werror -Wextra -g3 
 RM = rm -f
 
 # COLORES
@@ -21,7 +21,7 @@ CIAN = \e[7;36m
 all: $(NAME) $(CLIN)
 
 $(NAME): $(OBJ) $(LIB)
-	$(CC) $(OBJ) $(LIB) -o $(NAME) -lreadline
+	$(CC) -fsanitize=address $(OBJ) $(LIB) -o $(NAME) -lreadline
 
 $(LIB):
 	@$(MAKE) -C $(LIB_DIR)
