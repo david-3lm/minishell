@@ -202,7 +202,7 @@ char	*check_expansion(char *token, t_cmd_table *table, t_tok *tok)
 			if (token[i] == '?')
 			{
 				printf("anterior error code --> %d \n", table->error_code);
-				return (ft_itoa(table->error_code));
+				return (NULL);
 			}
 			while (token[i] && (ft_isalnum(token[i]) || token[i] == '_'))
 				i++;
@@ -275,6 +275,8 @@ void	add_cmds(t_token_list *tok, t_cmd_table **table)
 			return ;
 		new_token->type = token_content->type;
 		new_token->value = check_expansion(token_content->value, *table, token_content);
+		if (!new_token->value)
+			new_token->type = VARIABLE;
 		ft_lstadd_back(&(current_cmd->tokens), ft_lstnew(new_token));
 		if (token_content->type == PIPE || token_content->type == REDIR)
 			current_cmd = NULL;
