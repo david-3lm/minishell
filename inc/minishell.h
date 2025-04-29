@@ -88,6 +88,7 @@ int	count_char(char *str, char c);
 void	add_token(t_token_list *list, char *value);
 t_tok_type get_token_type(t_list *cmd);
 bool	is_command(t_cmd cmd);
+bool	is_str(t_cmd cmd);
 bool	is_pipe(t_cmd cmd);
 bool	is_redir(t_cmd cmd);
 void	debug(t_token_list *list);

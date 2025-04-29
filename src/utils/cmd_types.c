@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 16:37:57 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/04/28 19:41:00 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/04/29 15:32:40 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,19 @@ bool	is_command(t_cmd cmd)
 	token_list = cmd.tokens;
 	token = (t_tok *)token_list->content;
 	if (token && token->type == COMMAND)
+		return (true);
+	else
+		return (false);
+}
+
+bool	is_str(t_cmd cmd)
+{
+	t_tok 	*token;
+	t_list	*token_list;
+
+	token_list = cmd.tokens;
+	token = (t_tok *)token_list->content;
+	if (token && token->type == STRING)
 		return (true);
 	else
 		return (false);

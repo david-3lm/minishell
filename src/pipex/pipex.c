@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 11:45:46 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/04/28 19:06:42 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/04/29 15:32:08 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,9 +85,14 @@ int	execute_cmd_table(t_cmd_table *table)
 	while (cmd_list)
 	{
 		cmd = (t_cmd *)cmd_list->content;
-		// printf("current cmd --> %s \n", ((t_tok *)cmd->tokens)->value );
 		if (is_command(*cmd))
 			table->error_code = handle_command(cmd, table, &cmd_index);
+		if (is_str(*cmd))
+		{
+			table->error_code = WRONG_CMD_ERROR;
+			error_handler(table->error_code);
+			return (table->error_code);
+		}
 		if (is_redir(*cmd))
 			cmd_list = cmd_list->next;
 		cmd_list = cmd_list->next;
