@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 16:37:57 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/02/28 13:13:21 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/04/28 19:41:00 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,23 @@
 	DONDE CONSULTO EL TIPO DE UN CMD JUNTAS, AL MENOS DE MOMENTO
  */
 
-t_tok_type	get_next_type(t_list *cmd)
+/* bool	is_pipe_correct(t_list *cmd_list)
 {
-	t_list *aux;
-	t_tok	*token;
-	
-	aux = cmd->next;
-	token = (t_tok *)aux->content;
-	return (token->type);
+	t_list	*aux;
+	t_cmd	*current;
+	t_cmd	*next;
+	t_cmd	*two_next;
+
+	aux = cmd_list;
+	current = (t_cmd *)aux->content;
+	next = (t_cmd *)aux->next->content;
+	two_next = (t_cmd *)aux->next->next->content;
+	if (is_command(*current) && is_pipe(*next) && is_command(*two_next))
+		return (true);
+	else
+		return (false);
 }
+ */
 
 t_tok_type get_token_type(t_list *cmd)
 {
@@ -47,24 +55,6 @@ bool	is_command(t_cmd cmd)
 	else
 		return (false);
 }
-
-/* int	count_redirs(t_cmd_table *table)
-{
-	int		count;
-	t_list	*cmd_list;
-	t_cmd	*cmd;
-
-	count = 0;
-	cmd_list = table->cmds;
-	cmd = (t_cmd *)cmd_list->content;
-	while (cmd_list)
-	{	
-		if (((t_tok *)cmd->tokens)->type == REDIR)
-			count++;
-		cmd_list = cmd_list->next;
-	}
-	return (count);
-} */
 
 bool	is_pipe(t_cmd cmd)
 {

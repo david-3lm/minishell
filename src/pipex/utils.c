@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 12:50:13 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/04/25 14:42:11 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/04/28 19:50:12 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,23 +25,18 @@ char	**get_cmd(t_list *origin)
 	int	size;
 	int	i;
 
-	size = ft_lstsize(origin);
-	// printf("lst size ---> %d \n", size);
 	i = 1;
+	size = ft_lstsize(origin);
 	aux = origin;
-	// full_cmd = ((t_tok *)aux->content)->value;
 	full_cmd = get_value(aux->content);
 	while (i < size)
 	{
 		aux = aux->next;
-		printf("content --> %s \n", get_value(aux->content));
-		
 		temp = ft_strjoin(full_cmd, " ");
 		full_cmd = ft_strjoin(temp, get_value(aux->content));
 		free(temp);
 		i++;
 	}
-		// printf("full cmd --> %s \n ", full_cmd);
 	return (ft_split(full_cmd, ' '));
 }
 
@@ -68,6 +63,7 @@ void	path_exec(t_cmd *cmd, t_cmd_table *table)
 	i = 0;
 	full_cmd = get_cmd(cmd->tokens);
 	mypaths = get_paths();
+	try_fullpath(*full_cmd, full_cmd, mypaths);
 	while (mypaths[++i])
 	{
 		temp = ft_strjoin(mypaths[i], "/");
