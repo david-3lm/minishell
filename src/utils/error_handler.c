@@ -3,30 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   error_handler.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/23 23:50:11 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/04/30 11:40:55 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/04/30 16:16:32 by dlopez-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-void error_handler(int code)
+void	error_handler(int code)
 {
-	// TODO: con todos los errores, ajustar los mensajes de error
-	// TODO: ERROR si encuentra por ejemplo | | (dos pipes seguidos separados en dos tokens)
-	// llamar a esta funcion en todos los sitios donde hagamos gestion de errores
-	if (code == NO_ERROR)
-		return ;
 	if (code == MEM_ALLOC_ERROR)
 		ft_putendl_fd("¿Donde meto yo esto?", ERROR_E);
 	if (code == WRONG_CMD_ERROR)
-		ft_putendl_fd("💣 Gora Euskal Herria askatuta (reventó la kontxesi) 💣", ERROR_E);
+		ft_putendl_fd("💣 Gora Euskal Herria askatuta (reventó la kontxesi) 💣",
+			ERROR_E);
 	if (code == DUP_ERROR)
 		ft_putendl_fd("Error con el DUP (qué es eso?)\n", STDERR_FILENO);
 	if (code == FORK_ERROR)
-		ft_putendl_fd("Error con el fork 🍝 (te quedas con hambre)", STDERR_FILENO);
+		ft_putendl_fd("Error con el fork 🍝 (con hambre)", STDERR_FILENO);
 	if (code == OPEN_ERROR)
 		ft_putendl_fd("Error al abrir algo", STDERR_FILENO);
 	if (code == CLOSE_ERROR)

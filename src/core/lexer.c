@@ -6,7 +6,7 @@
 /*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 19:16:08 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/04/27 12:33:00 by dlopez-l         ###   ########.fr       */
+/*   Updated: 2025/04/30 16:13:47 by dlopez-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,6 @@ void	lexer_split(char *line, t_token_list *list)
 	int		start;
 	bool	in_quote;
 	char	quote_char;
-	char	*token;
 
 	i = 0;
 	start = 0;
@@ -73,37 +72,12 @@ void	lexer_split(char *line, t_token_list *list)
 	quote_char = '\0';
 	while (line[i] != '\0')
 	{
-		if (is_quote(line[i]))
-		{
-			if (!in_quote)
-			{
-				in_quote = true;
-				quote_char = line[i];
-			}
-			else if (line[i] == quote_char)
-			{
-				in_quote = false;
-				quote_char = '\0';
-			}
-		}
-		if ((line[i] == ' ' || line[i] == '\t') && !in_quote)
-		{
-			if (i > start)
-			{
-				token = ft_substr(line, start, i - start);
-				add_token(list, token);
-				free(token);
-			}
-			start = i + 1;
-		}
+		update_quote_state(line[i], &in_quote, &quote_char);
+		if (is_separator(line[i]) && !in_quote)
+			handle_token_segment(line, list, &start, i);
 		i++;
 	}
-	if (i > start)
-	{
-		token = ft_substr(line, start, i - start);
-		add_token(list, token);
-		free(token);
-	}
+	handle_last_token(line, list, start, i);
 }
 
 t_error_code	lexer(char *input, t_list *envl)
@@ -112,7 +86,7 @@ t_error_code	lexer(char *input, t_list *envl)
 
 	if (!quotes_are_closed(input))
 	{
-		ft_putendl_fd("Error: mi bro no me ralles", 2);	
+		ft_putendl_fd("Error: mi bro no me ralles", 2);
 		return (2);
 	}
 	list = ft_calloc(1, sizeof(t_token_list));

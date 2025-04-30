@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_types.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 16:37:57 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/04/29 18:11:22 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/04/30 16:16:43 by dlopez-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-t_tok_type get_token_type(t_list *cmd)
+t_tok_type	get_token_type(t_list *cmd)
 {
 	t_tok	*token;
 
