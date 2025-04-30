@@ -40,6 +40,7 @@ int	bi_star(t_cmd_table *table, t_cmd *cmd);
 int	bi_unset(t_cmd_table *table, t_cmd *cmd);
 int	bi_weather(t_cmd_table *table, t_cmd *cmd);
 void	handle_signal(int signal);
+void	handle_interact(int signal);
 int	executor(t_cmd_table *table);
 int	quotes_are_closed(const char *input);
 void	purge_input(t_token_list *list, const char *str);

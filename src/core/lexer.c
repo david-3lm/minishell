@@ -6,7 +6,7 @@
 /*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 19:16:08 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/04/30 16:13:47 by dlopez-l         ###   ########.fr       */
+/*   Updated: 2025/04/30 19:29:41 by dlopez-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,8 @@ t_error_code	lexer(char *input, t_list *envl)
 {
 	t_token_list	*list;
 
+	signal(SIGINT, handle_interact);
+	signal(SIGQUIT, handle_interact);
 	if (!quotes_are_closed(input))
 	{
 		ft_putendl_fd("Error: mi bro no me ralles", 2);

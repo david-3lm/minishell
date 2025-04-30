@@ -6,7 +6,7 @@
 /*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 16:00:57 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/04/24 16:37:00 by dlopez-l         ###   ########.fr       */
+/*   Updated: 2025/04/30 19:31:20 by dlopez-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,4 +23,11 @@ void	handle_signal(int signal)
 		rl_replace_line("", 0);
 		rl_redisplay();
 	}
+}
+
+void	handle_interact(int signal)
+{
+	if (!g_heredoc && signal == SIGINT)
+		g_heredoc = 1;
+	write(1, "\n", 1);
 }
