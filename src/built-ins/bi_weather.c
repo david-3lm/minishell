@@ -16,21 +16,22 @@ int	bi_weather(t_cmd_table *table, t_cmd *cmd)
 {
 	int			pid;
 	t_list		*tok;
-	char		*command[];
+	char		*final;
+	const char	*command[] = {"curl", "wttr.in/", NULL};
 
 	(void)table;
-	command = {"curl", "wttr.in/", NULL};
+	final = "";
 	if (cmd->tokens->next)
 	{
 		tok = cmd->tokens->next;
-		command[1] = ft_strjoin(command[1], ((t_tok *)tok->content)->value);
+		final = ft_strjoin(command[1], ((t_tok *)tok->content)->value);
 	}
 	pid = fork();
 	if (pid < 0)
 		return (1);
 	else if (pid == 0)
 	{
-		execve("/usr/bin/curl", command, NULL);
+		execve("/usr/bin/curl", &final, NULL);
 		exit(1);
 	}
 	waitpid(pid, NULL, 0);

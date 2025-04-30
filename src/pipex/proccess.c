@@ -15,23 +15,23 @@
 void	save_original_fd(t_cmd_table *table)
 {
 	table->std_backup[READ_E] = dup(STDIN_FILENO);
-	check_dup_error(table->std_backup[READ_E]);
+	check_error(table->std_backup[READ_E], CHECK_DUP, table);
 	table->std_backup[WRITE_E] = dup(STDOUT_FILENO);
-	check_dup_error(table->std_backup[WRITE_E]);
+	check_error(table->std_backup[WRITE_E], CHECK_DUP, table);
 }
 
 void	restore_and_close_fds(t_cmd_table *table)
 {
-	int	close;
+	int	cl;
 
 	dup2(table->std_backup[READ_E], STDIN_FILENO);
 	check_error(table->std_backup[READ_E], CHECK_DUP, table);
 	dup2(table->std_backup[WRITE_E], STDOUT_FILENO);
 	check_error(table->std_backup[READ_E], CHECK_DUP, table);
-	close = close(table->std_backup[READ_E]);
-	check_error(close, CHECK_CLOSE, table);
-	close = close(table->std_backup[WRITE_E]);
-	check_error(close, CHECK_CLOSE, table);
+	cl = close(table->std_backup[READ_E]);
+	check_error(cl, CHECK_CLOSE, table);
+	cl = close(table->std_backup[WRITE_E]);
+	check_error(cl, CHECK_CLOSE, table);
 }
 
 int	pipex_proccess(t_cmd *cmd, t_cmd_table *table)

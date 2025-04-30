@@ -62,8 +62,3 @@ void	check_error(int value, int to_check, t_cmd_table *table)
 		error_handler(table->error_code);
 	}
 }
-
-void	check_pipe_error(int check, t_cmd_table *table)
-{
-	if (!check || )
-}
