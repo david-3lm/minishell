@@ -6,7 +6,16 @@
 		"utility": "c",
 		"libft.h": "c",
 		"unistd.h": "c",
-		"signal.h": "c"
+		"signal.h": "c",
+		"pipex.h": "c",
+		"wait.h": "c",
+		"fcntl.h": "c",
+		"string.h": "c",
+		"curses.h": "c",
+		"ncurses.h": "c",
+		"termios.h": "c",
+		"structs.h": "c",
+		"stdio.h": "c"
 	},
 	"C_Cpp.errorSquiggles": "disabled"
 }

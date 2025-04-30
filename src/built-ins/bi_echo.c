@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 19:03:41 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/04/29 14:18:41 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/04/30 12:33:44 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ void	print_lines(t_list *tok, int out, bool n_opt)
 	if (n_opt == false)
 		ft_putchar_fd('\n', STDOUT_FILENO);
 }
-
 
 int	bi_echo(t_cmd_table *table, t_cmd *cmd)
 {

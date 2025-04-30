@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 19:16:03 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/04/27 12:31:55 by dlopez-l         ###   ########.fr       */
+/*   Updated: 2025/04/30 12:33:15 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ char	*get_direction(t_tok *tok)
 {
 	if (!tok)
 		return (NULL);
-	printf(PINK "DIRECCION DEL TOK => %s CON TIPO %d %s \n", (tok->value), tok->type, RESET_COLOR);
 	if (tok->type != COMMAND && tok->type != STRING)
 		return (NULL);
 	return (tok->value);
@@ -144,7 +143,6 @@ t_cmd	*add_redir(t_list *tok_list, t_cmd_table **table)
 	if (tok_list->next)
 	{
 		redir->direction = get_direction((t_tok *)tok_list->next->content);
-		printf(PINK "DIRECCION DEL REDIR => %s %s\n", (redir->direction), RESET_COLOR);
 		if (!redir->direction)
 		{
 			free(redir);
@@ -193,6 +191,7 @@ char	*check_expansion(char *token, t_cmd_table *table, t_tok *tok)
 	if (!tok->expand)
 		return (ft_strdup(token));
 	result = ft_calloc(1, sizeof(char));
+	table->is_checker = false;
 	while (token[i])
 	{
 		if (token[i] == '$')
@@ -201,6 +200,7 @@ char	*check_expansion(char *token, t_cmd_table *table, t_tok *tok)
 			start = i;
 			if (token[i] == '?')
 			{
+				table->is_checker = true;
 				printf("anterior error code --> %d \n", table->error_code);
 				return (NULL);
 			}
@@ -261,12 +261,12 @@ void	add_cmds(t_token_list *tok, t_cmd_table **table)
 			else
 			{
 				current_cmd = malloc(sizeof(t_cmd));
-				current_cmd->tokens = NULL;
 				current_cmd->redirs = NULL;
 				current_cmd->builtin = builtin_arr(token_content->value);
 			}
 			if (!current_cmd)
 				return ;
+			current_cmd->tokens = NULL;
 			ft_lstadd_back(&(*table)->cmds, ft_lstnew(current_cmd));
 			(*table)->n_cmd += 1;
 		}
@@ -310,11 +310,22 @@ void	count_pipes(t_cmd_table *table)
 	}
 }
 
+void	clean_table(t_cmd_table *table)
+{
+	ft_lstclear(&(table->cmds), free);
+	ft_lstclear(&(table->redirs), free);
+	table->n_cmd = 0;
+	table->n_pipes = 0;	
+}
+
 t_error_code	parser(t_token_list *list, t_list *envl)
 {
-	t_cmd_table	*table;
+	static t_cmd_table	*table;
 
-	table = ft_calloc(1, sizeof(t_cmd_table));
+	if (!table)
+		table = ft_calloc(1, sizeof(t_cmd_table));
+	else
+		clean_table(table);
 	if (!table)
 		return (MEM_ALLOC_ERROR);
 	table->n_cmd = 0;
@@ -322,8 +333,5 @@ t_error_code	parser(t_token_list *list, t_list *envl)
 	add_cmds(list, &table);
 	debug_parser(table); //borrar
 	count_pipes(table);
-	if (table->error_code != NO_ERROR)
-		return (table->error_code);
-	table->error_code = NO_ERROR;
 	return (executor(table));
 }

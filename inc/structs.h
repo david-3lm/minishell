@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 12:16:00 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/04/22 18:50:46 by dlopez-l         ###   ########.fr       */
+/*   Updated: 2025/04/30 11:55:40 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCTS_H
 # define STRUCTS_H
 # include "../libimp/libft.h"
+# include <stdbool.h>
 
 /* Enum to get he type of the tokens*/
 typedef enum tok_type
@@ -84,7 +85,7 @@ typedef struct s_cmd_table
 	int		**pipes;
 	int		n_pipes;
 	t_list	*pids;
-	int		return_val;
+	bool	is_checker;
 
 	// ESTO LO HA TOCADO CAROL
 	// redirs = (t_redir *) content

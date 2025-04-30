@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 12:05:04 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/04/30 11:09:18 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/04/30 11:40:22 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void	restore_and_close_fds(t_cmd_table *table)
 	dup2(table->std_backup[WRITE_E], STDOUT_FILENO);
 	check_error(table->std_backup[READ_E], CHECK_DUP, table);
 	cl = close(table->std_backup[READ_E]);
+	printf("valor de cl ---- %d \n", cl);
 	check_error(cl, CHECK_CLOSE, table);
 	cl = close(table->std_backup[WRITE_E]);
 	check_error(cl, CHECK_CLOSE, table);

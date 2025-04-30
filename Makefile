@@ -17,11 +17,11 @@ YELLOW = \e[1;33m
 BLUE = \033[0;34m
 CIAN = \e[7;36m
 
-
+#-fsanitize=address
 all: $(NAME) $(CLIN)
 
 $(NAME): $(OBJ) $(LIB)
-	$(CC) -fsanitize=address $(OBJ) $(LIB) -o $(NAME) -lreadline
+	$(CC) $(OBJ) $(LIB) -o $(NAME) -lreadline
 
 $(LIB):
 	@$(MAKE) -C $(LIB_DIR)

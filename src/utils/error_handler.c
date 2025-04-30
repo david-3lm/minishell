@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/23 23:50:11 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/04/30 11:06:19 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/04/30 11:40:55 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void error_handler(int code)
 
 void	check_error(int value, int to_check, t_cmd_table *table)
 {
-	if (!value || value == CHECK_VALUE)
+	if (value == CHECK_VALUE)
 	{
 		if (to_check == CHECK_CLOSE)
 			table->error_code = CLOSE_ERROR;
