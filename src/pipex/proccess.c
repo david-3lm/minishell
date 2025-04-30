@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 12:05:04 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/04/29 18:08:43 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/04/30 11:09:18 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,32 +15,30 @@
 void	save_original_fd(t_cmd_table *table)
 {
 	table->std_backup[READ_E] = dup(STDIN_FILENO);
+	check_dup_error(table->std_backup[READ_E]);
 	table->std_backup[WRITE_E] = dup(STDOUT_FILENO);
-	if (!table->std_backup[READ_E] || !table->std_backup[WRITE_E])
-	{
-		table->error_code = DUP_ERROR;
-		error_handler(table->error_code);
-	}
+	check_dup_error(table->std_backup[WRITE_E]);
 }
 
 void	restore_and_close_fds(t_cmd_table *table)
 {
-	if ((dup2(table->std_backup[READ_E], STDIN_FILENO) == -1)|| (dup2(table->std_backup[WRITE_E], STDOUT_FILENO) == -1))
-	{
-		table->error_code = DUP_ERROR;
-		error_handler(table->error_code);
-	}
-	if (close(table->std_backup[READ_E]) == -1 || close(table->std_backup[WRITE_E]) == -1)
-	{
-		table->error_code = CLOSE_ERROR;
-		error_handler(table->error_code);
-	}
+	int	close;
+
+	dup2(table->std_backup[READ_E], STDIN_FILENO);
+	check_error(table->std_backup[READ_E], CHECK_DUP, table);
+	dup2(table->std_backup[WRITE_E], STDOUT_FILENO);
+	check_error(table->std_backup[READ_E], CHECK_DUP, table);
+	close = close(table->std_backup[READ_E]);
+	check_error(close, CHECK_CLOSE, table);
+	close = close(table->std_backup[WRITE_E]);
+	check_error(close, CHECK_CLOSE, table);
 }
 
 int	pipex_proccess(t_cmd *cmd, t_cmd_table *table)
 {
 	pid_t	pid;
 
+	// TODO: cambiar a funcion de check error
 	if (pipe(table->pipe_fd) == -1)
 	{
 		table->error_code = PIPE_ERROR;

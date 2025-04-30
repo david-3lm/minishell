@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/23 23:36:35 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/04/29 17:30:19 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/04/30 11:05:28 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,13 @@
 
 # define EXIT_DEFAULT_O 2
 # define EXIT_HEREDOC_O 3
+
+# define CHECK_VALUE -1
+# define CHECK_DUP 0
+# define CHECK_CLOSE 1
+# define CHECK_PIPE 2
+# define CHECK_FORK 3
+# define CHECK_OPEN 4
 
 extern int	g_heredoc;
 

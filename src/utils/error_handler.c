@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/23 23:50:11 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/04/25 14:59:01 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/04/30 11:06:19 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,4 +43,27 @@ void error_handler(int code)
 		ft_putendl_fd("Redireccion erronea", ERROR_E);
 	if (code == UNKNOWN_ERROR)
 		ft_putendl_fd("Ni kontxesi sabe qué ha ido mal ✨ ostia ✨", ERROR_E);
+}
+
+void	check_error(int value, int to_check, t_cmd_table *table)
+{
+	if (!value || value == CHECK_VALUE)
+	{
+		if (to_check == CHECK_CLOSE)
+			table->error_code = CLOSE_ERROR;
+		if (to_check == CHECK_OPEN)
+			table->error_code = OPEN_ERROR;
+		if (to_check == CHECK_DUP)
+			table->error_code = DUP_ERROR;
+		if (to_check == CHECK_PIPE)
+			table->error_code = PIPE_ERROR;
+		if (to_check == CHECK_FORK)
+			table->error_code = FORK_ERROR;
+		error_handler(table->error_code);
+	}
+}
+
+void	check_pipe_error(int check, t_cmd_table *table)
+{
+	if (!check || )
 }
