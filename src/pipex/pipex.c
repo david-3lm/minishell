@@ -25,7 +25,6 @@ int	last_command_exec(t_cmd *cmd, t_cmd_table *table)
 	if (pid == 0)
 	{
 		signal(SIGQUIT, SIG_DFL);
-		printf("ultimo comando \n");
 		path_exec(cmd, table);
 	}
 	// if (signal(SIGINT, SIG_IGN) == SIG_ERR)

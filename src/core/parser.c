@@ -331,7 +331,7 @@ t_error_code	parser(t_token_list *list, t_list *envl)
 	table->n_cmd = 0;
 	table->envv = envl;
 	add_cmds(list, &table);
-	debug_parser(table); //borrar
+	// debug_parser(table); //borrar
 	count_pipes(table);
 	return (executor(table));
 }

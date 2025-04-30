@@ -17,8 +17,5 @@ int	executor(t_cmd_table *table)
 	save_original_fd(table);
 	if (table->is_checker == false)
 		table->error_code = execute_cmd_table(table);
-	// restore_and_close_fds(table);
-	//TODO: borrar la siguiente linea
-	printf("error code executor --> %d \n", table->error_code);
 	return (table->error_code);
 }

@@ -47,7 +47,6 @@ void	debug(t_token_list *list)
 int	main(int argc, char **argv, char **envp)
 {
 	char				*rl;
-	t_error_code		code;
 	t_list				*envl;
 
 	(void)argc;
@@ -66,9 +65,9 @@ int	main(int argc, char **argv, char **envp)
 		}
 		if (*rl) // solo guarda en el historial si hay algo escrito
 			add_history(rl);
-		code = lexer(rl, envl);
+		lexer(rl, envl);
 		free(rl);
-		ft_printf(PINK "main => %d\n" RESET_COLOR, code);
+		//ft_printf(PINK "main => %d\n" RESET_COLOR, code);
 	}
 	return (0);
 }

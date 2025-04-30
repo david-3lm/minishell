@@ -29,7 +29,6 @@ void	restore_and_close_fds(t_cmd_table *table)
 	dup2(table->std_backup[WRITE_E], STDOUT_FILENO);
 	check_error(table->std_backup[READ_E], CHECK_DUP, table);
 	cl = close(table->std_backup[READ_E]);
-	printf("valor de cl ---- %d \n", cl);
 	check_error(cl, CHECK_CLOSE, table);
 	cl = close(table->std_backup[WRITE_E]);
 	check_error(cl, CHECK_CLOSE, table);

@@ -3,7 +3,6 @@
 # include "../libimp/libft.h"
 # include "./structs.h"
 # include "./defines.h"
-# include "./pipex.h"
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <sys/types.h>
@@ -44,7 +43,6 @@ void	debug(t_token_list *list);
 int	main(int argc, char **argv, char **envp);
 void error_handler(int code);
 void	check_error(int value, int to_check, t_cmd_table *table);
-void	check_pipe_error(int check, t_cmd_table *table);
 t_tok_type	get_ttype(char *tok);
 bool	is_quote(char c);
 int	count_quotes(char *str);
@@ -65,6 +63,7 @@ char	*ft_strjoin_free(char *s1, char *s2);
 char	*check_expansion(char *token, t_cmd_table *table, t_tok *tok);
 void	add_cmds(t_token_list *tok, t_cmd_table **table);
 void	count_pipes(t_cmd_table *table);
+void	clean_table(t_cmd_table *table);
 t_error_code	parser(t_token_list *list, t_list *envl);
 int	quotes_are_closed(const char *input);
 void	purge_input(t_token_list *list, const char *str);

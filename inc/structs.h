@@ -129,7 +129,6 @@ typedef struct s_env
 	char	*value;
 }	t_env;
 
-
 /*ERROR CODES*/
 typedef enum e_error_code
 {
