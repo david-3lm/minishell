@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 11:45:46 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/04/29 18:05:51 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/04/30 13:00:21 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,12 @@ int	last_command_exec(t_cmd *cmd, t_cmd_table *table)
 	}
 	if (pid == 0)
 	{
-		// signal(SIGQUIT, SIG_DFL);
+		signal(SIGQUIT, SIG_DFL);
 		printf("ultimo comando \n");
 		path_exec(cmd, table);
 	}
+	// if (signal(SIGINT, SIG_IGN) == SIG_ERR)
+	// 	perror("Signal");
 	return (table->error_code);
 }
 
@@ -94,6 +96,7 @@ int	execute_cmd_table(t_cmd_table *table)
 		cmd_list = cmd_list->next;
 	}
 	close_red_files(table->red_files);
+	restore_and_close_fds(table);
 	while (waitpid(-1, &status, 0) != -1)
 		continue ;
 	if (WIFSIGNALED(status))
