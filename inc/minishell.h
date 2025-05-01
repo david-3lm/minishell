@@ -105,7 +105,7 @@ t_tok	*copy_and_expand(t_tok *orig, t_cmd_table *table);
 bool	process_token(t_cmd **current_cmd, t_list *curr_t, t_cmd_table **table);
 char	*get_env_value(char *var_name, t_list *env_lst);
 char	*expand_variable(char *token, int *i, t_cmd_table *table);
-char	*append_plain_text(char *token, int *i, char *result);
+char	*append_plain_text(char *token, int *i);
 char	*check_expansion(char *token, t_cmd_table *table, t_tok *tok);
 t_redir	*alloc_redir(void);
 void	attach_redir(t_cmd *cmd, t_redir *redir, t_cmd_table *table);

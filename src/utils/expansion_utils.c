@@ -6,7 +6,7 @@
 /*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 12:01:42 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/05/01 13:36:48 by dlopez-l         ###   ########.fr       */
+/*   Updated: 2025/05/01 13:52:59 by dlopez-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,14 +47,14 @@ char	*expand_variable(char *token, int *i, t_cmd_table *table)
 	return (ft_strdup(""));
 }
 
-char	*append_plain_text(char *token, int *i, char *result)
+char	*append_plain_text(char *token, int *i)
 {
 	int	start;
 
 	start = *i;
 	while (token[*i] && token[*i] != '$')
 		(*i)++;
-	return (ft_strjoin(result, ft_substr(token, start, *i - start)));
+	return (ft_substr(token, start, *i - start));
 }
 
 char	*check_expansion(char *token, t_cmd_table *table, t_tok *tok)
@@ -73,7 +73,7 @@ char	*check_expansion(char *token, t_cmd_table *table, t_tok *tok)
 		if (token[i] == '$')
 			expanded = expand_variable(token, &i, table);
 		else
-			expanded = append_plain_text(token, &i, result);
+			expanded = append_plain_text(token, &i);
 		if (!expanded && table->is_checker)
 			return (NULL);
 		result = ft_strjoin_free(result, expanded);
