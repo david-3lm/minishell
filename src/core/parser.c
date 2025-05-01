@@ -6,7 +6,7 @@
 /*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 19:16:03 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/04/30 17:02:45 by dlopez-l         ###   ########.fr       */
+/*   Updated: 2025/05/01 11:59:50 by dlopez-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,11 +101,11 @@ char	*check_expansion(char *token, t_cmd_table *table, t_tok *tok)
 	t_env	*env;
 	t_list	*env_lst;
 
-	i = 0;
 	if (!tok->expand)
 		return (ft_strdup(token));
 	result = ft_calloc(1, sizeof(char));
 	table->is_checker = false;
+	i = 0;
 	while (token[i])
 	{
 		if (token[i] == '$')

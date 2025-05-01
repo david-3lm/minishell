@@ -3,25 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   envv.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 16:28:50 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/04/29 17:46:38 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/05/01 11:46:52 by dlopez-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
-
-void	debug_env(t_list *env)
-{
-	t_env	*e;
-	// TODO: eliminar esta funcion y donde se la llama
-
-	if (env == NULL || env->content == NULL)
-		return ;
-	e = (t_env *)env->content;
-	printf(PINK "KEY => { %s } | VALUE => { %s }" RESET_COLOR, e->key, e->value);
-}
 
 t_list	*get_env(char *str)
 {
