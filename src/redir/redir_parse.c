@@ -6,7 +6,7 @@
 /*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/30 16:53:31 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/04/30 17:01:02 by dlopez-l         ###   ########.fr       */
+/*   Updated: 2025/05/01 13:40:04 by dlopez-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,16 +21,6 @@ t_cmd	*alloc_cmd(void)
 		return (NULL);
 	cmd->redirs = NULL;
 	return (cmd);
-}
-
-t_redir	*alloc_redir(void)
-{
-	t_redir	*redir;
-
-	redir = malloc(sizeof(t_redir));
-	if (!redir)
-		return (NULL);
-	return (redir);
 }
 
 bool	set_redir_type(t_redir *redir, const char *val, t_cmd_table *table)
@@ -75,8 +65,25 @@ bool	set_redir_direction(t_redir *red, t_list *tok_l, t_cmd_table *table)
 	return (true);
 }
 
-void	attach_redir(t_cmd *cmd, t_redir *redir, t_cmd_table *table)
+/// @brief Esta funcion crea un comando pero solo rellena redireccion
+/// @param tok_list una referencia al token que contiene el <<, >>, ...
+/// @return el comando creado
+t_cmd	*add_redir(t_list *tok_list, t_cmd_table **table)
 {
-	ft_lstadd_back(&cmd->redirs, ft_lstnew(redir));
-	ft_lstadd_back(&table->redirs, ft_lstnew(redir));
+	t_redir	*redir;
+	t_cmd	*cmd;
+	t_tok	*tok;
+
+	tok = (t_tok *)tok_list->content;
+	if (!tok)
+		return (NULL);
+	cmd = alloc_cmd();
+	redir = alloc_redir();
+	if (!cmd || !redir)
+		return (NULL);
+	if (!set_redir_type(redir, tok->value, *table)
+		|| !set_redir_direction(redir, tok_list, *table))
+		return (NULL);
+	attach_redir(cmd, redir, *table);
+	return (cmd);
 }

@@ -6,7 +6,7 @@
 /*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/30 16:35:13 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/04/30 16:52:31 by dlopez-l         ###   ########.fr       */
+/*   Updated: 2025/05/01 13:36:57 by dlopez-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ t_cmd	*create_or_redir_cmd(t_list *current_token, t_cmd_table **table)
 	tc = (t_tok *)current_token->content;
 	if (tc->type == REDIR)
 		return (add_redir(current_token, table));
-
 	cmd = malloc(sizeof(t_cmd));
 	if (!cmd)
 		return (NULL);

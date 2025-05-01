@@ -6,74 +6,11 @@
 /*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 19:16:03 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/05/01 12:00:59 by dlopez-l         ###   ########.fr       */
+/*   Updated: 2025/05/01 13:39:05 by dlopez-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
-
-/// @brief Esta funcion devuelve la direccion de la redireccion
-/// @param tok el token siguiente al que esta trabajando
-/// @return char * de la direccion
-char	*get_direction(t_tok *tok)
-{
-	if (!tok)
-		return (NULL);
-	if (tok->type != COMMAND && tok->type != STRING)
-		return (NULL);
-	return (tok->value);
-}
-
-/// @brief Da el tamaño del redir
-/// @param value el string del redir
-/// @return cuantos '<' o '>' tiene el redir
-int	size_redir(char *value)
-{
-	int		i;
-	char	redir;
-
-	i = 0;
-	redir = '\0';
-	while (value[i])
-	{
-		if (!redir && (value[i] == '<' || value[i] == '>'))
-		{
-			if (value[i] == '<')
-				redir = value[i];
-			else if (value[i] == '>')
-				redir = value[i];
-		}
-		i++;
-	}
-	if (count_char(value, '<') && count_char(value, '>'))
-		return (-1);
-	return (count_char(value, redir));
-}
-
-/// @brief Esta funcion crea un comando pero solo rellena redireccion
-/// @param tok_list una referencia al token que contiene el <<, >>, ...
-/// @return el comando creado
-t_cmd	*add_redir(t_list *tok_list, t_cmd_table **table)
-{
-	t_redir	*redir;
-	t_cmd	*cmd;
-	t_tok	*tok;
-
-	tok = (t_tok *)tok_list->content;
-	if (!tok)
-		return (NULL);
-	cmd = alloc_cmd();
-	redir = alloc_redir();
-	if (!cmd || !redir)
-		return (NULL);
-
-	if (!set_redir_type(redir, tok->value, *table)
-		|| !set_redir_direction(redir, tok_list, *table))
-		return (NULL);
-
-	attach_redir(cmd, redir, *table);
-	return (cmd);
-}
 
 char	*ft_strjoin_free(char *s1, char *s2)
 {
@@ -90,31 +27,6 @@ char	*ft_strjoin_free(char *s1, char *s2)
 	free(s2);
 	return (joined);
 }
-
-char	*check_expansion(char *token, t_cmd_table *table, t_tok *tok)
-{
-	char	*result;
-	char	*expanded;
-	int		i;
-
-	if (!tok->expand)
-		return (ft_strdup(token));
-	result = ft_calloc(1, sizeof(char));
-	table->is_checker = false;
-	i = 0;
-	while (token[i])
-	{
-		if (token[i] == '$')
-			expanded = expand_variable(token, &i, table);
-		else
-			expanded = append_plain_text(token, &i, result);
-		if (!expanded && table->is_checker)
-			return (NULL);
-		result = ft_strjoin_free(result, expanded);
-	}
-	return (result);
-}
-
 
 void	add_cmds(t_token_list *tok, t_cmd_table **table)
 {
@@ -181,7 +93,7 @@ t_error_code	parser(t_token_list *list, t_list *envl)
 	table->n_cmd = 0;
 	table->envv = envl;
 	add_cmds(list, &table);
-	debug_parser(table); //borrar
+	// debug_parser(table);
 	count_pipes(table);
 	return (executor(table));
 }

@@ -6,7 +6,7 @@
 /*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 12:01:42 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/05/01 12:03:57 by dlopez-l         ###   ########.fr       */
+/*   Updated: 2025/05/01 13:36:48 by dlopez-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ char	*expand_variable(char *token, int *i, t_cmd_table *table)
 	char	*var_value;
 	int		start;
 
-	start = ++(*i); // saltamos el '$'
+	start = ++(*i);
 	if (token[*i] == '?')
 	{
 		table->is_checker = true;
@@ -42,14 +42,41 @@ char	*expand_variable(char *token, int *i, t_cmd_table *table)
 		(*i)++;
 	var_name = ft_substr(token, start, *i - start);
 	var_value = get_env_value(var_name, table->envv);
-	return (ft_strdup(var_value ? var_value : ""));
+	if (var_value)
+		return (ft_strdup(var_value));
+	return (ft_strdup(""));
 }
 
 char	*append_plain_text(char *token, int *i, char *result)
 {
-	int	start = *i;
+	int	start;
 
+	start = *i;
 	while (token[*i] && token[*i] != '$')
 		(*i)++;
 	return (ft_strjoin(result, ft_substr(token, start, *i - start)));
+}
+
+char	*check_expansion(char *token, t_cmd_table *table, t_tok *tok)
+{
+	char	*result;
+	char	*expanded;
+	int		i;
+
+	if (!tok->expand)
+		return (ft_strdup(token));
+	result = ft_calloc(1, sizeof(char));
+	table->is_checker = false;
+	i = 0;
+	while (token[i])
+	{
+		if (token[i] == '$')
+			expanded = expand_variable(token, &i, table);
+		else
+			expanded = append_plain_text(token, &i, result);
+		if (!expanded && table->is_checker)
+			return (NULL);
+		result = ft_strjoin_free(result, expanded);
+	}
+	return (result);
 }
