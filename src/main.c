@@ -6,7 +6,7 @@
 /*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 11:23:27 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/04/30 16:20:55 by dlopez-l         ###   ########.fr       */
+/*   Updated: 2025/05/01 14:33:38 by dlopez-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ const char	*get_type_name(t_tok_type type)
 	return ("UNKNOWN");
 }
 
+//TODO: liberar los distintos tipos de t_list *
 int	main(int argc, char **argv, char **envp)
 {
 	char				*rl;
@@ -98,5 +99,6 @@ int	main(int argc, char **argv, char **envp)
 		lexer(rl, envl);
 		free(rl);
 	}
+	ft_lstclear(&envl, free);
 	return (0);
 }
