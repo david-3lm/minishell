@@ -6,7 +6,7 @@
 /*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 19:16:03 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/05/01 11:59:50 by dlopez-l         ###   ########.fr       */
+/*   Updated: 2025/05/01 12:00:59 by dlopez-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,12 +94,8 @@ char	*ft_strjoin_free(char *s1, char *s2)
 char	*check_expansion(char *token, t_cmd_table *table, t_tok *tok)
 {
 	char	*result;
-	char	*var_name;
-	char	*var_value;
+	char	*expanded;
 	int		i;
-	int		start;
-	t_env	*env;
-	t_list	*env_lst;
 
 	if (!tok->expand)
 		return (ft_strdup(token));
@@ -109,47 +105,16 @@ char	*check_expansion(char *token, t_cmd_table *table, t_tok *tok)
 	while (token[i])
 	{
 		if (token[i] == '$')
-		{
-			i++;
-			start = i;
-			if (token[i] == '?')
-			{
-				table->is_checker = true;
-				printf("anterior error code --> %d \n", table->error_code);
-				return (NULL);
-			}
-			while (token[i] && (ft_isalnum(token[i]) || token[i] == '_'))
-				i++;
-			var_name = ft_substr(token, start, i - start);
-			var_value = NULL;
-			env_lst = table->envv;
-			while (env_lst)
-			{
-				env = (t_env *)env_lst->content;
-				if (ft_strcmp(env->key, var_name) == 0)
-				{
-					var_value = env->value;
-					break ;
-				}
-				env_lst = env_lst->next;
-			}
-			if (var_value)
-				result = ft_strjoin_free(result, ft_strdup(var_value));
-			else
-				result = ft_strjoin_free(result, ft_strdup(""));
-			free(var_name);
-		}
+			expanded = expand_variable(token, &i, table);
 		else
-		{
-			start = i;
-			while (token[i] && token[i] != '$')
-				i++;
-			result = ft_strjoin_free(result,
-					ft_substr(token, start, i - start));
-		}
+			expanded = append_plain_text(token, &i, result);
+		if (!expanded && table->is_checker)
+			return (NULL);
+		result = ft_strjoin_free(result, expanded);
 	}
 	return (result);
 }
+
 
 void	add_cmds(t_token_list *tok, t_cmd_table **table)
 {
