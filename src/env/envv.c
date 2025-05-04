@@ -6,7 +6,7 @@
 /*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 16:28:50 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/05/01 11:46:52 by dlopez-l         ###   ########.fr       */
+/*   Updated: 2025/05/04 13:02:34 by dlopez-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 t_list	*get_env(char *str)
 {
 	t_env	*env;
+	t_list	*ret;
 	int		i;
 
 	i = 0;
@@ -27,7 +28,10 @@ t_list	*get_env(char *str)
 	env->value = malloc(ft_strlen(str) - i + 1);
 	ft_strlcpy(env->key, str, i + 1);
 	ft_strlcpy(env->value, &str[i + 1], ft_strlen(str) - i);
-	return (ft_lstnew(env));
+	ret = ft_lstnew(env);
+	free(env->key);
+	free(env->value);
+	return (ret);
 }
 
 t_list	*env_init(char **orig_envp)

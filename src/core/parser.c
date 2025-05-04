@@ -6,7 +6,7 @@
 /*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 19:16:03 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/05/01 14:26:58 by dlopez-l         ###   ########.fr       */
+/*   Updated: 2025/05/04 13:31:21 by dlopez-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,10 +93,7 @@ t_error_code	parser(t_token_list *list, t_list *envl)
 	table->n_cmd = 0;
 	table->envv = envl;
 	add_cmds(list, &table);
-	/*
-	LIBERAR LIST TOKEN Y SU CONTENIDO
-	*/
-	ft_lstclear(&(list->tokens), free);
+	free_token_list(list->tokens);
 	free(list);
 	debug_parser(table);
 	count_pipes(table);
