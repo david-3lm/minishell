@@ -98,7 +98,7 @@ t_error_code	parser(t_token_list *list, t_list *envl)
 	*/
 	ft_lstclear(&(list->tokens), free);
 	free(list);
-	// debug_parser(table);
+	debug_parser(table);
 	count_pipes(table);
 	return (executor(table));
 }

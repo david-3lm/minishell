@@ -38,7 +38,6 @@ void	add_token(t_token_list *list, char *value)
 		new_tok->type = PIPE_ERR;
 	}
 	ft_lstadd_back(&(list->tokens), ft_lstnew(new_tok));
-	free(new_tok);
 }
 
 void	update_quote_state(char c, bool *in_quote, char *quote_char)
