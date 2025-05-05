@@ -6,7 +6,7 @@
 /*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 11:23:27 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/05/04 13:28:57 by dlopez-l         ###   ########.fr       */
+/*   Updated: 2025/05/05 11:26:44 by dlopez-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,6 @@ int	main(int argc, char **argv, char **envp)
 		lexer(rl, envl);
 		free(rl);
 	}
-	// ft_lstclear(&envl, free);
+	free_env(envl);
 	return (0);
 }

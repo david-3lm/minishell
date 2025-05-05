@@ -6,7 +6,7 @@
 /*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 16:28:50 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/05/04 13:02:34 by dlopez-l         ###   ########.fr       */
+/*   Updated: 2025/05/05 11:21:24 by dlopez-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,6 @@ t_list	*get_env(char *str)
 	ft_strlcpy(env->key, str, i + 1);
 	ft_strlcpy(env->value, &str[i + 1], ft_strlen(str) - i);
 	ret = ft_lstnew(env);
-	free(env->key);
-	free(env->value);
 	return (ret);
 }
 

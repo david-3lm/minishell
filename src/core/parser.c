@@ -6,7 +6,7 @@
 /*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 19:16:03 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/05/04 13:31:21 by dlopez-l         ###   ########.fr       */
+/*   Updated: 2025/05/05 12:25:34 by dlopez-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,15 +34,16 @@ void	add_cmds(t_token_list *tok, t_cmd_table **table)
 	t_list	*current_token;
 
 	current_cmd = NULL;
-	while (tok->tokens)
+	current_token = tok->tokens;
+	while (current_token)
 	{
-		current_token = tok->tokens;
+		printf("AÑADIMOS TOKEN\n");
 		if (!process_token(&current_cmd, current_token, table))
 			return ;
-		if (((t_tok *)(tok->tokens->content))->type == PIPE
-			|| ((t_tok *)(tok->tokens->content))->type == REDIR)
+		if (((t_tok *)(current_token->content))->type == PIPE
+			|| ((t_tok *)(current_token->content))->type == REDIR)
 			current_cmd = NULL;
-		tok->tokens = tok->tokens->next;
+		current_token = current_token->next;
 	}
 }
 
@@ -72,22 +73,20 @@ void	count_pipes(t_cmd_table *table)
 	}
 }
 
-void	clean_table(t_cmd_table *table)
-{
-	ft_lstclear(&(table->cmds), free);
-	ft_lstclear(&(table->redirs), free);
-	table->n_cmd = 0;
-	table->n_pipes = 0;
-}
-
 t_error_code	parser(t_token_list *list, t_list *envl)
 {
 	static t_cmd_table	*table;
+	t_cmd_table			*aux;
 
 	if (!table)
 		table = ft_calloc(1, sizeof(t_cmd_table));
 	else
-		clean_table(table);
+	{
+		aux = ft_calloc(1, sizeof(t_cmd_table));
+		aux->error_code = table->error_code;
+		free(table);
+		table = aux;
+	}
 	if (!table)
 		return (MEM_ALLOC_ERROR);
 	table->n_cmd = 0;
