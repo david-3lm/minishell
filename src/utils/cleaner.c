@@ -6,7 +6,7 @@
 /*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/04 13:06:13 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/05/05 12:23:55 by dlopez-l         ###   ########.fr       */
+/*   Updated: 2025/05/05 12:31:46 by dlopez-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	free_redir_list(t_list *lst)
 		redir = (t_redir *)lst->content;
 		if (redir)
 		{
-			//free(redir->direction);
+			free(redir->direction);
 			free(redir);
 		}
 		free(lst);
@@ -62,7 +62,7 @@ void	free_cmd_list(t_list *lst)
 		if (cmd)
 		{
 			free_token_list(cmd->tokens);
-			// free_redir_list(cmd->redirs);
+			free_redir_list(cmd->redirs);
 			free(cmd);
 		}
 		free(lst);
@@ -97,6 +97,8 @@ void	free_cmd_table(t_cmd_table *table)
 	free_cmd_list(table->cmds);
 	// TODO: liberar `table->pipes` si llegas a usarlos carol
 	ft_lstclear(&table->pids, free);
+	//TODO: NO SE QUE HACER CON LOS REDIRS no se ni por donde empezar carol
+	//creo que hay un problema porque guardo la info de redir en token y en redirs, y es la misma referencia
 	free_redir_list(table->redirs);
 }
 
