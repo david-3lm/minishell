@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 12:50:13 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/04/29 18:07:14 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/05/06 18:31:17 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,9 @@ char	**get_cmd(t_list *origin)
 		free(temp);
 		i++;
 	}
-	return (ft_split(full_cmd, ' '));
+	// char **res = ft_split(full_cmd, ' ');
+	// free(full_cmd);
+	return res;
 }
 
 char	**get_paths(void)
