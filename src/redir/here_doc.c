@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 16:21:37 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/04/29 18:10:09 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/05/06 18:16:47 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,7 @@ void	write_here_doc(char *limit, t_cmd_table *table)
 	char	*new_limit;
 
 	infile = open(TMP_FILE, O_RDWR | O_CREAT | O_TRUNC, 0777);
-	if (infile == -1)
-	{
-		table->error_code = OPEN_ERROR;
-		error_handler(table->error_code);
-	}
+	check_error(infile, CHECK_OPEN, table);
 	new_limit = ft_new_limit(limit, table);
 	while (1)
 	{
@@ -53,20 +49,12 @@ void	write_here_doc(char *limit, t_cmd_table *table)
 		if (read_bytes == 0)
 			break ;
 		else if (read_bytes < 0 && !g_heredoc)
-		{
-			close(infile);
-			table->error_code = UNKNOWN_ERROR;
-			error_handler(table->error_code);
-		}
+			check_error(close(infile), CHECK_CLOSE, table);
 		if (g_heredoc == 1 || (ft_strncmp(new_limit, buf, read_bytes) == 0 ))
 			break ;
 		write(infile, buf, read_bytes);
 	}
-	if (close(infile) == -1)
-	{
-		table->error_code = CLOSE_ERROR;
-		error_handler(table->error_code);
-	}
+	check_error(close(infile), CHECK_CLOSE, table);
 }
 
 int	open_here_doc(t_cmd_table *table)
@@ -74,11 +62,7 @@ int	open_here_doc(t_cmd_table *table)
 	int	infile;
 
 	infile = open(TMP_FILE, O_RDONLY);
-	if (infile < 0)
-	{
-		table->error_code = OPEN_ERROR;
-		error_handler(table->error_code);
-	}
+	check_error(infile, CHECK_OPEN, table);
 	return (infile);
 }
 
@@ -90,26 +74,23 @@ int	manage_here_doc(t_redir redir, t_cmd_table *table)
 	g_heredoc = 0;
 	write_here_doc(limit, table);
 	table->red_files[READ_E] = open_here_doc(table);
-	if (dup2(table->red_files[READ_E], STDIN_FILENO) == -1)
+	/* if (dup2(table->red_files[READ_E], STDIN_FILENO) == -1)
 	{
 		table->error_code = DUP_ERROR;
 		error_handler(table->error_code);
-	}
+	} */
 	return (table->red_files[READ_E]);
 }
 
-bool	is_heredoc(t_list *redir_lst)
+bool	is_heredoc(t_list *list)
 {
 	t_redir	*redir;
-	t_list	*copy;
 
-	copy = redir_lst;
-	while (copy != NULL)
+	if (list != NULL)
 	{
-		redir = (t_redir *)copy->content;
+		redir = (t_redir *)list->content;
 		if (redir->type == RD_HD)
 			return (true);
-		copy = copy->next;
 	}
 	return (false);
 }

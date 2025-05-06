@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 12:16:00 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/04/30 11:55:40 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/05/06 18:08:39 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,6 @@ typedef struct s_cmd_table
 	bool	is_checker;
 
 	// ESTO LO HA TOCADO CAROL
-	// redirs = (t_redir *) content
 	int		std_backup[2];
 	int		pipe_fd[2];
 	int		red_files[2];

@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 11:45:46 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/04/30 13:00:21 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/05/06 18:19:50 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	last_command_exec(t_cmd *cmd, t_cmd_table *table)
 	return (table->error_code);
 }
 
-void	redir_manager(t_cmd_table *table, int type)
+/* void	redir_manager(t_cmd_table *table, int type)
 {
 	t_redir			*redir;
 
@@ -48,7 +48,7 @@ void	redir_manager(t_cmd_table *table, int type)
 		if (redir != NULL)
 			manage_redir_out(table, *redir);
 	}
-}
+} */
 
 int	handle_command(t_cmd *cmd, t_cmd_table *table, int *cmd_index)
 {
@@ -59,7 +59,6 @@ int	handle_command(t_cmd *cmd, t_cmd_table *table, int *cmd_index)
 	}
 	else
 	{
-		redir_manager(table, OUT_REDIR);
 		if (cmd->builtin)
 			cmd->builtin(table, cmd);
 		else
@@ -78,7 +77,8 @@ int	execute_cmd_table(t_cmd_table *table)
 	cmd_index = 0;
 	status = 0;
 	cmd_list = table->cmds;
-	redir_manager(table, IN_REDIR);
+	fill_redirs(table);
+	redir_dup(table);
 	while (cmd_list)
 	{
 		cmd = (t_cmd *)cmd_list->content;

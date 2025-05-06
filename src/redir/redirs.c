@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   redirs.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/16 10:52:37 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/04/27 12:33:53 by dlopez-l         ###   ########.fr       */
+/*   Updated: 2025/05/06 18:21:49 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-int	manage_redir_in(t_cmd_table *table, t_redir in_redir)
+/* int	manage_redir_in(t_cmd_table *table, t_redir in_redir)
 {
 	if (in_redir.type == RD_SIN)
 	{
@@ -32,26 +32,70 @@ int	manage_redir_in(t_cmd_table *table, t_redir in_redir)
 		table->red_files[READ_E] = manage_here_doc(in_redir, table);
 	// ¿estoy cerrando el READ_E?
 	return (table->red_files[READ_E]);
+}*/
+void	redir_dup(t_cmd_table *table)
+{
+	int	err;
+	if (table->red_files[READ_E] != 0)
+	{
+		err = dup2(table->red_files[READ_E], STDIN_FILENO);
+		check_error(err, CHECK_DUP, table);
+		err = close(table->red_files[READ_E]);
+		check_error(err, CHECK_CLOSE, table);
+	}
+	if (table->red_files[WRITE_E] != 0)
+	{
+		err = dup2(table->red_files[WRITE_E], STDOUT_FILENO);
+		check_error(err, CHECK_DUP, table);
+		err = close(table->red_files[WRITE_E]);
+		check_error(err, CHECK_CLOSE, table);
+	}
 }
 
-int	manage_redir_out(t_cmd_table *table, t_redir out_redir)
+void	manage_redir_out(t_cmd_table *table, t_redir out_redir)
 {
+	if (table->red_files[READ_E] < 0 || table->red_files[WRITE_E] < 0)
+		return ;
+	if (table->red_files[WRITE_E] != 0)
+		close(table->red_files[WRITE_E]);
 	if (out_redir.type == RD_SOUT)
 		table->red_files[WRITE_E] = open(out_redir.direction, O_WRONLY | O_CREAT | O_TRUNC, 0777);
 	else if (out_redir.type == RD_SOUT2)
-		table->red_files[WRITE_E] = open(out_redir.direction, O_WRONLY | O_CREAT | O_APPEND, 0777);
-	if (table->red_files[WRITE_E] == -1)
+		table->red_files[WRITE_E] = open(out_redir.direction, O_RDWR | O_CREAT | O_APPEND, 0777);
+	check_error(table->red_files[WRITE_E], CHECK_CLOSE, table);
+}
+
+void	manage_redir_in(t_cmd_table *table, t_redir in_redir)
+{
+	if (table->red_files[READ_E] < 0 || table->red_files[WRITE_E] < 0)
+		return ;
+	if (table->red_files[READ_E] != 0)
+		close(table->red_files[READ_E]);
+	if (in_redir.type == RD_SIN)
 	{
-		table->error_code = OPEN_ERROR;
-		error_handler(table->error_code);
+		table->red_files[READ_E] = open(in_redir.direction, O_RDONLY);
+		check_error(table->std_backup[READ_E], CHECK_OPEN, table);
 	}
-	else if (dup2(table->red_files[WRITE_E], STDOUT_FILENO) == -1)
+	else if (in_redir.type == RD_HD)
+		table->red_files[READ_E] = manage_here_doc(in_redir, table);
+}
+
+void	fill_redirs(t_cmd_table *table)
+{
+	t_redir	*redir;
+	t_list	*copy;
+
+	copy = table->redirs;
+	while (copy != NULL)
 	{
-		table->error_code = DUP_ERROR;
-		error_handler(table->error_code);
+		redir = (t_redir *)copy->content;
+		if(redir->type == RD_SIN || redir->type == RD_HD)
+			manage_redir_in(table, *redir);
+		if (redir->type == RD_SOUT || redir->type == RD_SOUT2)
+			manage_redir_out(table, *redir);
+		copy = copy->next;
 	}
-	printf(PINK "el outfile se ha abierto en --> %i %s \n", table->red_files[WRITE_E], RESET_COLOR);
-	return (table->red_files[WRITE_E]);
+	return ;
 }
 
 t_redir	*get_redir_in(t_list *list)
