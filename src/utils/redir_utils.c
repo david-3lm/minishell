@@ -6,7 +6,7 @@
 /*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 13:38:23 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/05/01 13:40:45 by dlopez-l         ###   ########.fr       */
+/*   Updated: 2025/05/06 11:13:13 by dlopez-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,13 @@ t_redir	*alloc_redir(void)
 
 void	attach_redir(t_cmd *cmd, t_redir *redir, t_cmd_table *table)
 {
+	t_redir	*aux;
+
+	aux = ft_calloc(1, sizeof(t_redir));
+	aux->direction = ft_strdup(redir->direction);
+	aux->type = redir->type;
 	ft_lstadd_back(&cmd->redirs, ft_lstnew(redir));
-	ft_lstadd_back(&table->redirs, ft_lstnew(redir));
+	ft_lstadd_back(&table->redirs, ft_lstnew(aux));
 }
 
 /// @brief Esta funcion devuelve la direccion de la redireccion
@@ -33,11 +38,14 @@ void	attach_redir(t_cmd *cmd, t_redir *redir, t_cmd_table *table)
 /// @return char * de la direccion
 char	*get_direction(t_tok *tok)
 {
+	char	*ret;
+
 	if (!tok)
 		return (NULL);
 	if (tok->type != COMMAND && tok->type != STRING)
 		return (NULL);
-	return (tok->value);
+	ret = ft_strdup(tok->value);
+	return (ret);
 }
 
 /// @brief Da el tamaño del redir
