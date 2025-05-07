@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 19:16:08 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/04/30 19:29:41 by dlopez-l         ###   ########.fr       */
+/*   Updated: 2025/05/07 14:47:14 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void	lexer_split(char *line, t_token_list *list)
 	handle_last_token(line, list, start, i);
 }
 
-t_error_code	lexer(char *input, t_list *envl)
+t_error_code	lexer(char *input, t_list **envl)
 {
 	t_token_list	*list;
 

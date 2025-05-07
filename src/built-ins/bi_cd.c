@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 19:03:41 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/05/07 14:07:04 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/05/07 14:52:12 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	ft_change_old_pwd(t_cmd_table **table)
 
 	old_pwd = mini_get_env(*table, "OLDPWD");
 	old_pwd->value = getcwd(old_pwd->value, 0);
-	change_token((*table)->envv, old_pwd);
+	change_token(*(*table)->envv, old_pwd);
 }
 
 int	ft_change_path(t_cmd_table **table, char *arg)

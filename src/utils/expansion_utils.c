@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansion_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 12:01:42 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/05/01 13:52:59 by dlopez-l         ###   ########.fr       */
+/*   Updated: 2025/05/07 14:53:58 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ char	*expand_variable(char *token, int *i, t_cmd_table *table)
 	while (token[*i] && (ft_isalnum(token[*i]) || token[*i] == '_'))
 		(*i)++;
 	var_name = ft_substr(token, start, *i - start);
-	var_value = get_env_value(var_name, table->envv);
+	var_value = get_env_value(var_name, *(table->envv));
 	if (var_value)
 		return (ft_strdup(var_value));
 	return (ft_strdup(""));

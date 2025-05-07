@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 11:23:27 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/05/05 11:26:44 by dlopez-l         ###   ########.fr       */
+/*   Updated: 2025/05/07 14:47:06 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ int	main(int argc, char **argv, char **envp)
 		}
 		if (*rl)
 			add_history(rl);
-		lexer(rl, envl);
+		lexer(rl, &envl);
 		free(rl);
 	}
 	free_env(envl);

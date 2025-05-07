@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 12:16:00 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/05/07 14:08:13 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/05/07 14:48:12 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ typedef struct s_cmd_table
 	int		pipe_fd[2];
 	int		red_files[2];
 	t_list	*redirs;
-	t_list	*envv;
+	t_list	**envv;
 	int		error_code;
 }			t_cmd_table;
 

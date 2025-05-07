@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 19:03:41 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/05/07 13:10:29 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/05/07 14:49:45 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	bi_unset(t_cmd_table **table, t_cmd *cmd)
 	int		i;
 
 	i = 0;
-	env_lst = (*table)->envv;
+	env_lst = *(*table)->envv;
 	printf("rompe aqui3333\n");
 	if (!(t_tok *)cmd->tokens->next)
 	{
@@ -43,7 +43,7 @@ int	bi_unset(t_cmd_table **table, t_cmd *cmd)
 		env = (t_env *)(env_lst->content);
 		if (ft_strncmp(to_unset, env->key, ft_strlen(to_unset)) == 0)
 		{
-			ft_lstdel_index(&((*table)->envv), i, del_env);
+			ft_lstdel_index(((*table)->envv), i, del_env);
 			break ;
 			// return (table->error_code);
 		}
@@ -51,7 +51,7 @@ int	bi_unset(t_cmd_table **table, t_cmd *cmd)
 		i++;
 	}
 	printf("rompe aqui\n");
-	printf("content:%p\n", ((t_env *)(*table)->envv->content)->key);
-	printf("el primer nodo es: %s \t y el siguiente es %s \n ", ((t_env *)(*table)->envv->content)->key, ((t_env *)(*table)->envv->next->content)->key);
+	// printf("content:%p\n", ((t_env *)(*table)->envv->content)->key);
+	// printf("el primer nodo es: %s \t y el siguiente es %s \n ", ((t_env *)(*table)->envv->content)->key, ((t_env *)(*table)->envv->next->content)->key);
 	return ((*table)->error_code);
 }
