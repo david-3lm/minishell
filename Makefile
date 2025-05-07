@@ -19,7 +19,7 @@ CIAN = \e[7;36m
 
 
 all: $(NAME) $(CLIN)
-
+#-fsanitize=address
 $(NAME): $(OBJ) $(LIB)
 	$(CC) $(OBJ) $(LIB) -fsanitize=address -o $(NAME) -lreadline
 
@@ -27,7 +27,7 @@ $(LIB):
 	@$(MAKE) -C $(LIB_DIR)
 
 %.o: %.c
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) -fsanitize=address -c $< -o $@
 
 clean:
 	$(RM) $(OBJ)

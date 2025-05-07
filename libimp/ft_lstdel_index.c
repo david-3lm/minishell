@@ -6,36 +6,42 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 15:27:01 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/04/22 15:56:09 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/05/07 14:17:01 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <stdio.h>
 
-void	ft_lstdel_index(t_list **lst, int index)
+
+void	ft_lstdel_index(t_list **lst, int index, void (*del)(void *))
 {
 	int		i;
-	t_list	*aux;
-	t_list	*to_delete;
+	t_list	*prev;
+	t_list	*curr;
 
-	if (index >= ft_lstsize(*lst))
+	if (!lst || !*lst || index < 0 || index >= ft_lstsize(*lst))
 		return ;
-	i = 0;
-	to_delete = *lst;
+	curr = *lst;
 	if (index == 0)
 	{
-		*lst = (*lst)->next;
-		return (free(to_delete->content));
+		*lst = curr->next;
+		ft_printf("hola\n");
+		printf("content222:%p\n", (*lst)->content);
+		ft_lstdelone(curr, del);
+		return ;
 	}
-	aux = NULL;
-	while (to_delete)
+	i = 0;
+	while (curr && i < index)
 	{
-		if (i == index)
-			break ;
-		aux = to_delete;
-		to_delete = to_delete->next;
+		prev = curr;
+		curr = curr->next;
 		i++;
 	}
-	aux->next = to_delete->next;
-	free(to_delete->content);
+	if (curr)
+	{
+		prev->next = curr->next;
+		ft_lstdelone(curr, del);
+	}
 }
+

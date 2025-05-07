@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 12:05:04 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/04/30 12:48:06 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/05/07 14:12:50 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,50 +34,50 @@ void	restore_and_close_fds(t_cmd_table *table)
 	check_error(cl, CHECK_CLOSE, table);
 }
 
-int	pipex_proccess(t_cmd *cmd, t_cmd_table *table)
+int	pipex_proccess(t_cmd *cmd, t_cmd_table **table)
 {
 	pid_t	pid;
 
 	// TODO: cambiar a funcion de check error
-	if (pipe(table->pipe_fd) == -1)
+	if (pipe((*table)->pipe_fd) == -1)
 	{
-		table->error_code = PIPE_ERROR;
-		error_handler(table->error_code);
+		(*table)->error_code = PIPE_ERROR;
+		error_handler((*table)->error_code);
 	}
 	pid = fork();
 	if (pid == -1)
 	{
-		table->error_code = FORK_ERROR;
-		error_handler(table->error_code);
+		(*table)->error_code = FORK_ERROR;
+		error_handler((*table)->error_code);
 	}
 	if (pid == 0)
 	{
 		signal(SIGQUIT, SIG_DFL);
-		close(table->pipe_fd[READ_E]);
-		if (dup2(table->pipe_fd[WRITE_E], STDOUT_FILENO) == -1)
+		close((*table)->pipe_fd[READ_E]);
+		if (dup2((*table)->pipe_fd[WRITE_E], STDOUT_FILENO) == -1)
 		{
-			table->error_code = DUP_ERROR;
-			error_handler(table->error_code);
+			(*table)->error_code = DUP_ERROR;
+			error_handler((*table)->error_code);
 		}
-		close(table->pipe_fd[WRITE_E]);
+		close((*table)->pipe_fd[WRITE_E]);
 		if (cmd->builtin)
 			exit(cmd->builtin(table, cmd));
-		path_exec(cmd, table);
+		path_exec(cmd, *table);
 	}
 	else
 	{
-		close(table->pipe_fd[WRITE_E]);
-		if (dup2(table->pipe_fd[READ_E], STDIN_FILENO) == -1)
+		close((*table)->pipe_fd[WRITE_E]);
+		if (dup2((*table)->pipe_fd[READ_E], STDIN_FILENO) == -1)
 		{
-			table->error_code = DUP_ERROR;
-			error_handler(table->error_code);
+			(*table)->error_code = DUP_ERROR;
+			error_handler((*table)->error_code);
 		}
-		close(table->pipe_fd[READ_E]);
+		close((*table)->pipe_fd[READ_E]);
 	}
 	if (signal(SIGINT, SIG_IGN) == SIG_ERR)
 		perror("Signal");
-	return (table->error_code);
-} 
+	return ((*table)->error_code);
+}
 
 int	try_fullpath(char *path, char **full_cmd, char * const *envp)
 {

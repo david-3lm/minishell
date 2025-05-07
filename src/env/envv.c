@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   envv.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 16:28:50 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/05/05 11:21:24 by dlopez-l         ###   ########.fr       */
+/*   Updated: 2025/05/07 12:57:20 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,21 +15,24 @@
 t_list	*get_env(char *str)
 {
 	t_env	*env;
-	t_list	*ret;
 	int		i;
+	char	*aux;
 
 	i = 0;
-	env = malloc(sizeof(t_env));
+	env = ft_calloc(1, sizeof(t_env));
 	if (!env)
 		return (NULL);
 	while (str[i] != '=')
 		i++;
-	env->key = malloc(i + 1);
-	env->value = malloc(ft_strlen(str) - i + 1);
-	ft_strlcpy(env->key, str, i + 1);
-	ft_strlcpy(env->value, &str[i + 1], ft_strlen(str) - i);
-	ret = ft_lstnew(env);
-	return (ret);
+	aux = ft_calloc(1, i + 1);
+	ft_strlcpy(aux, str, i + 1);
+	env->key = ft_strdup(aux);
+	free(aux);
+	aux = ft_calloc(1, ft_strlen(str) - i + 1);
+	ft_strlcpy(aux, &str[i + 1], ft_strlen(str) - i);
+	env->value = ft_strdup(aux);
+	free(aux);
+	return (ft_lstnew(env));
 }
 
 t_list	*env_init(char **orig_envp)
