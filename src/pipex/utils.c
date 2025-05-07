@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 12:50:13 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/05/06 18:31:17 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/05/07 10:56:22 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,14 @@ char	*get_value(void *token)
 	return (((t_tok *)token)->value);
 }
 
-char	**get_cmd(t_list *origin)
+char	**get_cmd(t_list *origin, int i)
 {
 	char	*full_cmd;
 	char	*temp;
 	t_list	*aux;
 	int		size;
-	int		i;
+	char	**res;
 
-	i = 1;
 	size = ft_lstsize(origin);
 	aux = origin;
 	full_cmd = get_value(aux->content);
@@ -33,13 +32,14 @@ char	**get_cmd(t_list *origin)
 	{
 		aux = aux->next;
 		temp = ft_strjoin(full_cmd, " ");
+		free(full_cmd);
 		full_cmd = ft_strjoin(temp, get_value(aux->content));
 		free(temp);
 		i++;
 	}
-	// char **res = ft_split(full_cmd, ' ');
-	// free(full_cmd);
-	return res;
+	res = ft_split(full_cmd, ' ');
+	free(full_cmd);
+	return (res);
 }
 
 char	**get_paths(void)
@@ -63,7 +63,7 @@ void	path_exec(t_cmd *cmd, t_cmd_table *table)
 	char	*executable;
 
 	i = 0;
-	full_cmd = get_cmd(cmd->tokens);
+	full_cmd = get_cmd(cmd->tokens, 1);
 	mypaths = get_paths();
 	try_fullpath(*full_cmd, full_cmd, mypaths);
 	while (mypaths[++i])
