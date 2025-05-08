@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 11:45:46 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/05/08 11:23:35 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/05/08 13:08:14 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,37 +18,14 @@ int	last_command_exec(t_cmd *cmd, t_cmd_table *table)
 
 	pid = fork();
 	if (pid == -1)
-	{
-		table->error_code = FORK_ERROR;
-		error_handler(table->error_code);
-	}
+		check_error(pid, CHECK_FORK, table);
 	if (pid == 0)
 	{
 		signal(SIGQUIT, SIG_DFL);
 		path_exec(cmd, table);
 	}
-	// if (signal(SIGINT, SIG_IGN) == SIG_ERR)
-	// 	perror("Signal");
 	return (table->error_code);
 }
-
-/* void	redir_manager(t_cmd_table *table, int type)
-{
-	t_redir			*redir;
-
-	if (type == IN_REDIR)
-	{
-		redir = get_redir_in(table->redirs);
-		if (redir != NULL)
-			manage_redir_in(table, *redir);
-	}
-	else if (type == OUT_REDIR)
-	{
-		redir = get_redir_out(table->redirs);
-		if (redir != NULL)
-			manage_redir_out(table, *redir);
-	}
-} */
 
 int	handle_command(t_cmd *cmd, t_cmd_table *table, int *cmd_index)
 {
@@ -96,6 +73,7 @@ int	execute_cmd_table(t_cmd_table *table)
 	}
 	close_red_files((table)->red_files);
 	restore_and_close_fds((table));
+	// esto me lo mando a otro lado
 	while (waitpid(-1, &status, 0) != -1)
 		continue ;
 	if (WIFSIGNALED(status))

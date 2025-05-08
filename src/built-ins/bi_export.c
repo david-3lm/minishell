@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 19:03:41 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/05/08 11:20:19 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/05/08 12:32:04 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,20 @@ bool	token_exists(t_list *env_list, char *str)
 void	change_token(t_list *env_list, t_env *env)
 {
 	t_list	*tmp;
+	t_env	*aux;
 
 	tmp = env_list;
 	while (tmp != NULL)
 	{
 		if (env->key != NULL && \
 			ft_strcmp(((t_env *)tmp->content)->key, env->key) == 0)
+		{
+			aux = tmp->content;
 			tmp->content = env;
+			free((aux)->key);
+			free((aux)->value);
+			free(aux);
+		}
 		tmp = tmp->next;
 	}
 }

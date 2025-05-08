@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 19:03:41 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/05/08 11:21:00 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/05/08 12:50:18 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,8 @@ int	bi_unset(t_cmd_table *table, t_cmd *cmd)
 
 	i = 0;
 	env_lst = *(table)->envv;
-	printf("rompe aqui3333\n");
 	if (!(t_tok *)cmd->tokens->next)
-	{
-		(table)->error_code = NO_ERROR;
-		return ((table)->error_code);
-	}
+		unset_error(UNKNOWN_ERROR);
 	to_unset = (char *)((t_tok *)cmd->tokens->next->content)->value;
 	while (env_lst != NULL)
 	{
@@ -45,13 +41,9 @@ int	bi_unset(t_cmd_table *table, t_cmd *cmd)
 		{
 			ft_lstdel_index(((table)->envv), i, del_env);
 			break ;
-			// return (table->error_code);
 		}
 		env_lst = env_lst->next;
 		i++;
 	}
-	printf("rompe aqui\n");
-	// printf("content:%p\n", ((t_env *)(*table)->envv->content)->key);
-	// printf("el primer nodo es: %s \t y el siguiente es %s \n ", ((t_env *)(*table)->envv->content)->key, ((t_env *)(*table)->envv->next->content)->key);
 	return ((table)->error_code);
 }

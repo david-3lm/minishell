@@ -3,14 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   error_handler.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/23 23:50:11 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/04/30 16:16:32 by dlopez-l         ###   ########.fr       */
+/*   Updated: 2025/05/08 12:50:55 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
+
+void	unset_error(int code)
+{
+	ft_putendl_fd("unset: not enough arguments", ERROR_E);
+	exit(code);
+}
 
 void	error_handler(int code)
 {

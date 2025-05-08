@@ -111,6 +111,7 @@ bool	is_command(t_cmd cmd);
 bool	is_str(t_cmd cmd);
 bool	is_pipe(t_cmd cmd);
 bool	is_redir(t_cmd cmd);
+void	unset_error(int code);
 void	error_handler(int code);
 void	check_error(int value, int to_check, t_cmd_table *table);
 char	*get_env_value(char *var_name, t_list *env_lst);
