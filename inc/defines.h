@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/23 23:36:35 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/04/30 11:05:28 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/05/08 19:07:47 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@
 # define CHECK_PIPE 2
 # define CHECK_FORK 3
 # define CHECK_OPEN 4
+# define CHECK_CMD 5
 
 extern int	g_heredoc;
 

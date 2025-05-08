@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/04 13:06:13 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/05/08 12:20:21 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/05/08 19:48:04 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,8 +95,6 @@ void	free_cmd_table(t_cmd_table *table)
 	if (!table)
 		return ;
 	free_cmd_list(table->cmds);
-	// TODO: liberar `table->pipes` si llegas a usarlos carol
 	ft_lstclear(&table->pids, free);
 	free_redir_list(table->redirs);
 }
-

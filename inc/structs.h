@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 12:16:00 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/05/08 11:21:44 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/05/08 19:38:48 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ typedef struct s_cmd_table
 	// ESTO LO HA TOCADO CAROL
 	int		std_backup[2];
 	int		pipe_fd[2];
-	int		red_files[2];
+	int		red_fd[2];
 	t_list	*redirs;
 	t_list	**envv;
 	int		error_code;

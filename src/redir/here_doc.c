@@ -6,13 +6,13 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 16:21:37 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/05/06 18:16:47 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/05/08 19:39:14 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-int g_heredoc;
+int	g_heredoc;
 
 char	*ft_new_limit(char *limit, t_cmd_table *table)
 {
@@ -50,7 +50,7 @@ void	write_here_doc(char *limit, t_cmd_table *table)
 			break ;
 		else if (read_bytes < 0 && !g_heredoc)
 			check_error(close(infile), CHECK_CLOSE, table);
-		if (g_heredoc == 1 || (ft_strncmp(new_limit, buf, read_bytes) == 0 ))
+		if (g_heredoc == 1 || (ft_strncmp(new_limit, buf, read_bytes) == 0))
 			break ;
 		write(infile, buf, read_bytes);
 	}
@@ -69,17 +69,15 @@ int	open_here_doc(t_cmd_table *table)
 int	manage_here_doc(t_redir redir, t_cmd_table *table)
 {
 	char	*limit;
+	int		value;
 
 	limit = redir.direction;
 	g_heredoc = 0;
 	write_here_doc(limit, table);
-	table->red_files[READ_E] = open_here_doc(table);
-	/* if (dup2(table->red_files[READ_E], STDIN_FILENO) == -1)
-	{
-		table->error_code = DUP_ERROR;
-		error_handler(table->error_code);
-	} */
-	return (table->red_files[READ_E]);
+	table->red_fd[READ_E] = open_here_doc(table);
+	value = dup2(table->red_fd[READ_E], STDIN_FILENO);
+	check_error(value, CHECK_DUP, table);
+	return (table->red_fd[READ_E]);
 }
 
 bool	is_heredoc(t_list *list)

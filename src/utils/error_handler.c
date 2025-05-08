@@ -6,16 +6,17 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/23 23:50:11 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/05/08 12:50:55 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/05/08 19:22:04 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-void	unset_error(int code)
+int	unset_error(t_cmd_table *table)
 {
 	ft_putendl_fd("unset: not enough arguments", ERROR_E);
-	exit(code);
+	table->error_code = UNKNOWN_ERROR;
+	return (table->error_code);
 }
 
 void	error_handler(int code)
@@ -61,6 +62,8 @@ void	check_error(int value, int to_check, t_cmd_table *table)
 			table->error_code = PIPE_ERROR;
 		if (to_check == CHECK_FORK)
 			table->error_code = FORK_ERROR;
+		if (to_check == CHECK_CMD)
+			table->error_code = WRONG_CMD_ERROR;
 		error_handler(table->error_code);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 19:03:41 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/05/08 12:50:18 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/05/08 19:22:34 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	bi_unset(t_cmd_table *table, t_cmd *cmd)
 	i = 0;
 	env_lst = *(table)->envv;
 	if (!(t_tok *)cmd->tokens->next)
-		unset_error(UNKNOWN_ERROR);
+		return (unset_error(table));
 	to_unset = (char *)((t_tok *)cmd->tokens->next->content)->value;
 	while (env_lst != NULL)
 	{

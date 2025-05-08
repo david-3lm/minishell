@@ -6,14 +6,13 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 11:23:27 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/05/07 15:15:17 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/05/08 19:48:22 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-
-void	debug_parser(t_cmd_table *table)
+/* void	debug_parser(t_cmd_table *table)
 {
 	t_list	*cmd_list;
 	t_cmd	*cmd;
@@ -55,7 +54,7 @@ void	debug_parser(t_cmd_table *table)
 		cmd_index++;
 	}
 	ft_printf("========================== \n" RESET_COLOR);
-}
+} */
 
 const char	*get_type_name(t_tok_type type)
 {

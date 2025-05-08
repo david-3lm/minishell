@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.c                                            :+:      :+:    :+:   */
+/*   table_executor.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 11:45:46 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/05/08 13:08:14 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/05/08 19:39:14 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,41 +44,54 @@ int	handle_command(t_cmd *cmd, t_cmd_table *table, int *cmd_index)
 	return ((table)->error_code);
 }
 
-int	execute_cmd_table(t_cmd_table *table)
+int	ft_wait_table(t_cmd_table *table)
 {
-	t_list			*cmd_list;
-	int				cmd_index;
-	t_cmd			*cmd;
 	int				status;
 
-	cmd_index = 0;
 	status = 0;
-	cmd_list = (table)->cmds;
-	fill_redirs(table);
-	redir_dup(table);
-	while (cmd_list)
-	{
-		cmd = (t_cmd *)cmd_list->content;
-		if (is_command(*cmd))
-			(table)->error_code = handle_command(cmd, table, &cmd_index);
-		if (is_str(*cmd))
-		{
-			(table)->error_code = WRONG_CMD_ERROR;
-			error_handler((table)->error_code);
-			return ((table)->error_code);
-		}
-		if (is_redir(*cmd))
-			cmd_list = cmd_list->next;
-		cmd_list = cmd_list->next;
-	}
-	close_red_files((table)->red_files);
-	restore_and_close_fds((table));
-	// esto me lo mando a otro lado
 	while (waitpid(-1, &status, 0) != -1)
 		continue ;
 	if (WIFSIGNALED(status))
 		(table)->error_code = 128 + WTERMSIG(status);
 	else
 		(table)->error_code = WEXITSTATUS(status);
+	return ((table)->error_code);
+}
+
+static	int	exec_cmd_list(t_list *cmd_list, t_cmd_table *table, int i)
+{
+	t_cmd	*cmd;
+
+	if (!cmd_list)
+		return (NO_ERROR);
+	cmd = (t_cmd *)cmd_list->content;
+	if (is_command(*cmd))
+		(table)->error_code = handle_command(cmd, table, &i);
+	if (is_str(*cmd))
+	{
+		(table)->error_code = WRONG_CMD_ERROR;
+		error_handler((table)->error_code);
+		return ((table)->error_code);
+	}
+	if (is_redir(*cmd))
+		cmd_list = cmd_list->next;
+	if (cmd_list)
+		cmd_list = cmd_list->next;
+	return (exec_cmd_list(cmd_list, table, i));
+}
+
+int	execute_cmd_table(t_cmd_table *table)
+{
+	t_list	*cmd_list;
+	int		cmd_index;	
+
+	cmd_index = 0;
+	cmd_list = (table)->cmds;
+	fill_redirs(table);
+	redir_dup(table);
+	exec_cmd_list(cmd_list, table, cmd_index);
+	close_red_fd((table)->red_fd);
+	restore_and_close_fds((table));
+	(table)->error_code = ft_wait_table(table);
 	return ((table)->error_code);
 }

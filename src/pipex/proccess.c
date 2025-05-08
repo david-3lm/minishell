@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 12:05:04 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/05/08 13:06:28 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/05/08 19:24:44 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,6 @@ int	pipex_proccess(t_cmd *cmd, t_cmd_table *table)
 		check_error(value, CHECK_DUP, table);
 		close((table)->pipe_fd[READ_E]);
 	}
-	if (signal(SIGINT, SIG_IGN) == SIG_ERR)
-		perror("Signal");
 	return ((table)->error_code);
 }
 
@@ -69,5 +67,5 @@ int	try_fullpath(char *path, char **full_cmd, char *const *envp)
 {
 	if (access(path, X_OK) == 0)
 		execve(path, full_cmd, envp);
-	return (-1);
+	return (CHECK_VALUE);
 }
