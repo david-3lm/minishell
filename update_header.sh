@@ -51,7 +51,7 @@ for file in $SRC_FILES; do
   # Buscar todas las funciones en el archivo y extraer su tipo, nombre y argumentos
 sed -nE 's/^([a-zA-Z_][a-zA-Z0-9_]*[ \t]+\**)([a-zA-Z_][a-zA-Z0-9_]*)[ \t]*\((.*)\)[ \t]*$/\1\2(\3);/p' "$file" >> "$HEADER_FILE"
 done
-echo "int	(*builtin_arr(char *str))(t_cmd_table **table, t_cmd *cmd);" >> "$HEADER_FILE"
+echo "int	(*builtin_arr(char *str))(t_cmd_table *table, t_cmd *cmd);" >> "$HEADER_FILE"
 # Cerrar el archivo .h
 echo "#endif" >> "$HEADER_FILE"
 

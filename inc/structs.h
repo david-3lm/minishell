@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 12:16:00 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/05/07 14:48:12 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/05/08 11:21:44 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ typedef struct s_cmd
 {
 	t_list	*tokens;
 	t_list	*redirs;
-	int		(*builtin)(t_cmd_table **, struct s_cmd *);
+	int		(*builtin)(t_cmd_table *, struct s_cmd *);
 }			t_cmd;
 
 /*

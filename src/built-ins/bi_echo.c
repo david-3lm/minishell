@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 19:03:41 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/05/07 13:59:11 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/05/08 11:19:04 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ t_list	*check_n_flag(t_list *next, bool *n_opt)
 	return (next);
 }
 
-int	bi_echo(t_cmd_table **table, t_cmd *cmd)
+int	bi_echo(t_cmd_table *table, t_cmd *cmd)
 {
 	t_list	*next;
 	bool	n_opt;
@@ -72,6 +72,6 @@ int	bi_echo(t_cmd_table **table, t_cmd *cmd)
 		next = check_n_flag(next, &n_opt);
 		print_lines(next, STDOUT_FILENO, n_opt);
 	}
-	(*table)->error_code = NO_ERROR;
-	return ((*table)->error_code);
+	(table)->error_code = NO_ERROR;
+	return ((table)->error_code);
 }

@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 11:45:46 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/05/07 14:15:49 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/05/08 11:23:35 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,11 +50,11 @@ int	last_command_exec(t_cmd *cmd, t_cmd_table *table)
 	}
 } */
 
-int	handle_command(t_cmd *cmd, t_cmd_table **table, int *cmd_index)
+int	handle_command(t_cmd *cmd, t_cmd_table *table, int *cmd_index)
 {
-	if ((*table)->n_pipes > *cmd_index)
+	if ((table)->n_pipes > *cmd_index)
 	{
-		(*table)->error_code = pipex_proccess(cmd, table);
+		(table)->error_code = pipex_proccess(cmd, table);
 		(*cmd_index)++;
 	}
 	else
@@ -62,12 +62,12 @@ int	handle_command(t_cmd *cmd, t_cmd_table **table, int *cmd_index)
 		if (cmd->builtin)
 			cmd->builtin(table, cmd);
 		else
-			(*table)->error_code = last_command_exec(cmd, *table);
+			(table)->error_code = last_command_exec(cmd, table);
 	}
-	return ((*table)->error_code);
+	return ((table)->error_code);
 }
 
-int	execute_cmd_table(t_cmd_table **table)
+int	execute_cmd_table(t_cmd_table *table)
 {
 	t_list			*cmd_list;
 	int				cmd_index;
@@ -76,31 +76,31 @@ int	execute_cmd_table(t_cmd_table **table)
 
 	cmd_index = 0;
 	status = 0;
-	cmd_list = (*table)->cmds;
-	fill_redirs(*table);
-	redir_dup(*table);
+	cmd_list = (table)->cmds;
+	fill_redirs(table);
+	redir_dup(table);
 	while (cmd_list)
 	{
 		cmd = (t_cmd *)cmd_list->content;
 		if (is_command(*cmd))
-			(*table)->error_code = handle_command(cmd, table, &cmd_index);
+			(table)->error_code = handle_command(cmd, table, &cmd_index);
 		if (is_str(*cmd))
 		{
-			(*table)->error_code = WRONG_CMD_ERROR;
-			error_handler((*table)->error_code);
-			return ((*table)->error_code);
+			(table)->error_code = WRONG_CMD_ERROR;
+			error_handler((table)->error_code);
+			return ((table)->error_code);
 		}
 		if (is_redir(*cmd))
 			cmd_list = cmd_list->next;
 		cmd_list = cmd_list->next;
 	}
-	close_red_files((*table)->red_files);
-	restore_and_close_fds((*table));
+	close_red_files((table)->red_files);
+	restore_and_close_fds((table));
 	while (waitpid(-1, &status, 0) != -1)
 		continue ;
 	if (WIFSIGNALED(status))
-		(*table)->error_code = 128 + WTERMSIG(status);
+		(table)->error_code = 128 + WTERMSIG(status);
 	else
-		(*table)->error_code = WEXITSTATUS(status);
-	return ((*table)->error_code);
+		(table)->error_code = WEXITSTATUS(status);
+	return ((table)->error_code);
 }

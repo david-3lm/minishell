@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 11:23:27 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/05/07 14:47:06 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/05/07 15:15:17 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ int	main(int argc, char **argv, char **envp)
 		rl = readline("\001\033[1;32m\002🌋 Kontxesi ↝ \001\033[0m\002");
 		if (!rl)
 		{
-			ft_printf("Gora Kontxesi 🎷🦆\n");
+			ft_printf("Gora Jakobo 🎷🦆\n");
 			break ;
 		}
 		if (*rl)

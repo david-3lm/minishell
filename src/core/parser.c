@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 19:16:03 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/05/07 14:47:23 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/05/08 11:23:55 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,5 +96,5 @@ t_error_code	parser(t_token_list *list, t_list **envl)
 	free(list);
 	debug_parser(table);
 	count_pipes(table);
-	return (executor(&table));
+	return (executor(table));
 }

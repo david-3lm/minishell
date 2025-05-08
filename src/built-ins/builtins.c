@@ -6,13 +6,13 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 12:19:43 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/05/07 14:02:30 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/05/08 11:21:25 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-int	(*builtin_arr(char *str))(t_cmd_table **table, t_cmd *cmd)
+int	(*builtin_arr(char *str))(t_cmd_table *table, t_cmd *cmd)
 {
 	static void	*builtins[][2] = {
 	{"echo", bi_echo},

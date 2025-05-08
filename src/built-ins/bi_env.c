@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 19:03:41 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/05/07 14:51:27 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/05/08 11:19:17 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,13 @@ t_env	*mini_get_env(t_cmd_table *table, char *var)
 	return (NULL);
 }
 
-int	bi_env(t_cmd_table **table, t_cmd *cmd)
+int	bi_env(t_cmd_table *table, t_cmd *cmd)
 {
 	t_list	*env_lst;
 	t_env	*env;
 
 	(void)cmd;
-	env_lst = *((*table)->envv);
+	env_lst = *((table)->envv);
 	if (((t_env *)env_lst->content))
 		printf("TIENE COSAS \n \n \n ");
 	printf("patata\n");
@@ -46,6 +46,6 @@ int	bi_env(t_cmd_table **table, t_cmd *cmd)
 				printf("%s=%s\n", env->key, env->value);
 		env_lst = env_lst->next;
 	}
-	(*table)->error_code = NO_ERROR;
-	return ((*table)->error_code);
+	(table)->error_code = NO_ERROR;
+	return ((table)->error_code);
 }
