@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/08 20:02:42 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/05/08 20:02:44 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/05/09 15:20:34 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ int				ft_get_exit_code(t_cmd *cmd);
 int				ft_change_path(t_cmd_table *table, char *arg);
 int				cd_home(t_cmd_table *table);
 int				bi_exit(t_cmd_table *table, t_cmd *cmd);
+int				bi_moon(t_cmd_table *table, t_cmd *cmd);
 int				bi_karol(t_cmd_table *table, t_cmd *cmd);
 int				bi_star(t_cmd_table *table, t_cmd *cmd);
 int				bi_weather(t_cmd_table *table, t_cmd *cmd);

@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 12:19:43 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/05/08 11:21:25 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/05/09 15:25:17 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,16 +24,17 @@ int	(*builtin_arr(char *str))(t_cmd_table *table, t_cmd *cmd)
 	{"exit", bi_exit},
 	{"karol", bi_karol},
 	{"star", bi_star},
-	{"weather", bi_weather}
+	{"weather", bi_weather},
+	{"moon", bi_moon}
 	};
 	int			i;
 
 	i = 0;
-	while (i < 10)
+	while (i < 11)
 	{
 		if (str)
 		{
-			if (!ft_strncmp(builtins[i][0], str, ft_strlen(str)))
+			if (!ft_strncmp(builtins[i][0], str, ft_strlen(builtins[i][0])))
 				return (builtins[i][1]);
 		}
 		i++;

@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 19:03:41 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/05/08 12:32:04 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/05/09 13:10:21 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ void	purge_equal(char *str, t_env **env)
 		i++;
 	(*env)->key = ft_substr(str, 0, i);
 	(*env)->value = ft_substr(str, i + 1, ft_strlen(str));
-	printf("Key => %s\n", (*env)->key);
-	printf("Value => %s\n", (*env)->value);
+	// printf("Key => %s\n", (*env)->key);
+	// printf("Value => %s\n", (*env)->value);
 }
 
 bool	token_exists(t_list *env_list, char *str)
