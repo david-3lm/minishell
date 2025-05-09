@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/23 23:50:11 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/05/08 19:22:04 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/05/09 16:31:39 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,20 @@ int	unset_error(t_cmd_table *table)
 	return (table->error_code);
 }
 
+void	ft_wrong_cmd_error(t_cmd_table *table, char *cmd)
+{
+	ft_putstr_fd(cmd, ERROR_E);
+	ft_putendl_fd(": esto no es un comando 💣", ERROR_E);
+	table->error_code = WRONG_CMD_ERROR;
+	exit(table->error_code);
+}
+
 void	error_handler(int code)
 {
 	if (code == MEM_ALLOC_ERROR)
 		ft_putendl_fd("¿Donde meto yo esto?", ERROR_E);
 	if (code == WRONG_CMD_ERROR)
-		ft_putendl_fd("💣 Gora Euskal Herria askatuta (reventó la kontxesi) 💣",
+		ft_putendl_fd("💣 Esto no es un comando 💣",
 			ERROR_E);
 	if (code == DUP_ERROR)
 		ft_putendl_fd("Error con el DUP (qué es eso?)\n", STDERR_FILENO);

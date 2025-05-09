@@ -6,13 +6,13 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 11:23:27 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/05/09 12:39:18 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/05/09 16:03:57 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-/* void	debug_parser(t_cmd_table *table)
+void	debug_parser(t_cmd_table *table)
 {
 	t_list	*cmd_list;
 	t_cmd	*cmd;
@@ -54,7 +54,7 @@
 		cmd_index++;
 	}
 	ft_printf("========================== \n" RESET_COLOR);
-} */
+}
 
 const char	*get_type_name(t_tok_type type)
 {
@@ -90,7 +90,7 @@ int	main(int argc, char **argv, char **envp)
 		rl = readline("\001\033[1;32m\002🌋 Kontxesi ↝ \001\033[0m\002");
 		if (!rl)
 		{
-			ft_printf("Gora Jakobo 🎷🦆\n");
+			ft_printf("Gora Kontxesi 🎷🦆\n");
 			break ;
 		}
 		if (*rl)
