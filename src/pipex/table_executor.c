@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 11:45:46 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/05/12 12:32:52 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/05/12 15:20:57 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,15 +65,14 @@ static	int	exec_cmd_list(t_list *cmd_list, t_cmd_table *table, int i)
 	if (!cmd_list)
 		return (NO_ERROR);
 	cmd = (t_cmd *)cmd_list->content;
-	if (is_command(*cmd) || is_str(*cmd))
+	if (is_command(*cmd))
 		(table)->error_code = handle_command(cmd, table, &i);
-/* 	if (is_str(*cmd))
+	if (is_str(*cmd))
 	{
-		printf("hola \n");
 		(table)->error_code = WRONG_CMD_ERROR;
 		error_handler((table)->error_code);
 		return ((table)->error_code);
-	} */
+	}
 	if (is_redir(*cmd))
 		cmd_list = cmd_list->next;
 	if (cmd_list)

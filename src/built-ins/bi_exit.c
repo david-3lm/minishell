@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 12:58:31 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/05/08 11:19:40 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/05/12 15:09:31 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ bool	ft_is_strnum(char *str)
 	int	i;
 
 	i = 0;
-	printf("\t exit value --> %s \n", str);
 	if (str[i] == '+' || str[i] == '-')
 		i++;
 	if (!str[i])
@@ -56,7 +55,10 @@ int	bi_exit(t_cmd_table *table, t_cmd *cmd)
 	(table)->error_code = EXIT_FAILURE;
 	size = ft_lstsize(cmd->tokens);
 	if (size == 1)
+	{
 		(table)->error_code = EXIT_SUCCESS;
+		ft_putendl_fd("exit", STDERR_FILENO);
+	}
 	else if (size == 2)
 		(table)->error_code = ft_get_exit_code(cmd);
 	else
@@ -65,7 +67,6 @@ int	bi_exit(t_cmd_table *table, t_cmd *cmd)
 		(table)->error_code = UNKNOWN_ERROR;
 		return ((table)->error_code);
 	}
-	ft_putendl_fd("exit", STDERR_FILENO);
 	exit((table)->error_code);
 	return ((table)->error_code);
 }
