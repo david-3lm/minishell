@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/23 23:36:35 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/05/08 19:07:47 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/05/12 14:30:32 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@
 # define OPEN_ERROR 12
 # define CLOSE_ERROR 13
 # define EXECVE_ERROR 20
-# define PATH_ERROR 126
+# define PERMISSION_ERROR 126
 # define PIPE_ERROR 22
 # define EXIT_ERROR 255
 

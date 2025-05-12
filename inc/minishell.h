@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/08 20:02:42 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/05/09 16:32:17 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/05/12 14:31:55 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,9 @@ int				bi_unset(t_cmd_table *table, t_cmd *cmd);
 int				executor(t_cmd_table *table);
 int				quotes_are_closed(const char *input);
 int				pipex_proccess(t_cmd *cmd, t_cmd_table *table);
-int				try_fullpath(char *path, char **full_cmd, char *const *envp);
+// int				try_fullpath(char *path, char **full_cmd, char *const *envp);
+int				try_fullpath(char *path, \
+				char **full_cmd, char *const *envp, t_cmd_table *s_cmd_table);
 int				last_command_exec(t_cmd *cmd, t_cmd_table *table);
 int				handle_command(t_cmd *cmd, t_cmd_table *table, int *cmd_index);
 int				ft_wait_table(t_cmd_table *table);
@@ -59,7 +61,6 @@ int				count_char(char *str, char c);
 int				size_redir(char *value);
 int				(*builtin_arr(char *str))(t_cmd_table *table, t_cmd *cmd);
 int				unset_error(t_cmd_table *table);
-// int				ft_wrong_cmd_error(t_cmd_table *table, char *cmd);
 bool			ft_is_strnum(char *str);
 bool			is_n_option(char *str);
 bool			is_heredoc(t_list *list);
@@ -77,7 +78,7 @@ bool			is_str(t_cmd cmd);
 bool			is_pipe(t_cmd cmd);
 bool			is_redir(t_cmd cmd);
 bool			token_exists(t_list *env_list, char *str);
-void			ft_wrong_cmd_error(t_cmd_table *table, char *cmd);
+void			ft_wrong_access_error(t_cmd_table *table, char *cmd, int code);
 void			print_lines(t_list *tok, int out, bool n_opt);
 void			ft_change_old_pwd(t_cmd_table *table);
 void			purge_equal(char *str, t_env **env);

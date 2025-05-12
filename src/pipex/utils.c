@@ -6,11 +6,12 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 12:50:13 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/05/12 12:20:08 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/05/12 14:40:20 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
+#include <errno.h>
 
 char	*get_value(void *token)
 {
@@ -65,19 +66,20 @@ void	path_exec(t_cmd *cmd, t_cmd_table *table)
 	i = 0;
 	full_cmd = get_cmd(cmd->tokens, 1);
 	mypaths = get_paths();
-	try_fullpath(*full_cmd, full_cmd, mypaths);
+	if (try_fullpath(*full_cmd, full_cmd, mypaths, table))
+		exit(table->error_code);
 	while (mypaths[++i])
 	{
 		temp = ft_strjoin(mypaths[i], "/");
 		executable = ft_strjoin(temp, full_cmd[0]);
 		free(temp);
-		if (access(executable, X_OK) == 0)
+		if (access(executable, F_OK) == 0)
 			execve(executable, full_cmd, mypaths);
 		free(executable);
 		table->error_code = PATH_ERROR;
 	}
 	free_all(mypaths);
-	ft_wrong_cmd_error(table, full_cmd[0]);
+	ft_wrong_access_error(table, full_cmd[0], WRONG_CMD_ERROR);
 	free_all(full_cmd);
 	exit(table->error_code);
 }

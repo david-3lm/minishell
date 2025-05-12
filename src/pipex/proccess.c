@@ -6,11 +6,12 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 12:05:04 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/05/08 19:24:44 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/05/12 14:40:13 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
+#include <errno.h>
 
 void	save_original_fd(t_cmd_table *table)
 {
@@ -63,9 +64,15 @@ int	pipex_proccess(t_cmd *cmd, t_cmd_table *table)
 	return ((table)->error_code);
 }
 
-int	try_fullpath(char *path, char **full_cmd, char *const *envp)
+int	try_fullpath(char *path, char **full_cmd, \
+				char *const *envp, t_cmd_table *table)
 {
-	if (access(path, X_OK) == 0)
+	errno = 0;
+	if (access(path, F_OK) == 0)
+	{
 		execve(path, full_cmd, envp);
-	return (CHECK_VALUE);
+		ft_wrong_access_error(table, full_cmd[0], PERMISSION_ERROR);
+		return (table->error_code);
+	}
+	return (NO_ERROR);
 }
