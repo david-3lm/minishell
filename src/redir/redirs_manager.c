@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/16 10:52:37 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/05/08 19:46:20 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/05/12 15:28:11 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ t_redir	*get_redir_in(t_list *list)
 			redir = (t_redir *)lst_copy->content;
 			if (redir->type == RD_SIN || redir->type == RD_HD)
 			{
-				printf("redirection type ==> %i \n", redir->type);
+				printf("redirection type ==> %i \n", redir->type); //debug
 				return (redir);
 			}
 			lst_copy = lst_copy->next;

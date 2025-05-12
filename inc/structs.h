@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 12:16:00 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/05/08 19:38:48 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/05/12 15:30:55 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,6 @@ typedef struct s_cmd_table
 	t_list	*pids;
 	bool	is_checker;
 
-	// ESTO LO HA TOCADO CAROL
 	int		std_backup[2];
 	int		pipe_fd[2];
 	int		red_fd[2];

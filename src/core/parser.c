@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 19:16:03 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/05/09 15:53:20 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/05/12 15:27:50 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ void	add_cmds(t_token_list *tok, t_cmd_table **table)
 	current_token = tok->tokens;
 	while (current_token)
 	{
-		// printf("AÑADIMOS TOKEN\n");
 		if (!process_token(&current_cmd, current_token, table))
 			return ;
 		if (((t_tok *)(current_token->content))->type == PIPE

@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 19:03:41 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/05/08 11:19:17 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/05/12 15:24:45 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,6 @@ int	bi_env(t_cmd_table *table, t_cmd *cmd)
 
 	(void)cmd;
 	env_lst = *((table)->envv);
-	if (((t_env *)env_lst->content))
-		printf("TIENE COSAS \n \n \n ");
-	printf("patata\n");
 	while (env_lst != NULL)
 	{
 		env = (t_env *)env_lst->content;

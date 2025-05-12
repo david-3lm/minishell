@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 15:27:01 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/05/07 14:17:01 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/05/12 15:25:47 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,6 @@ void	ft_lstdel_index(t_list **lst, int index, void (*del)(void *))
 	if (index == 0)
 	{
 		*lst = curr->next;
-		ft_printf("hola\n");
-		printf("content222:%p\n", (*lst)->content);
 		ft_lstdelone(curr, del);
 		return ;
 	}
