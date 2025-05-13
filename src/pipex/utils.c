@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 12:50:13 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/05/12 14:40:20 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/05/13 16:02:35 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,15 +43,18 @@ char	**get_cmd(t_list *origin, int i)
 	return (res);
 }
 
-char	**get_paths(void)
+char	**get_paths(t_cmd_table *table, char *cmd)
 {
 	char	*env_paths;
 	char	**my_paths;
 
 	my_paths = NULL;
-	env_paths = getenv("PATH");
+	env_paths = ft_getenv_value(table, "PATH");
 	if (env_paths != NULL)
 		my_paths = ft_split(env_paths, ':');
+	else
+		ft_error_str(table, cmd);
+	free(env_paths);
 	return (my_paths);
 }
 
@@ -65,8 +68,8 @@ void	path_exec(t_cmd *cmd, t_cmd_table *table)
 
 	i = 0;
 	full_cmd = get_cmd(cmd->tokens, 1);
-	mypaths = get_paths();
-	if (try_fullpath(*full_cmd, full_cmd, mypaths, table))
+	mypaths = get_paths(table, full_cmd[0]);
+	if (try_fullpath(*full_cmd, full_cmd, mypaths, table) || mypaths == NULL)
 		exit(table->error_code);
 	while (mypaths[++i])
 	{

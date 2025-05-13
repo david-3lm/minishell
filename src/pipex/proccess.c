@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 12:05:04 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/05/12 14:40:13 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/05/13 13:45:10 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ int	try_fullpath(char *path, char **full_cmd, \
 	errno = 0;
 	if (access(path, F_OK) == 0)
 	{
+		printf("hola \n");
 		execve(path, full_cmd, envp);
 		ft_wrong_access_error(table, full_cmd[0], PERMISSION_ERROR);
 		return (table->error_code);

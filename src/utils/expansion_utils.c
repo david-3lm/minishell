@@ -6,13 +6,13 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 12:01:42 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/05/09 13:05:47 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/05/13 16:01:15 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-char	*get_env_value(char *var_name, t_list *env_lst)
+static char	*get_env_value(char *var_name, t_list *env_lst)
 {
 	t_env	*env;
 
@@ -78,7 +78,10 @@ char	*check_expansion(char *token, t_cmd_table *table, t_tok *tok)
 		else
 			expanded = append_plain_text(token, &i);
 		if (!expanded && table->is_checker)
+		{
+			free(result);
 			return (NULL);
+		}
 		result = ft_strjoin_free(result, expanded);
 	}
 	return (result);

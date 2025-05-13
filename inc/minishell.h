@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/08 20:02:42 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/05/12 14:31:55 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/05/13 16:05:02 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ int				bi_unset(t_cmd_table *table, t_cmd *cmd);
 int				executor(t_cmd_table *table);
 int				quotes_are_closed(const char *input);
 int				pipex_proccess(t_cmd *cmd, t_cmd_table *table);
-// int				try_fullpath(char *path, char **full_cmd, char *const *envp);
 int				try_fullpath(char *path, \
 				char **full_cmd, char *const *envp, t_cmd_table *s_cmd_table);
 int				last_command_exec(t_cmd *cmd, t_cmd_table *table);
@@ -61,6 +60,8 @@ int				count_char(char *str, char c);
 int				size_redir(char *value);
 int				(*builtin_arr(char *str))(t_cmd_table *table, t_cmd *cmd);
 int				unset_error(t_cmd_table *table);
+int				execute_kntxesi(t_cmd_table *table);
+bool			is_kntxesi(t_cmd cmd);
 bool			ft_is_strnum(char *str);
 bool			is_n_option(char *str);
 bool			is_heredoc(t_list *list);
@@ -78,6 +79,8 @@ bool			is_str(t_cmd cmd);
 bool			is_pipe(t_cmd cmd);
 bool			is_redir(t_cmd cmd);
 bool			token_exists(t_list *env_list, char *str);
+bool			is_inside_kntxesi(int argc, char **argv);
+void			ft_error_str(t_cmd_table *table, char *str);
 void			ft_wrong_access_error(t_cmd_table *table, char *cmd, int code);
 void			print_lines(t_list *tok, int out, bool n_opt);
 void			ft_change_old_pwd(t_cmd_table *table);
@@ -120,17 +123,19 @@ void			attach_redir(t_cmd *cmd, t_redir *redir, t_cmd_table *table);
 char			*ft_strjoin_free(char *s1, char *s2);
 char			*get_value(void *token);
 char			*get_direction(t_tok *tok);
-char			*get_env_value(char *var_name, t_list *env_lst);
 char			*expand_variable(char *token, int *i, t_cmd_table *table);
 char			*append_plain_text(char *token, int *i);
 char			*check_expansion(char *token, t_cmd_table *table, t_tok *tok);
 char			*ft_new_limit(char *limit, t_cmd_table *table);
+char			*ft_getenv_value(t_cmd_table *table, char *str);
 char			**get_cmd(t_list *origin, int i);
-char			**get_paths(void);
+// char			**get_paths(void);
+char			**get_paths(t_cmd_table *table, char *cmd);
 t_env			*mini_get_env(t_cmd_table *table, char *var);
 t_list			*check_n_flag(t_list *next, bool *n_opt);
-t_list			*get_env(char *str);
-t_list			*env_init(char **orig_envp);
+t_list			*ft_make_env(char *str);
+t_list			*env_init(char **orig_envp, char *shlvl);
+// t_list			*env_init(char **orig_envp);
 t_cmd			*alloc_cmd(void);
 t_cmd			*add_redir(t_list *tok_list, t_cmd_table **table);
 t_cmd			*create_or_redir_cmd(t_list *current_token, \

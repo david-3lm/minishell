@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/23 23:50:11 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/05/12 14:30:07 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/05/13 16:04:12 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,14 @@ void	ft_wrong_access_error(t_cmd_table *table, char *cmd, int code)
 	ft_putstr_fd("💣 ", ERROR_E);
 	perror(cmd);
 	table->error_code = code;
-	// exit(table->error_code);
+}
+
+void	ft_error_str(t_cmd_table *table, char *str)
+{
+	ft_putstr_fd("💣 ", ERROR_E);
+	ft_putstr_fd(str, ERROR_E);
+	ft_putendl_fd(": command not found", ERROR_E);
+	table->error_code = WRONG_CMD_ERROR;
 }
 
 void	error_handler(int code)

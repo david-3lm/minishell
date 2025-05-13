@@ -6,13 +6,13 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 16:28:50 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/05/07 12:57:20 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/05/13 15:45:25 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-t_list	*get_env(char *str)
+t_list	*ft_make_env(char *str)
 {
 	t_env	*env;
 	int		i;
@@ -35,17 +35,53 @@ t_list	*get_env(char *str)
 	return (ft_lstnew(env));
 }
 
-t_list	*env_init(char **orig_envp)
+static char	*change_shlvl(char *orig_shlvl)
+{
+	int 	num;
+	char	*res;
+
+	num = (int)ft_atoi(orig_shlvl);
+	num++;
+	res = ft_itoa(num);
+	// liberar
+	printf("changed lvl ----- %s \n", res);
+	return (res);
+}
+
+void	create_env(t_list **list, char *shlvl)
+{
+	t_env	*env;
+	t_env	*env_shlvl;
+	char	*pwd;
+
+	env = ft_calloc(1, sizeof(t_env));
+	pwd = NULL;
+	pwd = getcwd(pwd, 0);
+	env->key = ft_strdup("PWD");
+	env->value = pwd;
+	ft_lstadd_back(list, ft_lstnew(env));
+	env_shlvl = ft_calloc(1, sizeof(t_env));
+	env_shlvl->key = ft_strdup("SHLVL");
+	env_shlvl->value = change_shlvl(shlvl);
+	ft_lstadd_back(list, ft_lstnew(env_shlvl));
+}
+
+t_list	*env_init(char **orig_envp, char *shlvl)
 {
 	t_list	*list;
 	int		i;
 
 	i = 0;
 	list = NULL;
-	while (orig_envp[i])
+	if (shlvl)
+		create_env(&list, shlvl);
+	else
 	{
-		ft_lstadd_back(&list, get_env(orig_envp[i]));
-		i++;
+		while (orig_envp[i])
+		{
+			ft_lstadd_back(&list, ft_make_env(orig_envp[i]));
+			i++;
+		}
 	}
 	return (list);
 }

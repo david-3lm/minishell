@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_types.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 16:37:57 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/04/30 16:16:43 by dlopez-l         ###   ########.fr       */
+/*   Updated: 2025/05/13 11:33:10 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,19 +46,6 @@ bool	is_str(t_cmd cmd)
 		return (false);
 }
 
-bool	is_pipe(t_cmd cmd)
-{
-	t_tok	*token;
-	t_list	*token_list;
-
-	token_list = cmd.tokens;
-	token = (t_tok *)token_list->content;
-	if (token && token->type == PIPE)
-		return (true);
-	else
-		return (false);
-}
-
 bool	is_redir(t_cmd cmd)
 {
 	t_tok	*token;
@@ -71,3 +58,4 @@ bool	is_redir(t_cmd cmd)
 	else
 		return (false);
 }
+

@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 19:03:41 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/05/12 15:24:45 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/05/13 15:41:28 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ t_env	*mini_get_env(t_cmd_table *table, char *var)
 	t_list	*env_lst;
 	t_env	*env;
 
-	env_lst = *(table->envv);
+	env_lst = *(table->envv);env_lst = *(table->envv);
 	while (env_lst != NULL)
 	{
 		env = (t_env *)env_lst->content;

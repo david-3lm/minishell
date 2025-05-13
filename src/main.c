@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 11:23:27 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/05/09 16:03:57 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/05/13 14:59:46 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,9 +79,10 @@ int	main(int argc, char **argv, char **envp)
 	char				*rl;
 	t_list				*envl;
 
-	(void)argc;
-	(void)argv;
-	envl = env_init(envp);
+	if (is_inside_kntxesi(argc, argv))
+		envl = env_init(envp, argv[1]);
+	else
+		envl = env_init(envp, NULL);
 	g_heredoc = 1;
 	while (1)
 	{
