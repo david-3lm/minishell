@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 16:28:50 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/05/13 15:45:25 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/05/13 16:08:41 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,6 @@ static char	*change_shlvl(char *orig_shlvl)
 	num = (int)ft_atoi(orig_shlvl);
 	num++;
 	res = ft_itoa(num);
-	// liberar
-	printf("changed lvl ----- %s \n", res);
 	return (res);
 }
 

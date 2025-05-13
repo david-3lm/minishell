@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 12:32:59 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/05/13 16:02:08 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/05/13 16:08:27 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,7 @@ char	*ft_getenv_value(t_cmd_table *table, char *str)
 
 static int	ft_exec(t_cmd_table *table, char *const *envp, char *shlvl)
 {
-	printf("shlvl en exev minishell -- %s \n", shlvl);
 	char *const	command[] = {"./minishell", shlvl, "true", NULL};
-	// free(shlvl);
 	if (access("./minishell", F_OK) == 0)
 	{
 		execve("./minishell", command, envp);
