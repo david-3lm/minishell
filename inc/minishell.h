@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/08 20:02:42 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/05/13 16:37:46 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/05/13 16:56:35 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ int				size_redir(char *value);
 int				(*builtin_arr(char *str))(t_cmd_table *table, t_cmd *cmd);
 int				unset_error(t_cmd_table *table);
 int				execute_kntxesi(t_cmd_table *table);
+int				export_manage_inter(t_env *env, t_cmd_table *table);
 bool			is_kntxesi(t_cmd cmd);
 bool			ft_is_strnum(char *str);
 bool			is_n_option(char *str);

@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 19:03:41 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/05/13 16:50:19 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/05/13 17:04:17 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,26 +60,25 @@ void	change_token(t_list *env_list, t_env *env)
 	}
 }
 
-void	manage_empty_export(t_cmd_table *table)
+int	manage_correct_export(t_cmd_table *table, t_cmd *cmd, t_env *env)
 {
-	t_list	*tmp;
-	t_env	*env;
+	t_list	*env_lst;
 
-	tmp = *table->envv;
-	while (tmp != NULL)
-	{
-		env = (t_env *)tmp->content;
-		ft_printf("declare -x %s=%s\n", env->key, env->value);
-		tmp = tmp->next;
-	}
+	env_lst = *((table)->envv);
+	purge_equal(((t_tok *)cmd->tokens->next->content)->value, &env);
+	if (export_manage_inter(env, table))
+		return (table->error_code);
+	if (token_exists(env_lst, env->key))
+		change_token(env_lst, env);
+	else
+		ft_lstadd_back(((table)->envv), ft_lstnew(env));
+	return (table->error_code);
 }
 
 int	bi_export(t_cmd_table *table, t_cmd *cmd)
 {
-	t_list	*env_lst;
 	t_env	*env;
 
-	env_lst = *((table)->envv);
 	env = malloc(sizeof(t_env));
 	if (!env)
 	{
@@ -92,20 +91,6 @@ int	bi_export(t_cmd_table *table, t_cmd *cmd)
 		free(env);
 	}
 	else
-	{
-		purge_equal(((t_tok *)cmd->tokens->next->content)->value, &env);
-		if (ft_strchr(env->key, '?') != 0)
-		{
-			ft_error_export(table, env->key);
-			free(env->key);
-			free(env->value);
-			free(env);
-			return (table->error_code);
-		}
-		if (token_exists(env_lst, env->key))
-			change_token(env_lst, env);
-		else
-			ft_lstadd_back(((table)->envv), ft_lstnew(env));
-	}
+		table->error_code = manage_correct_export(table, cmd, env);
 	return ((table)->error_code);
 }
