@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 19:03:41 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/05/13 16:44:23 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/05/13 16:50:19 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ bool	token_exists(t_list *env_list, char *str)
 	while (tmp != NULL)
 	{
 		env = (t_env *)tmp->content;
-		// ft_printf("%s:%d: %s\n", __FILE__, __LINE__, env->key); //debug
 		if (env->key != NULL && ft_strcmp(env->key, str) == 0)
 			return (true);
 		tmp = tmp->next;
@@ -97,7 +96,6 @@ int	bi_export(t_cmd_table *table, t_cmd *cmd)
 		purge_equal(((t_tok *)cmd->tokens->next->content)->value, &env);
 		if (ft_strchr(env->key, '?') != 0)
 		{
-			printf("hola \n");
 			ft_error_export(table, env->key);
 			free(env->key);
 			free(env->value);

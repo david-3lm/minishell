@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 16:28:50 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/05/13 16:08:41 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/05/13 16:49:45 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ t_list	*ft_make_env(char *str)
 
 static char	*change_shlvl(char *orig_shlvl)
 {
-	int 	num;
+	int		num;
 	char	*res;
 
 	num = (int)ft_atoi(orig_shlvl);
