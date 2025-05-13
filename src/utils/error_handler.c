@@ -6,33 +6,11 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/23 23:50:11 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/05/13 16:04:12 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/05/13 16:34:23 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
-
-int	unset_error(t_cmd_table *table)
-{
-	ft_putendl_fd("unset: not enough arguments", ERROR_E);
-	table->error_code = UNKNOWN_ERROR;
-	return (table->error_code);
-}
-
-void	ft_wrong_access_error(t_cmd_table *table, char *cmd, int code)
-{
-	ft_putstr_fd("💣 ", ERROR_E);
-	perror(cmd);
-	table->error_code = code;
-}
-
-void	ft_error_str(t_cmd_table *table, char *str)
-{
-	ft_putstr_fd("💣 ", ERROR_E);
-	ft_putstr_fd(str, ERROR_E);
-	ft_putendl_fd(": command not found", ERROR_E);
-	table->error_code = WRONG_CMD_ERROR;
-}
 
 void	error_handler(int code)
 {
@@ -79,6 +57,8 @@ void	check_error(int value, int to_check, t_cmd_table *table)
 			table->error_code = FORK_ERROR;
 		if (to_check == CHECK_CMD)
 			table->error_code = WRONG_CMD_ERROR;
+		if (to_check == CHECK_MEM)
+			table->error_code = MEM_ALLOC_ERROR;
 		error_handler(table->error_code);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/23 23:36:35 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/05/12 14:30:32 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/05/13 16:26:22 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@
 # define CHECK_FORK 3
 # define CHECK_OPEN 4
 # define CHECK_CMD 5
+# define CHECK_MEM 6
 
 extern int	g_heredoc;
 

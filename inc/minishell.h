@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/08 20:02:42 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/05/13 16:05:02 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/05/13 16:37:46 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ bool			is_redir(t_cmd cmd);
 bool			token_exists(t_list *env_list, char *str);
 bool			is_inside_kntxesi(int argc, char **argv);
 void			ft_error_str(t_cmd_table *table, char *str);
+void			ft_error_export(t_cmd_table *table, char *str);
 void			ft_wrong_access_error(t_cmd_table *table, char *cmd, int code);
 void			print_lines(t_list *tok, int out, bool n_opt);
 void			ft_change_old_pwd(t_cmd_table *table);

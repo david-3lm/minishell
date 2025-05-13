@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 16:37:57 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/05/13 11:33:10 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/05/13 16:30:55 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,4 +58,3 @@ bool	is_redir(t_cmd cmd)
 	else
 		return (false);
 }
-
