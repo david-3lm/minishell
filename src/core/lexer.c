@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 19:16:08 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/05/14 13:25:33 by dlopez-l         ###   ########.fr       */
+/*   Updated: 2025/05/14 20:31:35 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,11 +77,11 @@ void	lexer_split(char *line, t_token_list *list)
 		update_quote_state(line[i], &in_quote, &quote_char);
 		if (is_separator(line[i]) && !in_quote)
 			handle_token_segment(line, list, &start, i);
-		if(line[i] == '>' && line[i + 1] == line[i])
+		if(line[i] == '>' && line[i + 1] && line[i + 1] == line[i])
 			i += 2;
 		else
 			i++;
-		ft_printf("POST +I => %c\n", line[i]);
+		//printf("POST I+ => %c\n", line[i]);
 	}
 	handle_last_token(line, list, start, i);
 }

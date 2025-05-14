@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_handler.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/30 16:35:13 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/05/05 11:41:05 by dlopez-l         ###   ########.fr       */
+/*   Updated: 2025/05/14 15:42:28 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,12 @@ bool	process_token(t_cmd **current_cmd, t_list *curr_t, t_cmd_table **table)
 	if (need_new_cmd(*current_cmd, tok_content->type))
 	{
 		*current_cmd = create_or_redir_cmd(curr_t, table);
-		if (!*current_cmd)
+		if (!(*current_cmd))
+		{
+			(*table)->error_code = WRONG_CMD_ERROR;
 			error_handler(WRONG_CMD_ERROR);
+			return (false);
+		}
 		attach_cmd_to_table(*current_cmd, table);
 	}
 	new_tok = copy_and_expand(tok_content, *table);

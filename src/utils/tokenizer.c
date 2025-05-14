@@ -3,14 +3,41 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/30 16:06:36 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/05/14 13:19:17 by dlopez-l         ###   ########.fr       */
+/*   Updated: 2025/05/14 22:15:42 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
+
+void	mecagoentuputamadre(t_token_list *list, char *str)
+{
+	int		i;
+	int		start;
+	char	q;
+
+	i = 0;
+	start = 0;
+	q = ' ';
+	while (str[i])
+	{
+		if (q == ' ' && (str[i] == '\'' || str[i] == '"'))
+		{
+			q = str[i];
+			if (start == i)
+				handle_token_segment(str, list, &start, i);		
+		}
+		else if (q == str[i])
+		{
+			handle_token_segment(str, list, &start, i);
+			q = ' ';
+		}
+		i++;
+	}
+	handle_last_token(str, list, start, i);
+}
 
 void	add_token(t_token_list *list, char *value)
 {
@@ -21,12 +48,17 @@ void	add_token(t_token_list *list, char *value)
 		return ;
 	new_tok->expand = value[0] != '\'';
 	new_tok->type = get_ttype(value);
-	if (new_tok->type == STRING && count_quotes(value) == 2)
+	if (count_quotes(value) == 2)
 	{
-		new_tok->value = ft_substr(value, 1, ft_strlen(value) - 2);
+		mecagoentuputamadre(list, value);
+		free(new_tok);
+		return ;
+		// new_tok->value = ft_substr(value, 1, ft_strlen(value) - 2);
 	}
 	else if (new_tok->type == STRING && count_quotes(value) != 2)
 	{
+		printf("hoañ\n");
+
 		new_tok->value = ft_substr(value, 1, ft_strlen(value) - 2);
 		return ;
 	}
@@ -71,7 +103,7 @@ void	handle_token_segment(char *line, t_token_list *list, int *start, int i)
 	if (line[i] == '<' || line[i] == '>')
 	{
 		*start = i;
-		if (line[i+1] == line[i])
+		if (line[i + 1] == line[i])
 		{
 			handle_last_token(line, list, *start, i + 2);
 			*start = i + 2;

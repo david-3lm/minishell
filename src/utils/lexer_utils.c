@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 17:14:29 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/05/14 12:35:58 by dlopez-l         ###   ########.fr       */
+/*   Updated: 2025/05/14 21:20:08 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,11 @@ t_tok_type	get_ttype(char *tok)
 {
 	if (tok[0] == '\'' || tok[0] == '"')
 		return (STRING);
-	if (ft_strchr(tok, '<') || ft_strchr(tok, '>'))
+	else if (ft_strchr(tok, '<') || ft_strchr(tok, '>'))
 		return (REDIR);
-	if (ft_strchr(tok, '|'))
+	else if (ft_strchr(tok, '|'))
 		return (PIPE);
-	if (ft_strchr(tok, '$'))
+	else if (ft_strchr(tok, '$'))
 		return (COMMAND);
 	return (COMMAND);
 }
