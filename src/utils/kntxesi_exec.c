@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 12:32:59 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/05/13 16:48:47 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/05/14 14:53:48 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,16 +38,21 @@ char	*ft_getenv_value(t_cmd_table *table, char *str)
 	char	*result;
 
 	env_list = *(table->envv);
-	while (env_list->next)
+	if (env_list)
 	{
-		current = (t_env *)env_list->content;
-		if (ft_strncmp(current->key, str, ft_strlen(str)) == 0)
+		while (env_list->next)
 		{
-			result = ft_calloc(ft_strlen(current->value) + 1, sizeof(char));
-			ft_strlcpy(result, current->value, ft_strlen(current->value) + 1);
-			return (result);
+			if (!env_list->content)
+				return (NULL);
+			current = (t_env *)env_list->content;
+			if (ft_strncmp(current->key, str, ft_strlen(str)) == 0)
+			{
+				result = ft_calloc(ft_strlen(current->value) + 1, sizeof(char));
+				ft_strlcpy(result, current->value, ft_strlen(current->value) + 1);
+				return (result);
+			}
+			env_list = env_list->next;
 		}
-		env_list = env_list->next;
 	}
 	return (NULL);
 }

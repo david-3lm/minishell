@@ -5,7 +5,7 @@ LIB_DIR = ./libimp
 LIB = $(LIB_DIR)/libft.a
 MAIN_HEADER = ./inc/minishell.h
 HEADERS = ./inc/defines.h ./inc/minishell.h ./inc/structs.h 
-CC = gcc
+CC = cc
 CFLAGS = -Wall -Werror -Wextra -g3 
 RM = rm -f
 
