@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 19:16:08 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/05/07 14:47:14 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/05/14 13:25:33 by dlopez-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	purge_input(t_token_list *list, const char *str)
 	start = 0;
 	while (str[i])
 	{
-		while (str[i] != '|' && str[i] != '<' && str[i] != '>' && str[i])
+		while (str[i] != '|' && str[i] != '<' && str[i] != '>' && str[i] && str[i] != ' ')
 			i++;
 		if (i != 0 && i != start)
 		{
@@ -48,7 +48,9 @@ void	purge_input(t_token_list *list, const char *str)
 			add_token(list, aux);
 		}
 		start = i;
-		while (str[i] == '|' || str[i] == '<' || str[i] == '>')
+		while ((str[i] == '<' || str[i] == '>') && str[i + 1] == str[i])
+			i += 2;
+		while (str[i] == '<' || str[i] == '>' || str[i] == '|')
 			i++;
 		if (i != start)
 		{
@@ -75,7 +77,11 @@ void	lexer_split(char *line, t_token_list *list)
 		update_quote_state(line[i], &in_quote, &quote_char);
 		if (is_separator(line[i]) && !in_quote)
 			handle_token_segment(line, list, &start, i);
-		i++;
+		if(line[i] == '>' && line[i + 1] == line[i])
+			i += 2;
+		else
+			i++;
+		ft_printf("POST +I => %c\n", line[i]);
 	}
 	handle_last_token(line, list, start, i);
 }

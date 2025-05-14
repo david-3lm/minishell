@@ -6,7 +6,7 @@
 /*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/30 16:06:36 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/05/01 14:30:20 by dlopez-l         ###   ########.fr       */
+/*   Updated: 2025/05/14 13:19:17 by dlopez-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,10 +64,26 @@ void	handle_token_segment(char *line, t_token_list *list, int *start, int i)
 	if (i > *start)
 	{
 		token = ft_substr(line, *start, i - *start);
+		printf("TOKEN => %s\n", token);
 		add_token(list, token);
 		free(token);
 	}
-	*start = i + 1;
+	if (line[i] == '<' || line[i] == '>')
+	{
+		*start = i;
+		if (line[i+1] == line[i])
+		{
+			handle_last_token(line, list, *start, i + 2);
+			*start = i + 2;
+		}
+		else
+		{
+			handle_last_token(line, list, *start, i + 1);
+			*start = i + 1;
+		}
+	}
+	else
+		*start = i + 1;
 }
 
 void	handle_last_token(char *line, t_token_list *list, int start, int end)
@@ -77,6 +93,7 @@ void	handle_last_token(char *line, t_token_list *list, int start, int end)
 	if (end > start)
 	{
 		token = ft_substr(line, start, end - start);
+		printf("TOKEN LAST => %s\n", token);
 		add_token(list, token);
 		free(token);
 	}

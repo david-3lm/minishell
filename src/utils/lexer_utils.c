@@ -6,7 +6,7 @@
 /*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 17:14:29 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/04/30 16:14:27 by dlopez-l         ###   ########.fr       */
+/*   Updated: 2025/05/14 12:35:58 by dlopez-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ bool	is_quote(char c)
 
 bool	is_separator(char c)
 {
-	return (c == ' ' || c == '\t');
+	return (c == ' ' || c == '\t' || c == '<' || c == '>');
 }
 
 int	count_quotes(char *str)
