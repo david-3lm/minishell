@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/30 16:06:36 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/05/14 22:15:42 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/05/17 19:29:43 by dlopez-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-void	mecagoentuputamadre(t_token_list *list, char *str)
+void	filter_quotes(t_token_list *list, char *str)
 {
 	int		i;
 	int		start;
@@ -25,9 +25,9 @@ void	mecagoentuputamadre(t_token_list *list, char *str)
 	{
 		if (q == ' ' && (str[i] == '\'' || str[i] == '"'))
 		{
-			q = str[i];
+			q = str[i]; 
 			if (start == i)
-				handle_token_segment(str, list, &start, i);		
+				handle_token_segment(str, list, &start, i);
 		}
 		else if (q == str[i])
 		{
@@ -39,21 +39,20 @@ void	mecagoentuputamadre(t_token_list *list, char *str)
 	handle_last_token(str, list, start, i);
 }
 
-void	add_token(t_token_list *list, char *value)
+void	add_token(t_token_list *list, char *value, bool expand)
 {
 	t_tok	*new_tok;
 
 	new_tok = malloc(sizeof(t_tok));
 	if (!new_tok)
 		return ;
-	new_tok->expand = value[0] != '\'';
+	new_tok->expand = expand;
 	new_tok->type = get_ttype(value);
 	if (count_quotes(value) == 2)
 	{
-		mecagoentuputamadre(list, value);
+		filter_quotes(list, value);
 		free(new_tok);
 		return ;
-		// new_tok->value = ft_substr(value, 1, ft_strlen(value) - 2);
 	}
 	else if (new_tok->type == STRING && count_quotes(value) != 2)
 	{
@@ -96,11 +95,11 @@ void	handle_token_segment(char *line, t_token_list *list, int *start, int i)
 	if (i > *start)
 	{
 		token = ft_substr(line, *start, i - *start);
-		printf("TOKEN => %s\n", token);
-		add_token(list, token);
+		printf("TOKEN SEGMENT => %s\n", token);
+		add_token(list, token, line[i] != '\'');
 		free(token);
 	}
-	if (line[i] == '<' || line[i] == '>')
+	if (line[i] == '<' || line[i] == '>' || line[i] == '|')
 	{
 		*start = i;
 		if (line[i + 1] == line[i])
@@ -126,7 +125,7 @@ void	handle_last_token(char *line, t_token_list *list, int start, int end)
 	{
 		token = ft_substr(line, start, end - start);
 		printf("TOKEN LAST => %s\n", token);
-		add_token(list, token);
+		add_token(list, token, line[end] != '\'');
 		free(token);
 	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/08 20:02:42 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/05/13 16:56:35 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/05/17 19:23:17 by dlopez-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ void			free_cmd_list(t_list *lst);
 void			free_env(t_list *lst);
 void			free_cmd_table(t_cmd_table *table);
 void			attach_cmd_to_table(t_cmd *cmd, t_cmd_table **table);
-void			add_token(t_token_list *list, char *value);
+void			add_token(t_token_list *list, char *value, bool expand);
 void			update_quote_state(char c, bool *in_quote, char *quote_char);
 void			handle_token_segment(char *line, \
 				t_token_list *list, int *start, int i);

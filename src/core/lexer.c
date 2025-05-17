@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 19:16:08 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/05/14 20:31:35 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/05/17 19:23:33 by dlopez-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	purge_input(t_token_list *list, const char *str)
 		if (i != 0 && i != start)
 		{
 			aux = ft_substr(str, start, i - start);
-			add_token(list, aux);
+			add_token(list, aux, false);
 		}
 		start = i;
 		while ((str[i] == '<' || str[i] == '>') && str[i + 1] == str[i])
@@ -55,7 +55,7 @@ void	purge_input(t_token_list *list, const char *str)
 		if (i != start)
 		{
 			aux = ft_substr(str, start, i - start);
-			add_token(list, aux);
+			add_token(list, aux, false);
 		}
 		start = i;
 	}
@@ -77,7 +77,7 @@ void	lexer_split(char *line, t_token_list *list)
 		update_quote_state(line[i], &in_quote, &quote_char);
 		if (is_separator(line[i]) && !in_quote)
 			handle_token_segment(line, list, &start, i);
-		if(line[i] == '>' && line[i + 1] && line[i + 1] == line[i])
+		if((line[i] == '>' || line[i] == '<') && line[i + 1] && line[i + 1] == line[i])
 			i += 2;
 		else
 			i++;
