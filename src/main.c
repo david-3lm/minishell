@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 11:23:27 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/05/13 14:59:46 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/05/20 15:36:48 by dlopez-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,8 @@ int	main(int argc, char **argv, char **envp)
 {
 	char				*rl;
 	t_list				*envl;
+	t_cmd_table			*table;
+	int					curr_pos;
 
 	if (is_inside_kntxesi(argc, argv))
 		envl = env_init(envp, argv[1]);
@@ -96,7 +98,14 @@ int	main(int argc, char **argv, char **envp)
 		}
 		if (*rl)
 			add_history(rl);
-		lexer(rl, &envl);
+		// lexer(rl, &envl);
+
+		// MINICOPIA
+		if (!is_input_valid(rl))
+			continue ;
+		// turn_on_canonical_mode(&g_msh.termcaps);
+		table = get_cmd_table(rl, &curr_pos);
+		executor(table);
 		free(rl);
 	}
 	free_env(envl);

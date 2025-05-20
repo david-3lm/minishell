@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   defines.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/23 23:36:35 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/05/13 16:26:22 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/05/20 15:38:26 by dlopez-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,9 @@
 # define CHECK_OPEN 4
 # define CHECK_CMD 5
 # define CHECK_MEM 6
+
+# define WHITE_SPACE " \t\n\v\f\r"
+
 
 extern int	g_heredoc;
 

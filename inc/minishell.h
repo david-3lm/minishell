@@ -6,7 +6,7 @@
 /*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/08 20:02:42 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/05/17 19:23:17 by dlopez-l         ###   ########.fr       */
+/*   Updated: 2025/05/20 15:58:34 by dlopez-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,4 +150,22 @@ t_tok_type		get_ttype(char *tok);
 t_tok_type		get_token_type(t_list *cmd);
 t_error_code	lexer(char *input, t_list **envl);
 t_error_code	parser(t_token_list *list, t_list **envl);
+
+//MINICOPIA
+int	is_input_valid(const char *input);
+int	has_non_supported_one(const char *input, char *test, char *err_message);
+int	has_quotes_open(const char *input, char *err_message);
+int	is_input_valid_not_supported(const char *input, char *err_message);
+int	has_non_supported(const char *input, char *test, char *err_message);
+int	is_input_valid_unexpected_token(const char *input, char *err_message);
+int	has_spaces_between_char(const char *input, char c, char *err_message);
+int	has_forbidden_sequence(const char *input, char *test, char *err_message);
+int	has_char_at_end(const char *input, char c, char *err_message);
+int	has_char_at_beginning(const char *input, char c, char *err_message);
+int	ft_strisspace(char *str);
+t_cmd_table	*get_cmd_table(const char *input, int *curr_pos);
+void	skip_spaces(const char *input, int *curr_pos);
+void	skip_quotes(const char *input, int *curr_pos);
+int	ft_isspace(char c);
+char	*ft_strncpy(char *dest, char *src, size_t n);
 #endif
