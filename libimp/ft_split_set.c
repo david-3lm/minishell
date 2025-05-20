@@ -6,47 +6,32 @@
 /*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 12:30:34 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/05/20 15:53:51 by dlopez-l         ###   ########.fr       */
+/*   Updated: 2025/05/20 18:19:27 by dlopez-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	concat_all(char *dest, char **strs)
+int	find_length(char *str, char *charset)
 {
-	int	i;
+	int	count;
 
-	i = 0;
-	while (strs[i])
+	count = 0;
+	while (*str)
 	{
-		ft_strcat(dest, strs[i]);
-		i++;
+		if (!ft_strchr(charset, *str++))
+			count++;
 	}
+	return (count);
 }
 
-size_t	get_length(char **strs)
+void	import_str(char **dest, char *src, int start, int end)
 {
-	size_t	len;
-
-	len = 0;
-	while (*strs)
-	{
-		len += ft_strlen(*strs);
-		strs++;
-	}
-	return (len);
-}
-
-void	free_arr(void **ptr)
-{
-	int	i;
-
-	if (!ptr)
+	*dest = malloc(((end - start + 1) * sizeof(char)));
+	if (!(*dest))
 		return ;
-	i = 0;
-	while (ptr[i])
-		free(ptr[i++]);
-	free(ptr);
+	ft_strncpy(*dest, src, end - start);
+	(*dest)[end - start] = '\0';
 }
 
 char	**ft_split_set(char *str, char *charset)

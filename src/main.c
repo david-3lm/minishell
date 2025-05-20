@@ -6,7 +6,7 @@
 /*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 11:23:27 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/05/20 15:36:48 by dlopez-l         ###   ########.fr       */
+/*   Updated: 2025/05/20 18:35:45 by dlopez-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,63 @@ const char	*get_type_name(t_tok_type type)
 	return ("UNKNOWN");
 }
 
+#include <stdio.h>
+
+void	print_tokens(t_list *tokens)
+{
+	int i = 0;
+	while (tokens)
+	{
+		char *token = (char *)tokens->content;
+		printf("      Token %d: %s\n", i++, token);
+		tokens = tokens->next;
+	}
+}
+
+void	print_redirs(t_list *redirs)
+{
+	int i = 0;
+	while (redirs)
+	{
+		t_redir *redir = (t_redir *)redirs->content;
+		printf("      Redir %d: type='%d', direction='%s'\n", i++, redir->type, redir->direction);
+		redirs = redirs->next;
+	}
+}
+
+void	debug_table(t_cmd_table *table)
+{
+	if (!table)
+	{
+		printf("Table is NULL\n");
+		return;
+	}
+	printf("Debugging Command Table:\n");
+	printf("  Number of commands: %d\n", table->n_cmd);
+
+	t_list *cmd_node = table->cmds;
+	int cmd_index = 0;
+	while (cmd_node)
+	{
+		t_cmd *cmd = (t_cmd *)cmd_node->content;
+		printf("  Command %d:\n", cmd_index);
+
+		if (cmd->tokens)
+			print_tokens(cmd->tokens);
+		else
+			printf("    No tokens\n");
+
+		if (cmd->redirs)
+			print_redirs(cmd->redirs);
+		else
+			printf("    No redirections\n");
+
+		cmd_node = cmd_node->next;
+		cmd_index++;
+	}
+}
+
+
 //TODO: liberar los distintos tipos de t_list *
 int	main(int argc, char **argv, char **envp)
 {
@@ -105,7 +162,8 @@ int	main(int argc, char **argv, char **envp)
 			continue ;
 		// turn_on_canonical_mode(&g_msh.termcaps);
 		table = get_cmd_table(rl, &curr_pos);
-		executor(table);
+		debug_table(table);
+		// executor(table);
 		free(rl);
 	}
 	free_env(envl);

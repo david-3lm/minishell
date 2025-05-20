@@ -6,7 +6,7 @@
 /*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/08 20:02:42 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/05/20 15:58:34 by dlopez-l         ###   ########.fr       */
+/*   Updated: 2025/05/20 18:08:13 by dlopez-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,4 +168,5 @@ void	skip_spaces(const char *input, int *curr_pos);
 void	skip_quotes(const char *input, int *curr_pos);
 int	ft_isspace(char c);
 char	*ft_strncpy(char *dest, char *src, size_t n);
+t_cmd	*get_cmds(const char *input, int *curr_pos);
 #endif

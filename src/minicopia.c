@@ -6,7 +6,7 @@
 /*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 15:18:54 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/05/20 16:02:40 by dlopez-l         ###   ########.fr       */
+/*   Updated: 2025/05/20 18:23:45 by dlopez-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,20 +17,7 @@ int	ft_isspace(char c)
 	return (c == ' ' || (9 <= c && c <= 13));
 }
 
-char	*ft_strcat(char *dest, char *src)
-{
-	char	*sav_d;
-
-	sav_d = dest;
-	while (*dest)
-		dest++;
-	while (*src)
-		*dest++ = *src++;
-	*dest = '\0';
-	return (sav_d);
-}
-
-void	concat_all(char *dest, char **strs)
+void	concat(char *dest, char **strs)
 {
 	int	i;
 
@@ -73,30 +60,6 @@ int	ft_strisspace(char *str)
 	return (check);
 }
 
-
-
-int	find_length(char *str, char *charset)
-{
-	int	count;
-
-	count = 0;
-	while (*str)
-	{
-		if (!ft_strchr(charset, *str++))
-			count++;
-	}
-	return (count);
-}
-
-static void	import_str(char **dest, char *src, int start, int end)
-{
-	*dest = malloc(((end - start + 1) * sizeof(char)));
-	if (!(*dest))
-		return ;
-	ft_strncpy(*dest, src, end - start);
-	(*dest)[end - start] = '\0';
-}
-
 size_t	get_length(char **strs)
 {
 	size_t	len;
@@ -109,7 +72,6 @@ size_t	get_length(char **strs)
 	}
 	return (len);
 }
-
 
 char	*ft_strtrim_all(const char *s1, const char *set)
 {
@@ -128,7 +90,7 @@ char	*ft_strtrim_all(const char *s1, const char *set)
 	new_str = ft_calloc(size_new_str + 1, sizeof(char));
 	if (!new_str)
 		return (0);
-	concat_all(new_str, split);
+	concat(new_str, split);
 	free_arr((void **)split);
 	return (new_str);
 }
