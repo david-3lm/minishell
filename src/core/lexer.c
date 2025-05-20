@@ -6,7 +6,7 @@
 /*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 19:16:08 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/05/17 19:23:33 by dlopez-l         ###   ########.fr       */
+/*   Updated: 2025/05/20 11:57:57 by dlopez-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,6 @@ void	lexer_split(char *line, t_token_list *list)
 			i += 2;
 		else
 			i++;
-		//printf("POST I+ => %c\n", line[i]);
 	}
 	handle_last_token(line, list, start, i);
 }

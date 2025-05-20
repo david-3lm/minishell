@@ -6,7 +6,7 @@
 /*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/30 16:06:36 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/05/17 19:29:43 by dlopez-l         ###   ########.fr       */
+/*   Updated: 2025/05/20 12:42:18 by dlopez-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	filter_quotes(t_token_list *list, char *str)
 	handle_last_token(str, list, start, i);
 }
 
-void	add_token(t_token_list *list, char *value, bool expand)
+void		add_token(t_token_list *list, char *value, bool expand)
 {
 	t_tok	*new_tok;
 
@@ -56,8 +56,6 @@ void	add_token(t_token_list *list, char *value, bool expand)
 	}
 	else if (new_tok->type == STRING && count_quotes(value) != 2)
 	{
-		printf("hoañ\n");
-
 		new_tok->value = ft_substr(value, 1, ft_strlen(value) - 2);
 		return ;
 	}

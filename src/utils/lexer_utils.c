@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 17:14:29 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/05/14 21:20:08 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/05/20 12:36:03 by dlopez-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	count_quotes(char *str)
 	{
 		if (q == ' ' && (str[i] == '\'' || str[i] == '"'))
 			q = str[i];
-		if (q == str[i])
+		if (q == str[i] && q != ' ')
 			count++;
 		i++;
 	}
