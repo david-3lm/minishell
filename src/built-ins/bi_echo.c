@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bi_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 19:03:41 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/05/08 11:19:04 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/05/21 19:48:03 by dlopez-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	print_lines(t_list *tok, int out, bool n_opt)
 
 	while (tok)
 	{
-		str = ((t_tok *)tok->content)->value;
+		str = (tok->content);
 		if (str)
 			ft_putstr_fd(str, out);
 		tok = tok->next;
@@ -49,7 +49,7 @@ t_list	*check_n_flag(t_list *next, bool *n_opt)
 
 	if (!next || !next->content)
 		return (next);
-	aux = (char *)((t_tok *)next->content)->value;
+	aux = (char *)(next->content);
 	if (is_n_option(aux))
 	{
 		*n_opt = true;

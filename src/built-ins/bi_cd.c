@@ -6,7 +6,7 @@
 /*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 19:03:41 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/05/21 19:17:09 by dlopez-l         ###   ########.fr       */
+/*   Updated: 2025/05/21 19:45:48 by dlopez-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,25 +59,46 @@ void	ft_change_old_pwd(t_cmd_table *table)
 	printf("changeoldpwd ---> %s \n", mini_get_env((table), "OLDPWD")->value);
 	free(value);
 }
+void	ft_change_old_pwd_path(t_cmd_table *table, char *path)
+{
+	char	*value;
+	t_env	*old_pwd;
+
+	value = NULL;
+	//refactor --- estas tres funciones pueden ser una seguro
+	old_pwd = ft_calloc(1, sizeof(t_env));
+	old_pwd->key = ft_strdup("OLDPWD");
+	old_pwd->value = ft_strdup(path);
+	change_token(*(table)->envv, old_pwd);
+	printf("changeoldpwd ---> %s \n", mini_get_env((table), "OLDPWD")->value);
+	free(value);
+}
+#include <errno.h>
 
 int	ft_change_path(t_cmd_table *table, char *arg)
 {
 	char	*path;
+	char 	*aux;
+
+	path = NULL;
 
 	if (ft_strcmp(arg, "-") == 0)
 	{
 		path = mini_get_env((table), "OLDPWD")->value;
-		printf("IF PATH %s\n", path);
-		ft_change_old_pwd(table);
+		printf("IF PATH .%s.\n", path);
+		aux = mini_get_env((table), "PWD")->value;
+		//ft_change_old_pwd(table);
 		(table)->error_code = chdir(path);
+		ft_change_old_pwd_path(table, aux);
 		ft_change_pwd(table);
+		printf("ERROR %s\n", strerror(errno));
 		printf("if errror codeeeeee ---> %i \n", table->error_code);
 		//printf("EL PWD DESPUES DE CHDIR - ---> %s \n", getcwd(pwd, 0));
 		//return (ft_change_path(table, path));
 	}
 	else
 	{
-		printf("quiero que cambies a este path ---> %s \n", arg);
+		printf("quiero que cambies a este path ---> .%s. \n", arg);
 		ft_change_old_pwd(table);
 		(table)->error_code = chdir(arg);
 		ft_change_pwd(table);
