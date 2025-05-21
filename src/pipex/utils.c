@@ -6,7 +6,7 @@
 /*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 12:50:13 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/05/21 15:32:39 by dlopez-l         ###   ########.fr       */
+/*   Updated: 2025/05/21 16:45:32 by dlopez-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,8 @@ char	**get_paths(t_cmd_table *table, char *cmd)
 	char	**my_paths;
 
 	my_paths = NULL;
-	// env_paths = ft_getenv_value(table, "PATH");
-	env_paths = getenv("PATH");
+	env_paths = ft_getenv_value(table, "PATH");
+	//env_paths = getenv("PATH");
 	if (env_paths != NULL)
 		my_paths = ft_split(env_paths, ':');
 	else

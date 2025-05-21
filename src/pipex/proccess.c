@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   proccess.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 12:05:04 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/05/21 15:22:59 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/05/21 16:47:53 by dlopez-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,8 @@ int	pipex_proccess(t_cmd *cmd, t_cmd_table *table)
 		value = dup2((table)->pipe_fd[WRITE_E], STDOUT_FILENO);
 		check_error(value, CHECK_DUP, table);
 		close((table)->pipe_fd[WRITE_E]);
-		// if (cmd->builtin)
-		// 	exit(cmd->builtin(table, cmd));
+		if (cmd->builtin)
+			exit(cmd->builtin(table, cmd));
 		path_exec(cmd, table);
 	}
 	else

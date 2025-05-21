@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/08 20:02:42 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/05/21 13:13:41 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/05/21 16:36:15 by dlopez-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,4 +169,7 @@ void	skip_quotes(const char *input, int *curr_pos);
 int	ft_isspace(char c);
 char	*ft_strncpy(char *dest, char *src, size_t n);
 t_cmd	*get_cmds(const char *input, int *curr_pos);
+void	replace_envs(t_list **tokens, t_list *redirs);
+int	is_token_delimiter(char c);
+char	*ft_strcpy(char *dest, const char *src);
 #endif

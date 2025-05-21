@@ -6,7 +6,7 @@
 /*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 15:18:54 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/05/21 15:30:52 by dlopez-l         ###   ########.fr       */
+/*   Updated: 2025/05/21 16:35:19 by dlopez-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,17 +93,6 @@ char	*ft_strtrim_all(const char *s1, const char *set)
 	concat(new_str, split);
 	free_arr((void **)split);
 	return (new_str);
-}
-
-char	*ft_strcpy(char *dest, const char *src)
-{
-	char	*saved;
-
-	saved = dest;
-	while (*src)
-		*dest++ = *src++;
-	*dest = '\0';
-	return (saved);
 }
 
 char	*ft_strstr_quotes(char *str, char *to_find)

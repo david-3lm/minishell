@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bi_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 19:03:41 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/05/13 17:04:17 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/05/21 18:31:57 by dlopez-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int	manage_correct_export(t_cmd_table *table, t_cmd *cmd, t_env *env)
 	t_list	*env_lst;
 
 	env_lst = *((table)->envv);
-	purge_equal(((t_tok *)cmd->tokens->next->content)->value, &env);
+	purge_equal((char *)(cmd->tokens->next->content), &env);
 	if (export_manage_inter(env, table))
 		return (table->error_code);
 	if (token_exists(env_lst, env->key))
