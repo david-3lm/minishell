@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/16 10:52:37 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/05/13 16:49:18 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/05/21 13:13:25 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,19 +82,22 @@ t_redir	*get_redir_out(t_list *list)
 	return (NULL);
 }
 
-void	fill_redirs(t_cmd_table *table)
+void	fill_redirs(t_cmd *cmd, t_cmd_table *table)
 {
 	t_redir	*redir;
 	t_list	*copy;
 
-	copy = table->redirs;
+	copy = cmd->redirs;
 	while (copy != NULL)
 	{
 		redir = (t_redir *)copy->content;
 		if (redir->type == RD_SIN || redir->type == RD_HD)
 			manage_redir_in(table, *redir);
 		if (redir->type == RD_SOUT || redir->type == RD_SOUT2)
+		{
+			printf("holla \n");
 			manage_redir_out(table, *redir);
+		}
 		copy = copy->next;
 	}
 	return ;

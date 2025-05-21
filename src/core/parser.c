@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 19:16:03 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/05/12 15:27:50 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/05/21 12:55:29 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	count_pipes(t_cmd_table *table)
 	t_tok	*tok;
 
 	cmd_list = table->cmds;
-	table->n_pipes = 0;
+	// table->n_pipes = 0;
 	while (cmd_list)
 	{
 		cmd = (t_cmd *)cmd_list->content;
@@ -62,8 +62,8 @@ void	count_pipes(t_cmd_table *table)
 		while (token_list)
 		{
 			tok = (t_tok *)token_list->content;
-			if (tok->type == PIPE)
-				table->n_pipes += 1;
+			// if (tok->type == PIPE)
+			// 	table->n_pipes += 1;
 			if (tok->type == PIPE_ERR)
 				table->error_code = PIPE_ERROR;
 			token_list = token_list->next;

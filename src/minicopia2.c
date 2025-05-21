@@ -7,31 +7,6 @@ void	skip_spaces(const char *input, int *curr_pos)
 		(*curr_pos)++;
 }
 
-char	*ft_strncpy(char *dest, char *src, size_t n)
-{
-	char	*sav_dest;
-	char	*sav_src;
-
-	sav_dest = dest;
-	sav_src = src;
-	if (n != 0)
-	{
-		while (1)
-		{
-			*sav_dest = *sav_src++;
-			if (*sav_dest++ == 0)
-			{
-				while (--n != 0)
-					*sav_dest++ = 0;
-				break ;
-			}
-			if (--n == 0)
-				break ;
-		}
-	}
-	return (dest);
-}
-
 int	is_cmd_delimiter(char c)
 {
 	int	check;
@@ -114,15 +89,27 @@ t_redir	*get_redir(const char *input, int *curr_pos)
 	redir = ft_calloc(1, sizeof(t_redir));
 	// if (!redir)
 		// quit_program(EXIT_FAILURE);
-	if (input[*curr_pos] == '<')
-		(*redir).type = input[(*curr_pos)++];
+	if (!ft_strncmp(&input[*curr_pos], "<<", 2))
+	{
+		// ft_strncpy((char *)redir->type, (char *)&input[*curr_pos], 2);
+		redir->type = RD_HD;
+		*curr_pos += 2;
+	}
+	else if (input[*curr_pos] == '<')
+	{
+		redir->type = RD_SIN;
+		(*curr_pos)++;
+	}
 	else if (!ft_strncmp(&input[*curr_pos], ">>", 2))
 	{
-		ft_strncpy((char *)redir->type, (char *)&input[*curr_pos], 2);
+		redir->type = RD_SOUT2;
 		*curr_pos += 2;
 	}
 	else if (input[*curr_pos] == '>')
-		(*redir).type = input[(*curr_pos)++];
+	{
+		redir->type = RD_SOUT;
+		(*curr_pos)++;
+	}
 	skip_spaces(input, curr_pos);
 	redir->direction = get_token(input, curr_pos);
 	return (redir);

@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/08 20:02:42 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/05/21 12:38:36 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/05/21 13:13:41 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ void			restore_and_close_fds(t_cmd_table *table);
 void			write_here_doc(char *limit, t_cmd_table *table);
 void			manage_redir_out(t_cmd_table *table, t_redir out_redir);
 void			manage_redir_in(t_cmd_table *table, t_redir in_redir);
-void			fill_redirs(t_cmd_table *table);
+void			fill_redirs(t_cmd *cmd, t_cmd_table *table);
 void			redir_dup(t_cmd_table *table);
 void			close_red_fd(int files[2]);
 void			free_token_list(t_list *tokens);
