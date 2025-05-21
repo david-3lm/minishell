@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 11:45:46 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/05/21 13:13:47 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/05/21 15:18:06 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ int	handle_command(t_cmd *cmd, t_cmd_table *table, int *cmd_index)
 	}
 	else
 	{
-		printf("handle_command n_cmd --> %i \n", table->n_cmd);
 		// if (cmd->builtin)
 		// 	cmd->builtin(table, cmd);
 		// else
@@ -65,17 +64,18 @@ static	int	exec_cmd_list(t_list *cmd_list, t_cmd_table *table, int i)
 
 	if (!cmd_list)
 		return (NO_ERROR);
+
 	cmd = (t_cmd *)cmd_list->content;
 	// if (is_kntxesi(*cmd)) //mirar si es necesario
 	// 	(table)->error_code = execute_kntxesi(table);
 	fill_redirs(cmd, table);
 	redir_dup(table);
 	(table)->error_code = handle_command(cmd, table, &i);
-	printf("exec_cmd_list \n");
 	// if (is_redir(*cmd))
 	// 	cmd_list = cmd_list->next;
 	if (cmd_list)
 		cmd_list = cmd_list->next;
+	close_red_fd((table)->red_fd);
 	return (exec_cmd_list(cmd_list, table, i));
 }
 
@@ -86,11 +86,10 @@ int	execute_cmd_table(t_cmd_table *table)
 
 	cmd_index = 0;
 	cmd_list = (table)->cmds;
-	printf("execute cmd table \n");
+	save_original_fd((table));
 	table->n_cmd = ft_lstsize(cmd_list);
 	exec_cmd_list(cmd_list, table, cmd_index);
-	// close_red_fd((table)->red_fd);
-	restore_and_close_fds((table));
 	(table)->error_code = ft_wait_table(table);
+	restore_and_close_fds((table));
 	return ((table)->error_code);
 }

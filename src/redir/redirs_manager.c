@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/16 10:52:37 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/05/21 13:13:25 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/05/21 15:25:08 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,10 @@ void	manage_redir_out(t_cmd_table *table, t_redir out_redir)
 	if (table->red_fd[WRITE_E] != 0)
 		close(table->red_fd[WRITE_E]);
 	if (out_redir.type == RD_SOUT)
+	{
 		table->red_fd[WRITE_E] = open \
 		(out_redir.direction, O_WRONLY | O_CREAT | O_TRUNC, 0777);
+	}
 	else if (out_redir.type == RD_SOUT2)
 		table->red_fd[WRITE_E] = open \
 		(out_redir.direction, O_RDWR | O_CREAT | O_APPEND, 0777);
@@ -94,10 +96,7 @@ void	fill_redirs(t_cmd *cmd, t_cmd_table *table)
 		if (redir->type == RD_SIN || redir->type == RD_HD)
 			manage_redir_in(table, *redir);
 		if (redir->type == RD_SOUT || redir->type == RD_SOUT2)
-		{
-			printf("holla \n");
 			manage_redir_out(table, *redir);
-		}
 		copy = copy->next;
 	}
 	return ;
