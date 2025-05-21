@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 12:50:13 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/05/13 16:02:35 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/05/21 12:50:05 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ char	*get_value(void *token)
 	return (((t_tok *)token)->value);
 }
 
-char	**get_cmd(t_list *origin, int i)
+char	**get_cmd(t_list *origin)
 {
 	char	*full_cmd;
 	char	*temp;
@@ -28,16 +28,19 @@ char	**get_cmd(t_list *origin, int i)
 
 	size = ft_lstsize(origin);
 	aux = origin;
-	full_cmd = get_value(aux->content);
-	while (i < size)
+	full_cmd = (char *)aux->content;
+	
+	while (size > 0 && aux->next)
 	{
 		aux = aux->next;
+		printf("aux en getcmd en pathexec  --> %s \n", (char *)aux->content);
 		temp = ft_strjoin(full_cmd, " ");
 		free(full_cmd);
-		full_cmd = ft_strjoin(temp, get_value(aux->content));
+		full_cmd = ft_strjoin(temp, (char *)aux->content);
 		free(temp);
-		i++;
+		size--;
 	}
+	printf("fullcmd en getcmd en pathexec  --> %s \n", full_cmd);
 	res = ft_split(full_cmd, ' ');
 	free(full_cmd);
 	return (res);
@@ -49,12 +52,13 @@ char	**get_paths(t_cmd_table *table, char *cmd)
 	char	**my_paths;
 
 	my_paths = NULL;
-	env_paths = ft_getenv_value(table, "PATH");
+	// env_paths = ft_getenv_value(table, "PATH");
+	env_paths = getenv("PATH");
 	if (env_paths != NULL)
 		my_paths = ft_split(env_paths, ':');
 	else
 		ft_error_str(table, cmd);
-	free(env_paths);
+	// free(env_paths);
 	return (my_paths);
 }
 
@@ -67,7 +71,7 @@ void	path_exec(t_cmd *cmd, t_cmd_table *table)
 	char	*executable;
 
 	i = 0;
-	full_cmd = get_cmd(cmd->tokens, 1);
+	full_cmd = get_cmd(cmd->tokens);
 	mypaths = get_paths(table, full_cmd[0]);
 	if (try_fullpath(*full_cmd, full_cmd, mypaths, table) || mypaths == NULL)
 		exit(table->error_code);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/08 20:02:42 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/05/20 18:08:13 by dlopez-l         ###   ########.fr       */
+/*   Updated: 2025/05/21 12:38:36 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,7 @@ char			*append_plain_text(char *token, int *i);
 char			*check_expansion(char *token, t_cmd_table *table, t_tok *tok);
 char			*ft_new_limit(char *limit, t_cmd_table *table);
 char			*ft_getenv_value(t_cmd_table *table, char *str);
-char			**get_cmd(t_list *origin, int i);
+char			**get_cmd(t_list *origin);
 // char			**get_paths(void);
 char			**get_paths(t_cmd_table *table, char *cmd);
 t_env			*mini_get_env(t_cmd_table *table, char *var);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 11:23:27 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/05/21 12:01:52 by dlopez-l         ###   ########.fr       */
+/*   Updated: 2025/05/21 12:42:20 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,6 +165,7 @@ int	main(int argc, char **argv, char **envp)
 		table = get_cmd_table(rl, &curr_pos);
 		debug_table(table);
 		executor(table);
+		// free_cmd_table(table);
 		free(rl);
 	}
 	free_env(envl);

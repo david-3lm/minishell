@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 11:45:46 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/05/14 21:11:12 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/05/21 12:47:02 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,16 +29,17 @@ int	last_command_exec(t_cmd *cmd, t_cmd_table *table)
 
 int	handle_command(t_cmd *cmd, t_cmd_table *table, int *cmd_index)
 {
-	if ((table)->n_pipes > *cmd_index)
+	if ((table->n_cmd - 1) > *cmd_index)
 	{
 		(table)->error_code = pipex_proccess(cmd, table);
 		(*cmd_index)++;
 	}
 	else
 	{
-		if (cmd->builtin)
-			cmd->builtin(table, cmd);
-		else
+		printf("handle_command n_cmd --> %i \n", table->n_cmd);
+		// if (cmd->builtin)
+		// 	cmd->builtin(table, cmd);
+		// else
 			(table)->error_code = last_command_exec(cmd, table);
 	}
 	return ((table)->error_code);
@@ -65,21 +66,12 @@ static	int	exec_cmd_list(t_list *cmd_list, t_cmd_table *table, int i)
 	if (!cmd_list)
 		return (NO_ERROR);
 	cmd = (t_cmd *)cmd_list->content;
-	if (is_command(*cmd) || is_str(*cmd))
-	{
-		if ((is_str(*cmd) && \
-	ft_strchr(((t_tok *)cmd->tokens->content)->value, ' ') != 0))
-			ft_error_str(table, ((t_tok *)cmd->tokens->content)->value);
-		else
-		{
-			if (is_kntxesi(*cmd))
-				(table)->error_code = execute_kntxesi(table);
-			else
-				(table)->error_code = handle_command(cmd, table, &i);
-		}
-	}
-	if (is_redir(*cmd))
-		cmd_list = cmd_list->next;
+	// if (is_kntxesi(*cmd)) //mirar si es necesario
+	// 	(table)->error_code = execute_kntxesi(table);
+	(table)->error_code = handle_command(cmd, table, &i);
+	printf("exec_cmd_list \n");
+	// if (is_redir(*cmd))
+	// 	cmd_list = cmd_list->next;
 	if (cmd_list)
 		cmd_list = cmd_list->next;
 	return (exec_cmd_list(cmd_list, table, i));
@@ -92,10 +84,12 @@ int	execute_cmd_table(t_cmd_table *table)
 
 	cmd_index = 0;
 	cmd_list = (table)->cmds;
-	fill_redirs(table);
-	redir_dup(table);
+	printf("execute cmd table \n");
+	table->n_cmd = ft_lstsize(cmd_list);
+	// fill_redirs(table);
+	// redir_dup(table);
 	exec_cmd_list(cmd_list, table, cmd_index);
-	close_red_fd((table)->red_fd);
+	// close_red_fd((table)->red_fd);
 	restore_and_close_fds((table));
 	(table)->error_code = ft_wait_table(table);
 	return ((table)->error_code);
