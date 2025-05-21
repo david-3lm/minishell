@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 11:45:46 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/05/21 15:18:06 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/05/21 15:36:23 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ int	last_command_exec(t_cmd *cmd, t_cmd_table *table)
 	pid_t	pid;
 
 	pid = fork();
+	// printf("hola \n");
 	if (pid == -1)
 		check_error(pid, CHECK_FORK, table);
 	if (pid == 0)
@@ -39,6 +40,7 @@ int	handle_command(t_cmd *cmd, t_cmd_table *table, int *cmd_index)
 		// if (cmd->builtin)
 		// 	cmd->builtin(table, cmd);
 		// else
+		if (cmd->tokens)
 			(table)->error_code = last_command_exec(cmd, table);
 	}
 	return ((table)->error_code);
