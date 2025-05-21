@@ -6,7 +6,7 @@
 /*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 11:23:27 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/05/20 18:35:45 by dlopez-l         ###   ########.fr       */
+/*   Updated: 2025/05/21 12:01:52 by dlopez-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,6 +145,7 @@ int	main(int argc, char **argv, char **envp)
 	g_heredoc = 1;
 	while (1)
 	{
+		curr_pos = 0;
 		signal(SIGINT, handle_signal);
 		signal(SIGQUIT, SIG_IGN);
 		rl = readline("\001\033[1;32m\002🌋 Kontxesi ↝ \001\033[0m\002");
@@ -163,7 +164,7 @@ int	main(int argc, char **argv, char **envp)
 		// turn_on_canonical_mode(&g_msh.termcaps);
 		table = get_cmd_table(rl, &curr_pos);
 		debug_table(table);
-		// executor(table);
+		executor(table);
 		free(rl);
 	}
 	free_env(envl);

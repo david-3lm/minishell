@@ -103,6 +103,7 @@ char	*get_token(const char *input, int *curr_pos)
 	token = ft_substr(input, saved_pos, *curr_pos - saved_pos);
 	// if (!token)
 		// quit_program(EXIT_FAILURE);
+	printf("TOKEN  => %s\n", token);
 	return (token);
 }
 
