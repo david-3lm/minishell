@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 12:50:13 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/05/21 12:50:05 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/05/21 15:32:39 by dlopez-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ char	**get_cmd(t_list *origin)
 	size = ft_lstsize(origin);
 	aux = origin;
 	full_cmd = (char *)aux->content;
-	
 	while (size > 0 && aux->next)
 	{
 		aux = aux->next;

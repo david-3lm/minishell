@@ -6,7 +6,7 @@
 /*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 15:18:54 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/05/20 18:23:45 by dlopez-l         ###   ########.fr       */
+/*   Updated: 2025/05/21 15:30:52 by dlopez-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -280,8 +280,7 @@ int	is_input_valid_not_supported(const char *input, char *err_message)
 {
 	int		check;
 
-	if (has_non_supported(input, "<<", err_message)
-		|| has_non_supported(input, "*", err_message)
+	if (has_non_supported(input, "*", err_message)
 		|| has_non_supported(input, "\\", err_message)
 		|| has_non_supported_one(input, "&", err_message))
 		check = 0;
