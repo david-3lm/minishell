@@ -6,7 +6,7 @@
 /*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 12:50:13 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/05/21 16:45:32 by dlopez-l         ###   ########.fr       */
+/*   Updated: 2025/05/22 11:56:10 by dlopez-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ char	**get_paths(t_cmd_table *table, char *cmd)
 		my_paths = ft_split(env_paths, ':');
 	else
 		ft_error_str(table, cmd);
-	// free(env_paths);
+	free(env_paths);
 	return (my_paths);
 }
 

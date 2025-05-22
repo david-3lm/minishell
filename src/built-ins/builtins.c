@@ -6,7 +6,7 @@
 /*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 12:19:43 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/05/21 18:46:04 by dlopez-l         ###   ########.fr       */
+/*   Updated: 2025/05/22 11:12:40 by dlopez-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,13 @@ int	(*builtin_arr(char *str))(t_cmd_table *table, t_cmd *cmd)
 	{"karol", bi_karol},
 	{"star", bi_star},
 	{"weather", bi_weather},
-	{"moon", bi_moon}
+	{"moon", bi_moon},
+	{"uwu", bi_uwu}
 	};
 	int			i;
 
 	i = 0;
-	while (i < 11)
+	while (i < 12)
 	{
 		if (str)
 		{

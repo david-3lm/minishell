@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bi_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 19:03:41 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/05/13 16:51:13 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/05/22 11:07:01 by dlopez-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ t_env	*mini_get_env(t_cmd_table *table, char *var)
 	while (env_lst != NULL)
 	{
 		env = (t_env *)env_lst->content;
-		if (ft_strncmp(var, env->key, ft_strlen(var)) == 0)
+		if (ft_strcmp(var, env->key) == 0)
 			return (env);
 		env_lst = env_lst->next;
 	}

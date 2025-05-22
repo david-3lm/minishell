@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   envv.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 16:28:50 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/05/13 16:49:45 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/05/22 12:09:07 by dlopez-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ t_list	*ft_make_env(char *str)
 
 	i = 0;
 	env = ft_calloc(1, sizeof(t_env));
+	printf("HOLA ESTOY EN ft_make_env ---- \n");
 	if (!env)
 		return (NULL);
 	while (str[i] != '=')
@@ -62,6 +63,7 @@ void	create_env(t_list **list, char *shlvl)
 	env_shlvl->key = ft_strdup("SHLVL");
 	env_shlvl->value = change_shlvl(shlvl);
 	ft_lstadd_back(list, ft_lstnew(env_shlvl));
+		printf(MAGENTA "pitorro\n" RESET);		
 }
 
 t_list	*env_init(char **orig_envp, char *shlvl)
@@ -72,7 +74,9 @@ t_list	*env_init(char **orig_envp, char *shlvl)
 	i = 0;
 	list = NULL;
 	if (shlvl)
+	{
 		create_env(&list, shlvl);
+	}
 	else
 	{
 		while (orig_envp[i])

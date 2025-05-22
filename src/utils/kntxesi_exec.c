@@ -6,7 +6,7 @@
 /*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 12:32:59 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/05/21 16:46:34 by dlopez-l         ###   ########.fr       */
+/*   Updated: 2025/05/22 12:01:44 by dlopez-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 bool	is_kntxesi(t_cmd cmd)
 {
-	t_tok	*token;
+	char	*token;
 	t_list	*token_list;
 
 	token_list = cmd.tokens;
-	token = (t_tok *)token_list->content;
-	if (ft_strcmp(token->value, "./minishell") == 0)
+	token = (char *)token_list->content;
+	if (ft_strcmp(token, "./minishell") == 0)
 		return (true);
 	return (false);
 }

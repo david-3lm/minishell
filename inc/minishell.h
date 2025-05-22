@@ -6,7 +6,7 @@
 /*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/08 20:02:42 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/05/21 16:36:15 by dlopez-l         ###   ########.fr       */
+/*   Updated: 2025/05/22 11:48:15 by dlopez-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ int				bi_env(t_cmd_table *table, t_cmd *cmd);
 int				bi_export(t_cmd_table *table, t_cmd *cmd);
 int				bi_pwd(t_cmd_table *table, t_cmd *cmd);
 int				bi_unset(t_cmd_table *table, t_cmd *cmd);
+int				bi_uwu(t_cmd_table *table, t_cmd *cmd);
 int				executor(t_cmd_table *table);
 int				quotes_are_closed(const char *input);
 int				pipex_proccess(t_cmd *cmd, t_cmd_table *table);
@@ -169,7 +170,8 @@ void	skip_quotes(const char *input, int *curr_pos);
 int	ft_isspace(char c);
 char	*ft_strncpy(char *dest, char *src, size_t n);
 t_cmd	*get_cmds(const char *input, int *curr_pos);
-void	replace_envs(t_list **tokens, t_list *redirs);
+void	replace_envs(t_list **tokens, t_list *redirs, t_cmd_table *table);
 int	is_token_delimiter(char c);
 char	*ft_strcpy(char *dest, const char *src);
+void	debug_table(t_cmd_table *table);
 #endif

@@ -6,7 +6,7 @@
 /*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 11:23:27 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/05/21 17:05:35 by dlopez-l         ###   ########.fr       */
+/*   Updated: 2025/05/22 12:04:40 by dlopez-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	debug_parser(t_cmd_table *table)
 
 	cmd_list = table->cmds;
 	cmd_index = 0;
-	ft_printf(PINK " === Command Table Debug ===\n");
+	ft_printf(MAGENTA " === Command Table Debug ===\n");
 	while (cmd_list)
 	{
 		cmd = (t_cmd *)cmd_list->content;
@@ -130,14 +130,17 @@ void	debug_table(t_cmd_table *table)
 }
 
 
-//TODO: liberar los distintos tipos de t_list *
+//TODO: $_ solo falla????????????
+//TODO: cat | cat | ls
 int	main(int argc, char **argv, char **envp)
 {
 	char				*rl;
 	t_list				*envl;
 	t_cmd_table			*table;
 	int					curr_pos;
+	int					err_code;
 
+	err_code = 0;
 	if (is_inside_kntxesi(argc, argv))
 		envl = env_init(envp, argv[1]);
 	else
@@ -161,13 +164,14 @@ int	main(int argc, char **argv, char **envp)
 		// MINICOPIA
 		if (!is_input_valid(rl))
 			continue ;
-		// turn_on_canonical_mode(&g_msh.termcaps);
 		table = get_cmd_table(rl, &curr_pos);
 		if (!table->envv)
 			table->envv = &envl;
-		debug_table(table);
+		table->error_code = err_code;
 		executor(table);
-		// free_cmd_table(table);
+		err_code = table->error_code;
+		free_cmd_table(table);
+		free(table);
 		free(rl);
 	}
 	free_env(envl);

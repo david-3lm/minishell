@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cleaner.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/04 13:06:13 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/05/08 19:48:04 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/05/22 10:32:51 by dlopez-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,14 @@
 void	free_token_list(t_list *tokens)
 {
 	t_list	*tmp;
-	t_tok	*tok;
+	char	*tok;
 
 	while (tokens)
 	{
 		tmp = tokens->next;
-		tok = (t_tok *)tokens->content;
+		tok = (char *)tokens->content;
 		if (tok)
-		{
-			free(tok->value);
 			free(tok);
-		}
 		free(tokens);
 		tokens = tmp;
 	}
