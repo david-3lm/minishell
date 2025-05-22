@@ -1,0 +1,14 @@
+handle_cmd cmd builtin ---> (nil)
+[1;35mcambio token => _ a ls
+fullcmd en getcmd en pathexec  --> ls 
+Makefile
+README.md
+inc
+libimp
+minishell
+obj
+out
+src
+test.c
+update_header.sh
+update_make.sh

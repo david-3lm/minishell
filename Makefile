@@ -1,10 +1,10 @@
 NAME = minishell
-SRC = ./src/built-ins/bi_exit.c ./src/built-ins/bi_karol.c ./src/built-ins/bi_moon.c ./src/built-ins/bi_uwu.c ./src/built-ins/bi_star.c ./src/built-ins/bi_weather.c ./src/built-ins/bi_echo.c ./src/built-ins/builtins.c ./src/built-ins/bi_cd.c ./src/built-ins/bi_env.c ./src/built-ins/bi_export.c ./src/built-ins/bi_pwd.c ./src/built-ins/bi_unset.c ./src/built-ins/bi_utils.c ./src/core/actions.c ./src/core/executor.c ./src/core/lexer.c ./src/core/parser.c ./src/env/envv.c ./src/pipex/utils.c ./src/pipex/proccess.c ./src/pipex/table_executor.c ./src/redir/here_doc.c ./src/redir/redir_parse.c ./src/redir/redirs_manager.c ./src/redir/redirs_fd.c ./src/utils/cleaner.c ./src/utils/cmd_handler.c ./src/utils/lexer_utils.c ./src/utils/redir_utils.c ./src/utils/tokenizer.c ./src/utils/cmd_types.c ./src/utils/kntxesi_exec.c  ./src/utils/error_handler.c ./src/utils/error_messages.c  ./src/utils/expansion_utils.c ./src/main.c ./src/minicopia.c ./src/minicopia2.c ./src/minicopia3.c
+SRC = ./src/built-ins/bi_exit.c ./src/built-ins/bi_karol.c ./src/built-ins/bi_star.c ./src/built-ins/bi_weather.c ./src/built-ins/bi_utils.c ./src/built-ins/bi_export.c ./src/built-ins/bi_pwd.c ./src/built-ins/bi_moon.c ./src/built-ins/bi_cd.c ./src/built-ins/bi_echo.c ./src/built-ins/bi_unset.c ./src/built-ins/bi_env.c ./src/built-ins/bi_uwu.c ./src/built-ins/builtins.c ./src/core/actions.c ./src/core/parser.c ./src/core/lexer.c ./src/core/executor.c ./src/env/envv.c ./src/redir/here_doc.c ./src/redir/redirs_manager.c ./src/redir/redirs_fd.c ./src/redir/redir_parse.c ./src/utils/tokenizer.c ./src/utils/cmd_handler.c ./src/utils/redir_utils.c ./src/utils/cmd_types.c ./src/utils/lexer_utils.c ./src/utils/expansion_utils.c ./src/utils/error_handler.c ./src/utils/error_messages.c ./src/utils/cleaner.c ./src/utils/kntxesi_exec.c ./src/minicopia.c ./src/minicopia2.c ./src/minicopia3.c ./src/main.c ./src/exec/proccess.c ./src/exec/table_executor.c ./src/exec/exec_utils.c 
 OBJ = $(SRC:.c=.o)
 LIB_DIR = ./libimp
 LIB = $(LIB_DIR)/libft.a
 MAIN_HEADER = ./inc/minishell.h
-HEADERS = ./inc/defines.h ./inc/minishell.h ./inc/structs.h 
+HEADERS = ./inc/structs.h ./inc/minishell.h ./inc/defines.h 
 CC = cc
 CFLAGS = -Wall -Werror -Wextra -g3 
 RM = rm -f

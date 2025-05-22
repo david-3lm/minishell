@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/23 23:34:06 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/05/22 11:47:45 by dlopez-l         ###   ########.fr       */
+/*   Updated: 2025/05/22 15:44:19 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ void	review_token(t_cmd_table *table)
 		cmd = (t_cmd *)list->content;
 		replace_envs(&(cmd->tokens), cmd->redirs, table);
 		cmd->builtin = builtin_arr((char *)cmd->tokens->content);
-
 		list = list->next;
 	}
 }

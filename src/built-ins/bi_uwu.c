@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bi_uwu.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 11:11:37 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/05/22 11:40:23 by dlopez-l         ###   ########.fr       */
+/*   Updated: 2025/05/22 15:17:02 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ int	bi_uwu(t_cmd_table *table, t_cmd *cmd)
 	signal(SIGINT, quita_uwu);
 	while (g_heredoc)
 	{
-		printf("\r\033[K%s%s", colors[i], UWU);
-		while (timer < 10000000)
+		printf("\033c%s%s", colors[i], UWU);
+		while (timer < 100000000)
 			timer++;
 		timer = 0;
 		if (i >= 5)

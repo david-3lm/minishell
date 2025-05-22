@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/08 20:02:42 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/05/22 11:48:15 by dlopez-l         ###   ########.fr       */
+/*   Updated: 2025/05/22 15:31:41 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,4 +174,5 @@ void	replace_envs(t_list **tokens, t_list *redirs, t_cmd_table *table);
 int	is_token_delimiter(char c);
 char	*ft_strcpy(char *dest, const char *src);
 void	debug_table(t_cmd_table *table);
+t_env	*ft_create_env(char *key, char *value);
 #endif

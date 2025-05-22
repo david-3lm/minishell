@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   table_executor.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 11:45:46 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/05/22 12:39:48 by dlopez-l         ###   ########.fr       */
+/*   Updated: 2025/05/22 15:37:29 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ int	last_command_exec(t_cmd *cmd, t_cmd_table *table)
 {
 	pid_t	pid;
 
+	change_token(*(table->envv), ft_create_env("_", (char *)ft_lstlast(cmd->tokens)->content));
 	pid = fork();
 	// printf("hola \n");
 	if (pid == -1)
