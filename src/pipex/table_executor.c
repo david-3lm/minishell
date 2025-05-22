@@ -6,7 +6,7 @@
 /*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 11:45:46 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/05/22 11:58:59 by dlopez-l         ###   ########.fr       */
+/*   Updated: 2025/05/22 12:39:48 by dlopez-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,10 @@ static	int	exec_cmd_list(t_list *cmd_list, t_cmd_table *table, int i)
 
 	cmd = (t_cmd *)cmd_list->content;
 	if (is_kntxesi(*cmd)) //mirar si es necesario
+	{
 		(table)->error_code = execute_kntxesi(table);
+		return (table->error_code);
+	}
 	fill_redirs(cmd, table);
 	redir_dup(table);
 	(table)->error_code = handle_command(cmd, table, &i);
@@ -94,7 +97,7 @@ int	execute_cmd_table(t_cmd_table *table)
 	save_original_fd((table));
 	table->n_cmd = ft_lstsize(cmd_list);
 	exec_cmd_list(cmd_list, table, cmd_index);
-	(table)->error_code = ft_wait_table(table);
 	restore_and_close_fds((table));
+	(table)->error_code = ft_wait_table(table);
 	return ((table)->error_code);
 }

@@ -6,7 +6,7 @@
 /*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 12:32:59 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/05/22 12:01:44 by dlopez-l         ###   ########.fr       */
+/*   Updated: 2025/05/22 12:33:09 by dlopez-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ int	execute_kntxesi(t_cmd_table *table)
 {
 	pid_t	pid;
 	int		value;
+	int 	i = 0;
 	char	**mypaths;
 
 	check_error(pipe((table)->pipe_fd), CHECK_PIPE, table);
@@ -81,8 +82,11 @@ int	execute_kntxesi(t_cmd_table *table)
 	check_error(pid, CHECK_FORK, table);
 	if (pid == 0)
 	{
+		i++;
 		close((table)->pipe_fd[READ_E]);
 		mypaths = get_paths(table, "./minishell");
+		ft_putstr_fd("exec kontxesi --->", 2);
+		ft_putendl_fd(ft_itoa(i), 2);
 		ft_exec(table, mypaths, ft_getenv_value(table, "SHLVL"));
 	}
 	else
