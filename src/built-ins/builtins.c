@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 12:19:43 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/05/22 11:12:40 by dlopez-l         ###   ########.fr       */
+/*   Updated: 2025/05/22 14:11:59 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	(*builtin_arr(char *str))(t_cmd_table *table, t_cmd *cmd)
 	{
 		if (str)
 		{
-			if (!ft_strncmp(builtins[i][0], str, ft_strlen(str)))
+			if (!ft_strcmp(builtins[i][0], str))
 				return (builtins[i][1]);
 		}
 		i++;
