@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error_handler.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/23 23:50:11 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/05/21 14:28:06 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/05/25 18:52:33 by dlopez-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,5 +60,31 @@ void	check_error(int value, int to_check, t_cmd_table *table)
 		if (to_check == CHECK_MEM)
 			table->error_code = MEM_ALLOC_ERROR;
 		error_handler(table->error_code);
+	}
+}
+
+void	ft_lstdel_first(t_list **lst, void (*del)(void*))
+{
+	t_list	*tmp;
+
+	if (lst == NULL || *lst == NULL)
+		return ;
+	tmp = *lst;
+	tmp = tmp->next;
+	del((*lst)->content);
+	free(*lst);
+	*lst = tmp;
+}
+
+void	ft_lstclear_if(t_list **lst, int (*cmp)(void *), void (*del)(void *))
+{
+	if (!lst)
+		return ;
+	while (*lst)
+	{
+		if (cmp((*lst)->content))
+			ft_lstdel_first(lst, del);
+		else
+			lst = &(*lst)->next;
 	}
 }
