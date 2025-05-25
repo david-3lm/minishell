@@ -3,23 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atouc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 18:24:04 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/04/22 15:57:19 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/05/25 18:23:50 by dlopez-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-
-static int	ft_isspace(char c)
-{
-	if (c == ' ' || c == '\n' || c == '\t')
-		return (1);
-	else if (c == '\v' || c == '\f' || c == '\r')
-		return (1);
-	return (0);
-}
 
 unsigned char	ft_atouc(const char *str)
 {

@@ -6,126 +6,114 @@
 /*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/30 16:06:36 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/05/17 19:29:43 by dlopez-l         ###   ########.fr       */
+/*   Updated: 2025/05/25 18:38:10 by dlopez-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-void	filter_quotes(t_token_list *list, char *str)
+int	get_new_token_size(t_list *split_token)
+{
+	int		size;
+	char	*token;
+
+	size = 0;
+	while (split_token)
+	{
+		token = split_token->content;
+		size += ft_strlen(token);
+		split_token = split_token->next;
+	}
+	return (size);
+}
+
+char	*join_split_token(t_list *split_token)
+{
+	char	*token;
+	int		new_token_size;
+
+	new_token_size = get_new_token_size(split_token);
+	token = ft_calloc(new_token_size + 1, sizeof(char));
+	// if (!token)
+	// 	quit_program(EXIT_FAILURE);
+	while (split_token)
+	{
+		ft_strcat(token, (char *)split_token->content);
+		split_token = split_token->next;
+	}
+	ft_lstclear(&split_token, free);
+	return (token);
+}
+
+char	*get_var_name(char *str)
 {
 	int		i;
-	int		start;
-	char	q;
+	char	*var;
 
 	i = 0;
-	start = 0;
-	q = ' ';
-	while (str[i])
-	{
-		if (q == ' ' && (str[i] == '\'' || str[i] == '"'))
-		{
-			q = str[i]; 
-			if (start == i)
-				handle_token_segment(str, list, &start, i);
-		}
-		else if (q == str[i])
-		{
-			handle_token_segment(str, list, &start, i);
-			q = ' ';
-		}
+	if (str[i] == '$')
 		i++;
-	}
-	handle_last_token(str, list, start, i);
+	while (str[i] && !is_token_delimiter(str[i]) && str[i] != '$'
+		&& str[i] != '=' && !is_quote(str[i]) && str[i] != '/')
+		i++;
+	var = ft_substr(str, 0, i);
+	// if (!var)
+	// 	quit_program(EXIT_FAILURE);
+	return (var);
 }
 
-void	add_token(t_token_list *list, char *value, bool expand)
+char	*replace_midstring(char *original, char *old_substr, char *new_substr, int replace_i)
 {
-	t_tok	*new_tok;
+	char	*final;
+	int		len;
+	int		i;
 
-	new_tok = malloc(sizeof(t_tok));
-	if (!new_tok)
-		return ;
-	new_tok->expand = expand;
-	new_tok->type = get_ttype(value);
-	if (count_quotes(value) == 2)
+	i = 0;
+	len = ft_strlen(original) - ft_strlen(old_substr) + ft_strlen(new_substr);
+	final = ft_calloc(len + 1, sizeof(char));
+	// if (final == 0)
+	// 	quit_program(EXIT_FAILURE);
+	while (*original)
 	{
-		filter_quotes(list, value);
-		free(new_tok);
-		return ;
+		if (i == replace_i)
+		{
+			while (new_substr && *new_substr)
+			final[i++] = *(new_substr++);
+			original += ft_strlen(old_substr);
+			replace_i = -2;
+		}
+		if (*original)
+			final[i++] = *(original++);
 	}
-	else if (new_tok->type == STRING && count_quotes(value) != 2)
-	{
-		printf("hoañ\n");
-
-		new_tok->value = ft_substr(value, 1, ft_strlen(value) - 2);
-		return ;
-	}
-	else
-		new_tok->value = ft_strdup(value);
-	if (new_tok->type == PIPE && count_char(new_tok->value, '|') != 1)
-	{
-		error_handler(PIPE_ERROR);
-		new_tok->type = PIPE_ERR;
-	}
-	ft_lstadd_back(&(list->tokens), ft_lstnew(new_tok));
+	final[i] = '\0';
+	return (final);
 }
 
-void	update_quote_state(char c, bool *in_quote, char *quote_char)
+t_list	*get_split_token(char *token)
 {
-	if (is_quote(c))
-	{
-		if (!(*in_quote))
-		{
-			*in_quote = true;
-			*quote_char = c;
-		}
-		else if (c == *quote_char)
-		{
-			*in_quote = false;
-			*quote_char = '\0';
-		}
-	}
-}
+	t_list	*split_token;
+	t_list	*new_node;
+	char	*token_piece;
+	int		curr_pos;
+	int		saved_pos;
 
-void	handle_token_segment(char *line, t_token_list *list, int *start, int i)
-{
-	char	*token;
-
-	if (i > *start)
+	split_token = 0;
+	curr_pos = 0;
+	saved_pos = 0;
+	while (token[curr_pos])
 	{
-		token = ft_substr(line, *start, i - *start);
-		printf("TOKEN SEGMENT => %s\n", token);
-		add_token(list, token, line[i] != '\'');
-		free(token);
-	}
-	if (line[i] == '<' || line[i] == '>' || line[i] == '|')
-	{
-		*start = i;
-		if (line[i + 1] == line[i])
-		{
-			handle_last_token(line, list, *start, i + 2);
-			*start = i + 2;
-		}
+		saved_pos = curr_pos;
+		if (is_quote(token[curr_pos]))
+			skip_quotes((const char *)token, &curr_pos);
 		else
-		{
-			handle_last_token(line, list, *start, i + 1);
-			*start = i + 1;
-		}
+			skip_letters((const char *)token, &curr_pos);
+		token_piece = ft_substr(token, saved_pos, curr_pos - saved_pos);
+		// if (!token_piece)
+		// 	quit_program(EXIT_FAILURE);
+		new_node = ft_lstnew((void *)token_piece);
+		// if (!new_node)
+		// 	quit_program(EXIT_FAILURE);
+		ft_lstadd_back(&split_token, new_node);
 	}
-	else
-		*start = i + 1;
-}
-
-void	handle_last_token(char *line, t_token_list *list, int start, int end)
-{
-	char	*token;
-
-	if (end > start)
-	{
-		token = ft_substr(line, start, end - start);
-		printf("TOKEN LAST => %s\n", token);
-		add_token(list, token, line[end] != '\'');
-		free(token);
-	}
+	return (split_token);
 }
