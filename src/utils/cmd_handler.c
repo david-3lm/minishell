@@ -6,7 +6,7 @@
 /*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/30 16:35:13 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/05/25 18:53:41 by dlopez-l         ###   ########.fr       */
+/*   Updated: 2025/05/25 19:04:23 by dlopez-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ char	*replace_midstring(char *original, char *old_substr, char *new_substr, int 
 		if (i == replace_i)
 		{
 			while (new_substr && *new_substr)
-			final[i++] = *(new_substr++);
+				final[i++] = *(new_substr++);
 			original += ft_strlen(old_substr);
 			replace_i = -2;
 		}

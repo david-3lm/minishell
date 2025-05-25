@@ -6,7 +6,7 @@
 /*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 19:16:03 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/05/25 18:09:50 by dlopez-l         ###   ########.fr       */
+/*   Updated: 2025/05/25 19:30:47 by dlopez-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,11 +99,19 @@ t_cmd	*get_cmds(const char *input, int *curr_pos)
 		{
 			new_node = ft_lstnew((void *)get_token(input, curr_pos));
 			// if (!new_node)
-				// quit_program(EXIT_FAILURE);
+			// quit_program(EXIT_FAILURE);
 			ft_lstadd_back(&cmd->tokens, new_node);
 		}
 		else if (input[*curr_pos] == '>' || input[*curr_pos] == '<')
 		{
+			if (ft_lstsize(cmd->tokens) == 0)
+			{
+				printf("entro aqi %c\n", input[*curr_pos]);
+				new_node = ft_lstnew((void *)get_token(input, curr_pos));
+				// if (!new_node)
+				// quit_program(EXIT_FAILURE);
+				ft_lstadd_back(&cmd->tokens, new_node);
+			}
 			new_node = ft_lstnew((void *)get_redir(input, curr_pos));
 			// if (!new_node)
 				// quit_program(EXIT_FAILURE);
