@@ -6,7 +6,7 @@
 /*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 16:28:50 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/05/22 12:45:12 by dlopez-l         ###   ########.fr       */
+/*   Updated: 2025/05/22 13:00:58 by dlopez-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,8 @@ t_list	*ft_make_env(char *str)
 
 	i = 0;
 	env = ft_calloc(1, sizeof(t_env));
-	printf("HOLA ESTOY EN ft_make_env ---- \n");
 	if (!env)
 		return (NULL);
-	printf("BUSCANDO EL IGUAL => %s\n", str);
 	while (str[i] != '=')
 	{
 		i++;

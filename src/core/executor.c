@@ -6,7 +6,7 @@
 /*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/23 23:34:06 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/05/22 11:47:45 by dlopez-l         ###   ########.fr       */
+/*   Updated: 2025/05/27 11:47:16 by dlopez-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	review_token(t_cmd_table *table)
 	t_cmd	*cmd;
 	t_list	*list;
 
+	//TODO: lo del heredoc
 	list = table->cmds;
 	while (list)
 	{

@@ -6,7 +6,7 @@
 /*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 11:45:46 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/05/22 12:39:48 by dlopez-l         ###   ########.fr       */
+/*   Updated: 2025/05/22 12:58:51 by dlopez-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ int	last_command_exec(t_cmd *cmd, t_cmd_table *table)
 
 int	handle_command(t_cmd *cmd, t_cmd_table *table, int *cmd_index)
 {
-	printf("handle_cmd cmd builtin ---> %p\n", cmd->builtin);
 	if ((table->n_cmd - 1) > *cmd_index)
 	{
 		(table)->error_code = pipex_proccess(cmd, table);
@@ -39,10 +38,7 @@ int	handle_command(t_cmd *cmd, t_cmd_table *table, int *cmd_index)
 	else
 	{
 		if (cmd->builtin)
-		{
-			printf("is builtin \n");
 			cmd->builtin(table, cmd);
-		}
 		else if (cmd->tokens)
 			(table)->error_code = last_command_exec(cmd, table);
 	}
