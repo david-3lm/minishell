@@ -1,42 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   ft_strcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/16 14:29:25 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/05/25 18:23:19 by dlopez-l         ###   ########.fr       */
+/*   Created: 2025/05/25 18:30:09 by dlopez-l          #+#    #+#             */
+/*   Updated: 2025/05/25 18:30:11 by dlopez-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-
-long	ft_atoi(const char *nptr)
+char	*ft_strcpy(char *dest, const char *src)
 {
-	long	aux;
-	int		neg;
+	char	*saved;
 
-	aux = 0;
-	while (ft_isspace(*nptr))
-		nptr++;
-	if (*nptr == '-')
-	{
-		neg = -1;
-		nptr++;
-	}
-	else
-	{
-		neg = 1;
-		if (*nptr == '+')
-			nptr++;
-	}
-	if (!ft_isdigit(*nptr))
-		return (0);
-	while (ft_isdigit(*nptr))
-	{
-		aux = aux * 10 + (*nptr - '0');
-		nptr++;
-	}
-	return (aux * neg);
+	saved = dest;
+	while (*src)
+		*dest++ = *src++;
+	*dest = '\0';
+	return (saved);
 }

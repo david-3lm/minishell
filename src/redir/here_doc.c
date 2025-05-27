@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 16:21:37 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/05/08 19:39:14 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/05/25 19:33:58 by dlopez-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,10 @@ void	write_here_doc(char *limit, t_cmd_table *table)
 		else if (read_bytes < 0 && !g_heredoc)
 			check_error(close(infile), CHECK_CLOSE, table);
 		if (g_heredoc == 1 || (ft_strncmp(new_limit, buf, read_bytes) == 0))
+		{
+			free(new_limit);
 			break ;
+		}
 		write(infile, buf, read_bytes);
 	}
 	check_error(close(infile), CHECK_CLOSE, table);

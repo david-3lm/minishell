@@ -6,7 +6,7 @@
 /*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/23 23:34:06 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/05/27 11:47:16 by dlopez-l         ###   ########.fr       */
+/*   Updated: 2025/05/27 11:49:14 by dlopez-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ void	review_token(t_cmd_table *table)
 		cmd = (t_cmd *)list->content;
 		replace_envs(&(cmd->tokens), cmd->redirs, table);
 		cmd->builtin = builtin_arr((char *)cmd->tokens->content);
-
 		list = list->next;
 	}
 }

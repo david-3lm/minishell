@@ -6,126 +6,83 @@
 /*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/30 16:06:36 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/05/17 19:29:43 by dlopez-l         ###   ########.fr       */
+/*   Updated: 2025/05/25 18:53:20 by dlopez-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-void	filter_quotes(t_token_list *list, char *str)
+int	get_new_token_size(t_list *split_token)
 {
-	int		i;
-	int		start;
-	char	q;
-
-	i = 0;
-	start = 0;
-	q = ' ';
-	while (str[i])
-	{
-		if (q == ' ' && (str[i] == '\'' || str[i] == '"'))
-		{
-			q = str[i]; 
-			if (start == i)
-				handle_token_segment(str, list, &start, i);
-		}
-		else if (q == str[i])
-		{
-			handle_token_segment(str, list, &start, i);
-			q = ' ';
-		}
-		i++;
-	}
-	handle_last_token(str, list, start, i);
-}
-
-void	add_token(t_token_list *list, char *value, bool expand)
-{
-	t_tok	*new_tok;
-
-	new_tok = malloc(sizeof(t_tok));
-	if (!new_tok)
-		return ;
-	new_tok->expand = expand;
-	new_tok->type = get_ttype(value);
-	if (count_quotes(value) == 2)
-	{
-		filter_quotes(list, value);
-		free(new_tok);
-		return ;
-	}
-	else if (new_tok->type == STRING && count_quotes(value) != 2)
-	{
-		printf("hoañ\n");
-
-		new_tok->value = ft_substr(value, 1, ft_strlen(value) - 2);
-		return ;
-	}
-	else
-		new_tok->value = ft_strdup(value);
-	if (new_tok->type == PIPE && count_char(new_tok->value, '|') != 1)
-	{
-		error_handler(PIPE_ERROR);
-		new_tok->type = PIPE_ERR;
-	}
-	ft_lstadd_back(&(list->tokens), ft_lstnew(new_tok));
-}
-
-void	update_quote_state(char c, bool *in_quote, char *quote_char)
-{
-	if (is_quote(c))
-	{
-		if (!(*in_quote))
-		{
-			*in_quote = true;
-			*quote_char = c;
-		}
-		else if (c == *quote_char)
-		{
-			*in_quote = false;
-			*quote_char = '\0';
-		}
-	}
-}
-
-void	handle_token_segment(char *line, t_token_list *list, int *start, int i)
-{
+	int		size;
 	char	*token;
 
-	if (i > *start)
+	size = 0;
+	while (split_token)
 	{
-		token = ft_substr(line, *start, i - *start);
-		printf("TOKEN SEGMENT => %s\n", token);
-		add_token(list, token, line[i] != '\'');
-		free(token);
+		token = split_token->content;
+		size += ft_strlen(token);
+		split_token = split_token->next;
 	}
-	if (line[i] == '<' || line[i] == '>' || line[i] == '|')
+	return (size);
+}
+
+char	*join_split_token(t_list *split_token)
+{
+	char	*token;
+	int		new_token_size;
+
+	new_token_size = get_new_token_size(split_token);
+	token = ft_calloc(new_token_size + 1, sizeof(char));
+	// if (!token)
+	// 	quit_program(EXIT_FAILURE);
+	while (split_token)
 	{
-		*start = i;
-		if (line[i + 1] == line[i])
-		{
-			handle_last_token(line, list, *start, i + 2);
-			*start = i + 2;
-		}
+		ft_strcat(token, (char *)split_token->content);
+		split_token = split_token->next;
+	}
+	ft_lstclear(&split_token, free);
+	return (token);
+}
+
+int	is_token_empty(void *content)
+{
+	int		check;
+	char	*token;
+
+	token = content;
+	if (*token == '\0')
+		check = 1;
+	else
+		check = 0;
+	return (check);
+}
+
+t_list	*get_split_token(char *token)
+{
+	t_list	*split_token;
+	t_list	*new_node;
+	char	*token_piece;
+	int		curr_pos;
+	int		saved_pos;
+
+	split_token = 0;
+	curr_pos = 0;
+	saved_pos = 0;
+	while (token[curr_pos])
+	{
+		saved_pos = curr_pos;
+		if (is_quote(token[curr_pos]))
+			skip_quotes((const char *)token, &curr_pos);
 		else
-		{
-			handle_last_token(line, list, *start, i + 1);
-			*start = i + 1;
-		}
+			skip_letters((const char *)token, &curr_pos);
+		token_piece = ft_substr(token, saved_pos, curr_pos - saved_pos);
+		// if (!token_piece)
+		// 	quit_program(EXIT_FAILURE);
+		new_node = ft_lstnew((void *)token_piece);
+		// if (!new_node)
+		// 	quit_program(EXIT_FAILURE);
+		ft_lstadd_back(&split_token, new_node);
 	}
-	else
-		*start = i + 1;
-}
-
-void	handle_last_token(char *line, t_token_list *list, int start, int end)
-{
-	char	*token;
-
-	if (end > start)
-	{
-		token = ft_substr(line, start, end - start);
-		printf("TOKEN LAST => %s\n", token);
-		add_token(list, token, line[end] != '\'');
-		free(token);
-	}
+	return (split_token);
 }

@@ -6,7 +6,7 @@
 /*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 16:28:50 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/05/22 13:00:58 by dlopez-l         ###   ########.fr       */
+/*   Updated: 2025/05/27 11:49:45 by dlopez-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,7 @@ t_list	*ft_make_env(char *str)
 	if (!env)
 		return (NULL);
 	while (str[i] != '=')
-	{
 		i++;
-	}
 	aux = ft_calloc(1, i + 1);
 	ft_strlcpy(aux, str, i + 1);
 	env->key = ft_strdup(aux);
@@ -70,6 +68,7 @@ void	generate_env(t_list **list, char *shlvl)
 	ft_lstadd_back(list, ft_lstnew(ft_create_env("SHLVL", lvl)));
 	free(lvl);
 	ft_lstadd_back(list, ft_lstnew(ft_create_env("PATH", K_PATH)));
+	ft_lstadd_back(list, ft_lstnew(ft_create_env("_", "NO.")));
 }
 
 t_list	*env_init(char **orig_envp, char *shlvl)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 11:23:27 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/05/22 12:44:08 by dlopez-l         ###   ########.fr       */
+/*   Updated: 2025/05/22 15:40:41 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,8 +130,8 @@ void	debug_table(t_cmd_table *table)
 }
 
 
-//TODO: $_ solo falla????????????
-//TODO: cat | cat | ls
+//TODO: HEREDOC
+
 int	main(int argc, char **argv, char **envp)
 {
 	char				*rl;
