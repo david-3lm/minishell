@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 12:05:04 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/05/22 15:28:03 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/05/29 20:59:01 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ int	pipex_proccess(t_cmd *cmd, t_cmd_table *table)
 	pid_t	pid;
 	int		value;
 
+
 	check_error(pipe((table)->pipe_fd), CHECK_PIPE, table);
 	pid = fork();
 	check_error(pid, CHECK_FORK, table);
@@ -50,6 +51,9 @@ int	pipex_proccess(t_cmd *cmd, t_cmd_table *table)
 		value = dup2((table)->pipe_fd[WRITE_E], STDOUT_FILENO);
 		check_error(value, CHECK_DUP, table);
 		close((table)->pipe_fd[WRITE_E]);
+		close_red_fd((table)->red_fd);
+		close_red_fd(table->pipe_fd);
+		close_red_fd(table->std_backup);
 		if (cmd->builtin)
 			exit(cmd->builtin(table, cmd));
 		path_exec(cmd, table);
