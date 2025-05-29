@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bi_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 19:03:41 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/05/22 15:35:01 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/05/29 11:00:45 by dlopez-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	change_token(t_list *env_list, t_env *env)
 	t_env	*aux;
 
 	tmp = env_list;
-	printf(MAGENTA"cambio token => %s a %s\n", env->key, env->value);
+	// printf(MAGENTA"cambio token => %s a %s\n", env->key, env->value);
 	while (tmp != NULL)
 	{
 		if (env->key != NULL && \

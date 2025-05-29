@@ -6,7 +6,7 @@
 /*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 19:16:03 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/05/25 19:30:47 by dlopez-l         ###   ########.fr       */
+/*   Updated: 2025/05/29 11:02:12 by dlopez-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ char	*get_token(const char *input, int *curr_pos)
 	token = ft_substr(input, saved_pos, *curr_pos - saved_pos);
 	// if (!token)
 		// quit_program(EXIT_FAILURE);
-	printf("TOKEN  => %s\n", token);
+	// printf("TOKEN  => %s\n", token);
 	return (token);
 }
 

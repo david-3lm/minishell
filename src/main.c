@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 11:23:27 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/05/22 15:40:41 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/05/29 11:03:40 by dlopez-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,9 @@ void	debug_table(t_cmd_table *table)
 }
 
 
-//TODO: HEREDOC
+//TODO: HEREDOC no guarda valor
+//TODO: cat < 3 > 1 >2 | cat > 5 NO TIENE QUEE ESCRIBIR EN 1 (LO HACE BIEN) Y TIENE QUE CREAR VACIO 5 (LO HACE MAL)
+//TODO: execve no pasa variables de entorno
 
 int	main(int argc, char **argv, char **envp)
 {

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 12:50:13 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/05/22 14:04:23 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/05/29 11:01:16 by dlopez-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,14 +32,14 @@ char	**get_cmd(t_list *origin)
 	while (size > 0 && aux->next)
 	{
 		aux = aux->next;
-		printf("aux en getcmd en pathexec  --> %s \n", (char *)aux->content);
+		// printf("aux en getcmd en pathexec  --> %s \n", (char *)aux->content);
 		temp = ft_strjoin(full_cmd, " ");
 		free(full_cmd);
 		full_cmd = ft_strjoin(temp, (char *)aux->content);
 		free(temp);
 		size--;
 	}
-	printf("fullcmd en getcmd en pathexec  --> %s \n", full_cmd);
+	// printf("fullcmd en getcmd en pathexec  --> %s \n", full_cmd);
 	res = ft_split(full_cmd, ' ');
 	free(full_cmd);
 	return (res);
