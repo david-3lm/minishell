@@ -160,5 +160,7 @@ void	print_tokens(t_list *tokens);
 void	print_redirs(t_list *redirs);
 void	debug_table(t_cmd_table *table);
 int	main(int argc, char **argv, char **envp);
+int	bi_owo(t_cmd_table *table, t_cmd *cmd);
 int	(*builtin_arr(char *str))(t_cmd_table *table, t_cmd *cmd);
+int	try_fullpath(char *path, char **full_cmd, char *const *envp, t_cmd_table *table);
 #endif

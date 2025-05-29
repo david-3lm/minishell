@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 12:19:43 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/05/25 18:49:14 by dlopez-l         ###   ########.fr       */
+/*   Updated: 2025/05/29 16:26:54 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,13 @@ int	(*builtin_arr(char *str))(t_cmd_table *table, t_cmd *cmd)
 	{"star", bi_star},
 	{"weather", bi_weather},
 	{"moon", bi_moon},
-	{"uwu", bi_uwu}
+	{"uwu", bi_uwu},
+	{"owo", bi_owo}
 	};
 	int			i;
 
 	i = 0;
-	while (i < 12)
+	while (i < 13)
 	{
 		if (str)
 		{

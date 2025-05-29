@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/08 19:44:08 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/05/29 12:05:11 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/05/29 12:13:31 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	close_red_fd(int files[2])
 
 bool	ft_check_redirs(t_cmd_table *table, t_cmd *cmd)
 {
-	if ((ft_strcmp((char *)cmd->tokens->content, "")) && (table->red_fd[READ_E] > 0 || table->red_fd[WRITE_E] > 0))
-		return (true);
-	return (false);
+	if ((ft_strcmp((char *)cmd->tokens->content, "")) && (table->red_fd[READ_E] == -1 || table->red_fd[WRITE_E] == -1))
+		return (false);
+	return (true);
 }

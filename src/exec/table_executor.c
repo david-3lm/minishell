@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 11:45:46 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/05/29 12:06:08 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/05/29 12:47:54 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ int	last_command_exec(t_cmd *cmd, t_cmd_table *table)
 
 int	handle_command(t_cmd *cmd, t_cmd_table *table, int *cmd_index)
 {
+	redir_dup(table); //revisar si esta bien aqui
 	if ((table->n_cmd - 1) > *cmd_index)
 	{
 		(table)->error_code = pipex_proccess(cmd, table);
@@ -43,6 +44,7 @@ int	handle_command(t_cmd *cmd, t_cmd_table *table, int *cmd_index)
 		else if (cmd->tokens)
 			(table)->error_code = last_command_exec(cmd, table);
 	}
+	close_red_fd((table)->red_fd); //revisar si esta bien aqui
 	return ((table)->error_code);
 }
 
@@ -74,16 +76,20 @@ static	int	exec_cmd_list(t_list *cmd_list, t_cmd_table *table, int i)
 		return (table->error_code);
 	}
 	fill_redirs(cmd, table);
+	ft_putstr_fd("redirecciones --> read_e ", 2);
+	ft_putstr_fd(ft_itoa(table->red_fd[READ_E]), 2);
+	ft_putstr_fd(" ---> write_e ", 2);
+	ft_putendl_fd(ft_itoa(table->red_fd[WRITE_E]), 2);
 	if (ft_check_redirs(table, cmd))
 	{
-		redir_dup(table);
+		// redir_dup(table);
 		(table)->error_code = handle_command(cmd, table, &i);
 	}
 	else
 		i++;
 	if (cmd_list)
 		cmd_list = cmd_list->next;
-	close_red_fd((table)->red_fd);
+	// close_red_fd((table)->red_fd);
 	return (exec_cmd_list(cmd_list, table, i));
 }
 
