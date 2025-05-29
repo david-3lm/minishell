@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/23 23:34:06 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/05/29 11:01:50 by dlopez-l         ###   ########.fr       */
+/*   Updated: 2025/05/29 11:23:13 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	executor(t_cmd_table *table)
 	// 	printf("%d: command not found\n", table->error_code);
 	// if ((table)->is_checker == false)
 	review_token(table);
-	// debug_table(table);
+	debug_table(table);
 		(table)->error_code = execute_cmd_table(table);
 	// aqui estaba el freee
 	return ((table)->error_code);

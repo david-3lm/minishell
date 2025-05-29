@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error_handler.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/23 23:50:11 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/05/25 18:52:33 by dlopez-l         ###   ########.fr       */
+/*   Updated: 2025/05/29 11:41:51 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ void	check_error(int value, int to_check, t_cmd_table *table)
 {
 	if (value == CHECK_VALUE)
 	{
+		printf("to_cehck ---> %d \n", to_check); //deb
 		if (to_check == CHECK_CLOSE)
 			table->error_code = CLOSE_ERROR;
 		if (to_check == CHECK_OPEN)

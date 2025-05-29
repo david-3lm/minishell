@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/16 10:52:37 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/05/21 15:33:55 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/05/29 11:41:38 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,11 @@ void	manage_redir_in(t_cmd_table *table, t_redir in_redir)
 	if (in_redir.type == RD_SIN)
 	{
 		table->red_fd[READ_E] = open(in_redir.direction, O_RDONLY);
-		check_error(table->std_backup[READ_E], CHECK_OPEN, table);
+		check_error(table->red_fd[READ_E], CHECK_OPEN, table);
 	}
 	else if (in_redir.type == RD_HD)
 	{
-		printf("es un heredoc \n");
+		printf("es un heredoc \n"); //debug
 		table->red_fd[READ_E] = manage_here_doc(in_redir, table);
 	}
 }

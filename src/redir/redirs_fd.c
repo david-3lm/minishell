@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/08 19:44:08 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/05/21 15:13:36 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/05/29 12:05:11 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,14 @@ void	close_red_fd(int files[2])
 	while (i < 2)
 	{
 		if (files[i] != 0)
-		{
-		printf(" DENTRO DE CLOSE RED FD ---- voy a cerrar fd ---> %i \n", i);
-			
 			close(files[i]);
-		}
 		i++;
 	}
+}
+
+bool	ft_check_redirs(t_cmd_table *table, t_cmd *cmd)
+{
+	if ((ft_strcmp((char *)cmd->tokens->content, "")) && (table->red_fd[READ_E] > 0 || table->red_fd[WRITE_E] > 0))
+		return (true);
+	return (false);
 }

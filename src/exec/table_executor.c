@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   table_executor.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 11:45:46 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/05/27 11:49:55 by dlopez-l         ###   ########.fr       */
+/*   Updated: 2025/05/29 12:06:08 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,10 +74,13 @@ static	int	exec_cmd_list(t_list *cmd_list, t_cmd_table *table, int i)
 		return (table->error_code);
 	}
 	fill_redirs(cmd, table);
-	redir_dup(table);
-	(table)->error_code = handle_command(cmd, table, &i);
-	// if (is_redir(*cmd))
-	// 	cmd_list = cmd_list->next;
+	if (ft_check_redirs(table, cmd))
+	{
+		redir_dup(table);
+		(table)->error_code = handle_command(cmd, table, &i);
+	}
+	else
+		i++;
 	if (cmd_list)
 		cmd_list = cmd_list->next;
 	close_red_fd((table)->red_fd);
