@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   kntxesi_exec.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 12:32:59 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/05/27 11:50:00 by dlopez-l         ###   ########.fr       */
+/*   Updated: 2025/05/30 16:56:53 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,8 @@ char	*ft_getenv_value(t_cmd_table *table, char *str)
 			if (ft_strncmp(current->key, str, ft_strlen(str)) == 0)
 			{
 				result = ft_calloc(ft_strlen(current->value) + 1, sizeof(char));
-				ft_strlcpy(result, current->value, ft_strlen(current->value) + 1);
+				ft_strlcpy \
+				(result, current->value, ft_strlen(current->value) + 1);
 				return (result);
 			}
 			env_list = env_list->next;

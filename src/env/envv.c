@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   envv.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 16:28:50 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/05/27 11:49:45 by dlopez-l         ###   ########.fr       */
+/*   Updated: 2025/05/30 16:46:49 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,8 @@ static char	*change_shlvl(char *orig_shlvl)
 
 t_env	*ft_create_env(char *key, char *value)
 {
-	t_env *env;
+	t_env	*env;
+
 	env = ft_calloc(1, sizeof(t_env));
 	env->key = ft_strdup(key);
 	env->value = ft_strdup(value);

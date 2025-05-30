@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 11:45:46 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/05/29 20:59:18 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/05/30 16:56:05 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,13 @@ int	last_command_exec(t_cmd *cmd, t_cmd_table *table)
 {
 	pid_t	pid;
 
-	change_token(*(table->envv), ft_create_env("_", (char *)ft_lstlast(cmd->tokens)->content));
+	change_token(*(table->envv), ft_create_env \
+				("_", (char *)ft_lstlast(cmd->tokens)->content));
 	pid = fork();
-	// printf("hola \n");
 	if (pid == -1)
 		check_error(pid, CHECK_FORK, table);
 	if (pid == 0)
 	{
-		// close_red_fd((table)->red_fd);
-		// close_red_fd(table->pipe_fd);
 		close_red_fd(table->std_backup);
 		signal(SIGQUIT, SIG_DFL);
 		path_exec(cmd, table);
@@ -34,9 +32,7 @@ int	last_command_exec(t_cmd *cmd, t_cmd_table *table)
 
 int	handle_command(t_cmd *cmd, t_cmd_table *table, int *cmd_index)
 {
-	
-	printf("entro a hacer el comandooooooo \n");
-	redir_dup(table); //revisar si esta bien aqui
+	redir_dup(table);
 	if ((table->n_cmd - 1) > *cmd_index)
 	{
 		(table)->error_code = pipex_proccess(cmd, table);
@@ -49,10 +45,6 @@ int	handle_command(t_cmd *cmd, t_cmd_table *table, int *cmd_index)
 		else if (cmd->tokens)
 			(table)->error_code = last_command_exec(cmd, table);
 	}
-	ft_putstr_fd("-AHORAAAAAAA-- \n    redirecciones --> read_e ", 2);
-	ft_putstr_fd(ft_itoa(table->red_fd[READ_E]), 2);
-	ft_putstr_fd(" ---> write_e ", 2);
-	ft_putendl_fd(ft_itoa(table->red_fd[WRITE_E]), 2);
 	close_red_fd((table)->red_fd);
 	return ((table)->error_code);
 }
@@ -77,29 +69,19 @@ static	int	exec_cmd_list(t_list *cmd_list, t_cmd_table *table, int i)
 
 	if (!cmd_list)
 		return (NO_ERROR);
-
 	cmd = (t_cmd *)cmd_list->content;
-	if (is_kntxesi(*cmd)) //mirar si es necesario
+	if (is_kntxesi(*cmd))
 	{
 		(table)->error_code = execute_kntxesi(table);
 		return (table->error_code);
 	}
 	fill_redirs(cmd, table);
-	ft_putstr_fd("--- \n    redirecciones --> read_e ", 2);
-	ft_putstr_fd(ft_itoa(table->red_fd[READ_E]), 2);
-	ft_putstr_fd(" ---> write_e ", 2);
-	ft_putendl_fd(ft_itoa(table->red_fd[WRITE_E]), 2);
-	// printf("hola wapo \n");
 	if (ft_check_redirs(table, cmd))
-	{
-		// redir_dup(table);
 		(table)->error_code = handle_command(cmd, table, &i);
-	}
 	else
 		i++;
 	if (cmd_list)
 		cmd_list = cmd_list->next;
-	// close_red_fd((table)->red_fd);
 	close_red_fd(table->pipe_fd);
 	return (exec_cmd_list(cmd_list, table, i));
 }

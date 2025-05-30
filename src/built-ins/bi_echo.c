@@ -6,16 +6,12 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 19:03:41 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/05/29 17:48:01 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/05/30 16:43:34 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-/* 
-	- si es solo echo sin argumento, salto de linea
-	- una variable para comprobar si tiene o no -n
- */
 void	print_lines(t_list *tok, int out, bool n_opt)
 {
 	char	*str;
@@ -56,7 +52,7 @@ t_list	*check_n_flag(t_list *next, bool *n_opt)
 	{
 		*n_opt = true;
 		next = next->next;
-		aux = (char *)(next->content);	
+		aux = (char *)(next->content);
 	}
 	return (next);
 }

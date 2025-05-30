@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/29 16:23:00 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/05/29 16:24:19 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/05/30 16:45:11 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@ void	quita_owo(int sig)
 
 int	bi_owo(t_cmd_table *table, t_cmd *cmd)
 {
-	const char *colors[] = { RED, YELLOW, GREEN, CYAN, BLUE, MAGENTA };
-	int	i;
-	int timer;
+	int			i;
+	int			timer;
+	const char	*colors[] = {RED, YELLOW, GREEN, CYAN, BLUE, MAGENTA};
 
 	(void)table;
 	(void)cmd;

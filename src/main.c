@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 11:23:27 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/05/29 12:44:24 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/05/30 16:51:15 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,9 +130,7 @@ void	debug_table(t_cmd_table *table)
 }
 
 
-//TODO: HEREDOC no guarda valor
 //TODO: cat < 3 > 1 >2 | cat > 5 NO TIENE QUEE ESCRIBIR EN 1 (LO HACE BIEN) Y TIENE QUE CREAR VACIO 5 (LO HACE MAL)
-//TODO: execve no pasa variables de entorno
 
 int	main(int argc, char **argv, char **envp)
 {

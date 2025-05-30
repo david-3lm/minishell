@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/16 10:52:37 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/05/29 18:30:44 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/05/30 16:47:38 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,7 @@ void	manage_redir_in(t_cmd_table *table, t_redir in_redir)
 		check_error(table->red_fd[READ_E], CHECK_OPEN, table);
 	}
 	else if (in_redir.type == RD_HD)
-	{
-		printf("es un heredoc \n"); //debug
 		table->red_fd[READ_E] = manage_here_doc(in_redir, table);
-	}
 }
 
 t_redir	*get_redir_in(t_list *list)
@@ -96,17 +93,14 @@ void	fill_redirs(t_cmd *cmd, t_cmd_table *table)
 	while (copy != NULL)
 	{
 		redir = (t_redir *)copy->content;
-		printf(" la redirecccion --> %s \n", redir->direction);
 		if (redir->type == RD_SIN || redir->type == RD_HD)
 		{
 			manage_redir_in(table, *redir);
-			ft_putstr_fd("fillredirs abierto eeeeeennnnn ----> ", 2);
 			ft_putendl_fd(ft_itoa(table->red_fd[READ_E]), 2);
 		}
 		if (redir->type == RD_SOUT || redir->type == RD_SOUT2)
 		{
 			manage_redir_out(table, *redir);
-			ft_putstr_fd("fillredirs abierto eeeeeennnnn ----> ", 2);
 			ft_putendl_fd(ft_itoa(table->red_fd[WRITE_E]), 2);
 		}
 		copy = copy->next;

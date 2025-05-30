@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/23 23:34:06 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/05/29 11:23:13 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/05/30 16:46:16 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ void	review_token(t_cmd_table *table)
 	t_cmd	*cmd;
 	t_list	*list;
 
-	//TODO: lo del heredoc
 	list = table->cmds;
 	while (list)
 	{
@@ -32,13 +31,8 @@ int	executor(t_cmd_table *table)
 {
 	signal(SIGINT, handle_interact);
 	signal(SIGQUIT, handle_interact);
-	// save_original_fd((table));
-	// if (table->is_checker)
-	// 	printf("%d: command not found\n", table->error_code);
-	// if ((table)->is_checker == false)
 	review_token(table);
 	debug_table(table);
-		(table)->error_code = execute_cmd_table(table);
-	// aqui estaba el freee
+	(table)->error_code = execute_cmd_table(table);
 	return ((table)->error_code);
 }
