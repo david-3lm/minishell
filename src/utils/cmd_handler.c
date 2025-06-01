@@ -6,7 +6,7 @@
 /*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/30 16:35:13 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/05/25 19:04:23 by dlopez-l         ###   ########.fr       */
+/*   Updated: 2025/06/01 19:08:22 by dlopez-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ void	skip_letters(const char *input, int *curr_pos)
 		(*curr_pos)++;
 }
 
-char	*replace_midstring(char *original, char *old_substr, char *new_substr, int replace_i)
+char	*replace_midstring(char *original, char *old_substr, \
+	char *new_substr, int replace_i)
 {
 	char	*final;
 	int		len;
@@ -50,8 +51,8 @@ char	*replace_midstring(char *original, char *old_substr, char *new_substr, int 
 	i = 0;
 	len = ft_strlen(original) - ft_strlen(old_substr) + ft_strlen(new_substr);
 	final = ft_calloc(len + 1, sizeof(char));
-	// if (final == 0)
-	// 	quit_program(EXIT_FAILURE);
+	if (final == 0)
+		error_handler(EXIT_FAILURE);
 	while (*original)
 	{
 		if (i == replace_i)
@@ -80,7 +81,7 @@ char	*get_var_name(char *str)
 		&& str[i] != '=' && !is_quote(str[i]) && str[i] != '/')
 		i++;
 	var = ft_substr(str, 0, i);
-	// if (!var)
-	// 	quit_program(EXIT_FAILURE);
+	if (!var)
+		error_handler(EXIT_FAILURE);
 	return (var);
 }

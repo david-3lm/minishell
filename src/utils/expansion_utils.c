@@ -6,7 +6,7 @@
 /*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 12:01:42 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/05/25 18:37:38 by dlopez-l         ###   ########.fr       */
+/*   Updated: 2025/06/01 19:10:04 by dlopez-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,6 @@ void	replace_status_env(char **str, int last_status)
 	while (replace_spot != -1)
 	{
 		status_string = ft_itoa(last_status);
-		// if (status_string == 0)
-		// 	return (quit_program(EXIT_FAILURE));
 		final = replace_midstring(*str, "$?", status_string, replace_spot);
 		free(status_string);
 		status_string = 0;
@@ -55,8 +53,6 @@ void	replace_vars_with_values(char **str, t_cmd_table *table)
 			*str = final;
 			free(var);
 			i += ft_strlen(value) - 1;
-			// if (value)
-			// 	free(value);
 		}
 	}
 }
@@ -67,20 +63,19 @@ void	replace_one_var(char **str, t_cmd_table *table)
 	char	*trimmed;
 
 	if (!mini_get_env(table, *str + 1))
-		return ;	
+		return ;
 	env = mini_get_env(table, *str + 1)->value;
 	if (!env)
 	{
 		free(*str);
 		*str = ft_strdup("");
-		// if (!*str)
-		// 	quit_program(EXIT_FAILURE);
+		if (!*str)
+			error_handler(EXIT_FAILURE);
 		return ;
 	}
 	trimmed = ft_strtrim(env, " ");
-	// if (!trimmed)
-	// 	quit_program(EXIT_FAILURE);
-	//free(env);
+	if (!trimmed)
+		error_handler(EXIT_FAILURE);
 	free(*str);
 	*str = trimmed;
 }
@@ -103,7 +98,7 @@ void	replace_env_single_token(char **token, t_cmd_table *table)
 				replace_one_var((char **)&tmp->content, table);
 			else
 				replace_vars_with_values((char **)&tmp->content, table);
-			replace_status_env((char **)&tmp->content, table->error_code); //CON NUESTRO ERROR CODE
+			replace_status_env((char **)&tmp->content, table->error_code);
 		}
 		delete_quotes((char *)tmp->content);
 		tmp = tmp->next;
