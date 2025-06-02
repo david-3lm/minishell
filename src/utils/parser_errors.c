@@ -6,7 +6,7 @@
 /*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/25 18:16:21 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/05/25 18:20:50 by dlopez-l         ###   ########.fr       */
+/*   Updated: 2025/06/01 19:06:58 by dlopez-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ int	has_forbidden_sequence(const char *input, char *test, char *err_message)
 	char	*trimmed;
 
 	trimmed = ft_strtrim_all(input, WHITE_SPACE);
-	//if (!trimmed)
-		//quit_program(EXIT_FAILURE);
+	if (!trimmed)
+		error_handler(EXIT_FAILURE);
 	if (ft_strstr_quotes(trimmed, test) != 0)
 	{
 		check = 1;
@@ -32,7 +32,6 @@ int	has_forbidden_sequence(const char *input, char *test, char *err_message)
 	free(trimmed);
 	return (check);
 }
-
 
 int	has_non_supported(const char *input, char *test, char *err_message)
 {

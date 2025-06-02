@@ -71,7 +71,7 @@ void	redir_dup(t_cmd_table *table);
 void	close_red_fd(int files[2]);
 bool	ft_check_redirs(t_cmd_table *table, t_cmd *cmd);
 t_cmd	*alloc_cmd(void);
-bool	set_redir_type(t_redir *redir, const char *val, t_cmd_table *table);
+void	set_redir_type(t_redir *redir, const char *input, int curr_pos);
 bool	set_redir_direction(t_redir *red, t_list *tok_l, t_cmd_table *table);
 t_cmd	*add_redir(t_list *tok_list, t_cmd_table **table);
 char	*ft_new_limit(char *limit, t_cmd_table *table);
@@ -161,6 +161,8 @@ void	debug_parser(t_cmd_table *table);
 void	print_tokens(t_list *tokens);
 void	print_redirs(t_list *redirs);
 void	debug_table(t_cmd_table *table);
+void	set_redir(t_cmd *cmd, t_list *new_node, const char *input, int *curr_pos);
+int	try_fullpath(char *path, char **full_cmd, char *const *envp, t_cmd_table *table);
 int	main(int argc, char **argv, char **envp);
 int	(*builtin_arr(char *str))(t_cmd_table *table, t_cmd *cmd);
 #endif

@@ -6,7 +6,7 @@
 /*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/30 16:06:36 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/05/25 18:53:20 by dlopez-l         ###   ########.fr       */
+/*   Updated: 2025/06/01 19:06:29 by dlopez-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ char	*join_split_token(t_list *split_token)
 
 	new_token_size = get_new_token_size(split_token);
 	token = ft_calloc(new_token_size + 1, sizeof(char));
-	// if (!token)
-	// 	quit_program(EXIT_FAILURE);
+	if (!token)
+		error_handler(EXIT_FAILURE);
 	while (split_token)
 	{
 		ft_strcat(token, (char *)split_token->content);
@@ -77,11 +77,11 @@ t_list	*get_split_token(char *token)
 		else
 			skip_letters((const char *)token, &curr_pos);
 		token_piece = ft_substr(token, saved_pos, curr_pos - saved_pos);
-		// if (!token_piece)
-		// 	quit_program(EXIT_FAILURE);
+		if (!token_piece)
+			error_handler(EXIT_FAILURE);
 		new_node = ft_lstnew((void *)token_piece);
-		// if (!new_node)
-		// 	quit_program(EXIT_FAILURE);
+		if (!new_node)
+			error_handler(EXIT_FAILURE);
 		ft_lstadd_back(&split_token, new_node);
 	}
 	return (split_token);

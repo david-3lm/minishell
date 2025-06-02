@@ -6,7 +6,7 @@
 /*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/25 18:14:32 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/05/25 18:20:01 by dlopez-l         ###   ########.fr       */
+/*   Updated: 2025/06/01 19:10:31 by dlopez-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ int	has_char_at_beginning(const char *input, char c, char *err_message)
 	char	*cpy;
 
 	cpy = ft_strtrim(input, WHITE_SPACE);
-	//if (!cpy)
-		//quit_program(EXIT_FAILURE);
+	if (!cpy)
+		error_handler(EXIT_FAILURE);
 	if (cpy[0] == c)
 	{
 		check = 1;
@@ -33,7 +33,6 @@ int	has_char_at_beginning(const char *input, char c, char *err_message)
 	return (check);
 }
 
-
 int	has_char_at_end(const char *input, char c, char *err_message)
 {
 	int		check;
@@ -41,8 +40,8 @@ int	has_char_at_end(const char *input, char c, char *err_message)
 	int		len;
 
 	cpy = ft_strtrim(input, WHITE_SPACE);
-	//if (!cpy)
-		//quit_program(EXIT_FAILURE);
+	if (!cpy)
+		error_handler(EXIT_FAILURE);
 	len = ft_strlen(cpy);
 	if (cpy[len - 1] == c)
 	{
