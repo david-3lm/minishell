@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/16 10:52:37 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/06/02 17:02:13 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/06/02 17:17:13 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ int	manage_redir_in(t_cmd_table *table, t_redir in_redir)
 	{
 		table->red_fd[READ_E] = open(in_redir.direction, O_RDONLY);
 		check_error(table->red_fd[READ_E], CHECK_OPEN, table);
-		// table->error_code = UNKNOWN_ERROR;
 	}
 	else if (in_redir.type == RD_HD)
 		table->red_fd[READ_E] = manage_here_doc(in_redir, table);
