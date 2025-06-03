@@ -37,12 +37,14 @@ clean:
 	$(RM) $(OBJ)
 	@$(MAKE) clean -C $(LIB_DIR)
 	@clear
+	@rm -rf $(OBJ_DIR)
 	@echo "$(BLUE)Limpio$(COLOREND)"
 
 fclean: clean
 	$(RM) $(NAME)
 	@$(MAKE) fclean -C $(LIB_DIR)
 	@clear
+	@rm -rf $(OBJ_DIR)
 	@echo "$(BLUE)Limpio$(COLOREND)"
 
 re: fclean all
