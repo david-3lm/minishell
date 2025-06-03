@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 16:21:37 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/05/25 19:33:58 by dlopez-l         ###   ########.fr       */
+/*   Updated: 2025/06/03 20:58:11 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,18 +69,20 @@ int	open_here_doc(t_cmd_table *table)
 	return (infile);
 }
 
-int	manage_here_doc(t_redir redir, t_cmd_table *table)
+int	manage_here_doc(t_redir *redir, t_cmd_table *table)
 {
 	char	*limit;
+	int		new_fd;
 	int		value;
 
-	limit = redir.direction;
+	limit = redir->direction;
 	g_heredoc = 0;
 	write_here_doc(limit, table);
-	table->red_fd[READ_E] = open_here_doc(table);
-	value = dup2(table->red_fd[READ_E], STDIN_FILENO);
+	new_fd = open_here_doc(table);
+	value = dup2(new_fd, STDIN_FILENO);
+	close(new_fd);
 	check_error(value, CHECK_DUP, table);
-	return (table->red_fd[READ_E]);
+	return (new_fd);
 }
 
 bool	is_heredoc(t_list *list)

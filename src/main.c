@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 11:23:27 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/05/30 16:51:15 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/06/03 12:23:51 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,6 +141,7 @@ int	main(int argc, char **argv, char **envp)
 	int					err_code;
 
 	err_code = 0;
+	printf(KONTXESI"\n");
 	if (is_inside_kntxesi(argc, argv))
 		envl = env_init(envp, argv[1]);
 	else

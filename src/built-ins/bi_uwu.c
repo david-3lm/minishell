@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 11:11:37 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/05/30 16:44:34 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/06/03 12:39:00 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	bi_uwu(t_cmd_table *table, t_cmd *cmd)
 {
 	int			i;
 	int			timer;
-	const char	*colors[] = {RED, YELLOW, GREEN, CYAN, BLUE, MAGENTA};
+	const char	*colors[] = {RED, GREEN, RESET_COLOR};
 
 	(void)table;
 	(void)cmd;
@@ -35,7 +35,7 @@ int	bi_uwu(t_cmd_table *table, t_cmd *cmd)
 		while (timer < 100000000)
 			timer++;
 		timer = 0;
-		if (i >= 5)
+		if (i >= 2)
 			i = 0;
 		else
 			i++;

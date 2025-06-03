@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error_messages.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 16:34:24 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/05/21 19:51:01 by dlopez-l         ###   ########.fr       */
+/*   Updated: 2025/06/03 12:00:53 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	unset_error(t_cmd_table *table)
 {
-	ft_putendl_fd("unset: not enough arguments, ostiA", ERROR_E);
+	ft_putendl_fd("💣 unset: not enough arguments, ostiA", ERROR_E);
 	table->error_code = UNKNOWN_ERROR;
 	return (table->error_code);
 }

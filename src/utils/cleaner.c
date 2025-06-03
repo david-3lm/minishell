@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cleaner.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/04 13:06:13 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/05/22 10:32:51 by dlopez-l         ###   ########.fr       */
+/*   Updated: 2025/06/03 20:39:26 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,4 +94,5 @@ void	free_cmd_table(t_cmd_table *table)
 	free_cmd_list(table->cmds);
 	ft_lstclear(&table->pids, free);
 	free_redir_list(table->redirs);
+	free_pipes(table->pipes);
 }

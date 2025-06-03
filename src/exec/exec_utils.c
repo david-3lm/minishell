@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 12:50:13 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/05/30 16:47:07 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/06/03 18:26:23 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ void	path_exec(t_cmd *cmd, t_cmd_table *table)
 	i = 0;
 	full_cmd = get_cmd(cmd->tokens);
 	mypaths = get_paths(table, full_cmd[0]);
+	close_all_pipes(table);
 	if (try_fullpath(*full_cmd, full_cmd, mypaths, table) || mypaths == NULL)
 		exit(table->error_code);
 	while (mypaths[++i])

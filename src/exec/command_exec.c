@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   proccess.c                                         :+:      :+:    :+:   */
+/*   command_exec.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 12:05:04 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/06/02 17:17:56 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/06/03 21:11:29 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,37 +35,9 @@ void	restore_and_close_fds(t_cmd_table *table)
 	check_error(cl, CHECK_CLOSE, table);
 }
 
-int	pipex_proccess(t_cmd *cmd, t_cmd_table *table)
-{
-	pid_t	pid;
-	int		value;
-
-	check_error(pipe((table)->pipe_fd), CHECK_PIPE, table);
-	pid = fork();
-	check_error(pid, CHECK_FORK, table);
-	if (pid == 0)
-	{
-		signal(SIGQUIT, SIG_DFL);
-		close((table)->pipe_fd[READ_E]);
-		value = dup2((table)->pipe_fd[WRITE_E], STDOUT_FILENO);
-		check_error(value, CHECK_DUP, table);
-		close_everything(table);
-		if (cmd->builtin)
-			exit(cmd->builtin(table, cmd));
-		path_exec(cmd, table);
-	}
-	else
-	{
-		close((table)->pipe_fd[WRITE_E]);
-		value = dup2((table)->pipe_fd[READ_E], STDIN_FILENO);
-		check_error(value, CHECK_DUP, table);
-		close((table)->pipe_fd[READ_E]);
-	}
-	return ((table)->error_code);
-}
-// int	try_fullpath(char *path, char **full_cmd, char *const *envp, t_cmd_table *table)
-int	try_fullpath(char *path, char **full_cmd, \
-				char *const *envp, t_cmd_table *table)
+int	try_fullpath(char *path, char **full_cmd, char *const *envp, t_cmd_table *table)
+// int	try_fullpath(char *path, char **full_cmd, \
+// 				char *const *envp, t_cmd_table *table)
 {
 	errno = 0;
 	if (access(path, F_OK) == 0)
@@ -77,9 +49,19 @@ int	try_fullpath(char *path, char **full_cmd, \
 	return (NO_ERROR);
 }
 
-void	close_everything(t_cmd_table *table)
+int	command_exec(t_cmd *cmd, t_cmd_table *table)
 {
-	close_red_fd((table)->red_fd);
-	close_red_fd(table->pipe_fd);
-	close_red_fd(table->std_backup);
+	pid_t	pid;
+
+	change_token(*(table->envv), ft_create_env \
+				("_", (char *)ft_lstlast(cmd->tokens)->content));
+	pid = fork();
+	if (pid == -1)
+		check_error(pid, CHECK_FORK, table);
+	if (pid == 0)
+	{
+		signal(SIGQUIT, SIG_DFL);
+		path_exec(cmd, table);
+	}
+	return (table->error_code);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansion_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 12:01:42 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/06/01 19:10:04 by dlopez-l         ###   ########.fr       */
+/*   Updated: 2025/06/03 11:23:34 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,7 @@ void	replace_env_single_token(char **token, t_cmd_table *table)
 	free(*token);
 	*token = join_split_token(split_token);
 	ft_lstclear(&split_token, free);
+	table->error_code =NO_ERROR;
 }
 
 void	replace_envs(t_list **tokens, t_list *redirs, t_cmd_table *table)

@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 12:58:31 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/05/12 15:09:31 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/06/03 12:09:15 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	ft_get_exit_code(t_cmd *cmd)
 	char	*value;
 	int		res;
 
-	value = ((t_tok *)cmd->tokens->next->content)->value;
+	value = (cmd->tokens->next->content);
 	if (!ft_is_strnum(value))
 	{
 		ft_printf("exit\n");
@@ -57,13 +57,14 @@ int	bi_exit(t_cmd_table *table, t_cmd *cmd)
 	if (size == 1)
 	{
 		(table)->error_code = EXIT_SUCCESS;
-		ft_putendl_fd("exit", STDERR_FILENO);
+		ft_putendl_fd("💣 gora exit 💣", STDERR_FILENO);
 	}
 	else if (size == 2)
 		(table)->error_code = ft_get_exit_code(cmd);
 	else
 	{
-		ft_putstr_fd("kontxesi: exit: too many arguments\n", ERROR_E);
+		ft_putendl_fd("exit", ERROR_E);
+		ft_putstr_fd("💣 kontxesi: exit: argumentu gehiegi\n", ERROR_E);
 		(table)->error_code = UNKNOWN_ERROR;
 		return ((table)->error_code);
 	}
