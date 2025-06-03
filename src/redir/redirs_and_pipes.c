@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/16 10:52:37 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/06/03 20:55:53 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/06/03 21:32:10 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	ft_init_pipes(t_cmd_table *table)
 	while (i < table->n_cmd - 1)
 	{
 		table->pipes[i] = ft_calloc(2, sizeof(int));
-		if(!table->pipes[i])
+		if (!table->pipes[i])
 			check_error(CHECK_VALUE, CHECK_MEM, table);
 		if (pipe(table->pipes[i]) == CHECK_VALUE)
 			check_error(CHECK_VALUE, CHECK_PIPE, table);
@@ -71,7 +71,7 @@ void	close_all_pipes(t_cmd_table *table)
 
 void	free_pipes(int **pipes)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (pipes[i])

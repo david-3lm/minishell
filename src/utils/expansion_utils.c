@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 12:01:42 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/06/03 11:23:34 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/06/03 21:33:17 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ void	replace_env_single_token(char **token, t_cmd_table *table)
 	free(*token);
 	*token = join_split_token(split_token);
 	ft_lstclear(&split_token, free);
-	table->error_code =NO_ERROR;
+	table->error_code = NO_ERROR;
 }
 
 void	replace_envs(t_list **tokens, t_list *redirs, t_cmd_table *table)
