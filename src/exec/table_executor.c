@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   table_executor.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 11:45:46 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/06/04 12:54:34 by dlopez-l         ###   ########.fr       */
+/*   Updated: 2025/06/04 14:32:09 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	handle_command(t_cmd *cmd, t_cmd_table *table,  int *cmd_index)
 		if (cmd->builtin)
 			cmd->builtin(table, cmd);
 		else if (cmd->tokens)
-			(table)->error_code = last_command_exec(cmd, table);
+			(table)->error_code = last_command_exec(cmd, table, *cmd_index);
 	}
 	return ((table)->error_code);
 }
@@ -36,7 +36,7 @@ int	ft_wait_table(t_list **pids)
 
 	while (*pids)
 	{
-		dprintf(2, "holaaa \n");
+		dprintf(2, "acabo la ejecucion \n"); //deb
 		while (waitpid(-1, &status, 0) != -1)
 			;
 		if (WIFSIGNALED(status))
@@ -85,7 +85,7 @@ static int	exec_cmd_list(t_list *cmd_list, t_cmd_table *table, int i)
 		return (NO_ERROR);
 	save_original_fd((table));
 	cmd = (t_cmd *)cmd_list->content;
-	set_redir_pipes(cmd->redirs, table, i);
+	// set_redir_pipes(cmd->redirs, table, i);
 	if (is_kntxesi(*cmd))
 	{
 		(table)->error_code = execute_kntxesi(table);

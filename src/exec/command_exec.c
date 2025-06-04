@@ -49,7 +49,7 @@ int	try_fullpath(char *path, char **full_cmd, char *const *envp, t_cmd_table *ta
 	return (NO_ERROR);
 }
 
-int	last_command_exec(t_cmd *cmd, t_cmd_table *table)
+int	last_command_exec(t_cmd *cmd, t_cmd_table *table, int i)
 {
 	pid_t	pid;
 	t_list	*new_pid;
@@ -59,6 +59,7 @@ int	last_command_exec(t_cmd *cmd, t_cmd_table *table)
 		check_error(pid, CHECK_FORK, table);
 	if (pid == 0)
 	{
+		set_redir_pipes(cmd->redirs, table, i);
 		close_red_fd(table->std_backup);
 		signal(SIGQUIT, SIG_DFL);
 		path_exec(cmd, table);
@@ -81,21 +82,26 @@ int	command_exec(t_cmd *cmd, t_cmd_table *table, int i)
 	if (pid == 0)
 	{
 		signal(SIGQUIT, SIG_DFL);
-		close(table->pipes[i][READ_E]);
-		dup2(table->pipes[i][WRITE_E], STDOUT_FILENO);
+		// close(table->pipes[i][READ_E]);
+		set_redir_pipes(cmd->redirs, table, i);
+		printf("holaaa \n"); //deb
+		// dup2(table->pipes[i][WRITE_E], STDOUT_FILENO);
 		close(table->pipes[i][WRITE_E]);
-		// close_all_pipes(table);
+		if (cmd->builtin)
+			exit(cmd->builtin(table, cmd));
+		close_all_pipes(table);
 		path_exec(cmd, table);
 
 	}
 	else
 	{
-		close(table->pipes[i][WRITE_E]);
+		// close(table->pipes[i][WRITE_E]);
 		dup2((table)->pipes[i][READ_E], STDIN_FILENO);
-		close(table->pipes[i][READ_E]);
+		// close(table->pipes[i][READ_E]);
 		close_all_pipes(table);
 	}
 	new_pid = ft_lstnew(&pid);
 	ft_lstadd_back(&table->pids, new_pid);
+	close_all_pipes(table);
 	return (table->error_code);
 }
