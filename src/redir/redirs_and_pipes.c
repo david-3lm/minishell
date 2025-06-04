@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirs_and_pipes.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/16 10:52:37 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/06/04 12:26:19 by dlopez-l         ###   ########.fr       */
+/*   Updated: 2025/06/04 19:15:24 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,10 @@ int	ft_init_pipes(t_cmd_table *table)
 
 void	set_redir_pipes(t_list *redirs, t_cmd_table *table, int index)
 {
-	int	**pipes;
 	int	n_cmds;
 	int	err_value;
 
 	n_cmds = table->n_cmd;
-	pipes = table->pipes;
 	err_value = NO_ERROR;
 	if (open_all_files(redirs, table) != NO_ERROR)
 	{
@@ -47,10 +45,18 @@ void	set_redir_pipes(t_list *redirs, t_cmd_table *table, int index)
 		return ;
 	}
 	if (!is_redirs(redirs, RD_SIN) && index != 0)
-		err_value = dup2(pipes[index - 1][READ_E], STDIN_FILENO);
+	{
+		close(table->pipes[index - 1][WRITE_E]);
+		err_value = dup2(table->pipes[index - 1][READ_E], STDIN_FILENO);
+		close(table->pipes[index - 1][READ_E]);
+	}
 	if (!is_redirs(redirs, RD_SOUT) && !is_redirs(redirs, RD_SOUT2) \
 		&& index != n_cmds - 1)
-		err_value = dup2(pipes[index][WRITE_E], STDOUT_FILENO);
+	{
+		close(table->pipes[index][READ_E]);
+		err_value = dup2(table->pipes[index][WRITE_E], STDOUT_FILENO);
+		close(table->pipes[index][WRITE_E]);
+	}
 	check_error(err_value, DUP_ERROR, table);
 }
 
@@ -63,10 +69,23 @@ void	close_all_pipes(t_cmd_table *table)
 	nb_pipes = table->n_cmd - 1;
 	while (i < nb_pipes)
 	{
-		if (table->pipes[i][0])
-			close(table->pipes[i][0]);
-		if (table->pipes[i][1])
-			close(table->pipes[i][1]);
+		close(table->pipes[i][READ_E]);
+		close(table->pipes[i][WRITE_E]);
+		i++;
+	}
+}
+
+void close_unused_pipes(t_cmd_table *table, int index)
+{
+	int i;
+
+	i = 0;
+	while (i < table->n_cmd - 1)
+	{
+		if (i != index - 1)
+			close(table->pipes[i][READ_E]);
+		if (i != index)
+			close(table->pipes[i][WRITE_E]);
 		i++;
 	}
 }

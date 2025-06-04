@@ -24,14 +24,14 @@ all: $(NAME)
 #-fsanitize=address
 
 $(NAME): $(OBJ) $(LIB)
-	$(CC) $(OBJ) $(LIB) -fsanitize=address -o $(NAME) -lreadline
+	$(CC) $(OBJ) $(LIB) -o $(NAME) -lreadline
 
 $(LIB):
 	@$(MAKE) -C $(LIB_DIR)
 
 $(OBJ_DIR)/%.o: ./src/%.c
 	@mkdir -p $(dir $@)
-	$(CC) -fsanitize=address $(CFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
 	$(RM) $(OBJ)

@@ -73,6 +73,7 @@ bool	is_heredoc(t_list *list);
 int	ft_init_pipes(t_cmd_table *table);
 void	set_redir_pipes(t_list *redirs, t_cmd_table *table, int index);
 void	close_all_pipes(t_cmd_table *table);
+void close_unused_pipes(t_cmd_table *table, int index);
 void	free_pipes(int **pipes);
 bool	ft_check_redirs(t_cmd *cmd);
 bool	is_redirs(t_list *redirs, t_redir_type type);

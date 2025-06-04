@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 11:45:46 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/06/04 14:32:09 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/06/04 19:17:57 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,14 @@ int	ft_wait_table(t_list **pids)
 {
 	int		code;
 	int		status;
+	long 	pid;
+	// (void)pids;
 
 	while (*pids)
 	{
-		dprintf(2, "acabo la ejecucion \n"); //deb
-		while (waitpid(-1, &status, 0) != -1)
-			;
+		pid = (long)(*pids)->content;
+		printf("acabo la ejecucion \n"); //deb
+		waitpid(-1, &status, 0);
 		if (WIFSIGNALED(status))
 			code = 128 + WTERMSIG(status);
 		else
@@ -83,7 +85,6 @@ static int	exec_cmd_list(t_list *cmd_list, t_cmd_table *table, int i)
 	n_cmds = table->n_cmd;
 	if (!cmd_list)
 		return (NO_ERROR);
-	save_original_fd((table));
 	cmd = (t_cmd *)cmd_list->content;
 	// set_redir_pipes(cmd->redirs, table, i);
 	if (is_kntxesi(*cmd))
@@ -97,7 +98,6 @@ static int	exec_cmd_list(t_list *cmd_list, t_cmd_table *table, int i)
 		i++;
 	if (cmd_list)
 		cmd_list = cmd_list->next;
-	restore_and_close_fds((table));
 	return (exec_cmd_list(cmd_list, table, i));
 }
 
@@ -112,8 +112,12 @@ int	table_executor(t_cmd_table *table)
 	table->n_cmd = ft_lstsize(cmd_list);
 
 	ft_init_pipes(table);
+
+	save_original_fd((table));
 	exec_cmd_list(cmd_list, table, cmd_index);
-	// close_all_pipes(table);
+	restore_and_close_fds((table));
+
+	close_all_pipes(table);
 
 	code = ft_wait_table(&table->pids);
 	if (table->error_code == NO_ERROR)
