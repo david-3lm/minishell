@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error_handler.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/23 23:50:11 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/06/03 12:01:42 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/06/04 11:31:46 by dlopez-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,4 +87,9 @@ void	ft_lstclear_if(t_list **lst, int (*cmp)(void *), void (*del)(void *))
 		else
 			lst = &(*lst)->next;
 	}
+}
+
+void	ft_lstdel_safe(void *content)
+{
+	(void)content;
 }

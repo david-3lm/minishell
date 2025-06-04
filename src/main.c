@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 11:23:27 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/06/03 12:23:51 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/06/04 11:03:54 by dlopez-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,9 +160,6 @@ int	main(int argc, char **argv, char **envp)
 		}
 		if (*rl)
 			add_history(rl);
-		// lexer(rl, &envl);
-
-		// MINICOPIA
 		if (!is_input_valid(rl))
 			continue ;
 		table = get_cmd_table(rl, &curr_pos);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirs_and_pipes.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/16 10:52:37 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/06/03 21:32:10 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/06/04 12:26:19 by dlopez-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,10 @@ void	close_all_pipes(t_cmd_table *table)
 	nb_pipes = table->n_cmd - 1;
 	while (i < nb_pipes)
 	{
-		close(table->pipes[i][0]);
-		close(table->pipes[i][1]);
+		if (table->pipes[i][0])
+			close(table->pipes[i][0]);
+		if (table->pipes[i][1])
+			close(table->pipes[i][1]);
 		i++;
 	}
 }

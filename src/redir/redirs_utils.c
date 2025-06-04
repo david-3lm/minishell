@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirs_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: dlopez-l <dlopez-l@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 21:28:16 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/06/03 21:31:46 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/06/04 12:51:29 by dlopez-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,4 +87,17 @@ int	open_all_files(t_list *redirs, t_cmd_table *table)
 		redirs = redirs->next;
 	}
 	return (table->error_code);
+}
+
+void	close_red_fd(int files[2])
+{
+	int	i;
+
+	i = 0;
+	while (i < 2)
+	{
+		if (files[i] != 0)
+			close(files[i]);
+		i++;
+	}
 }
