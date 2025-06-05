@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 11:23:27 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/06/05 12:19:23 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/06/05 13:08:36 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	main_loop(t_cmd_table *table, int err_code, t_list *envl)
 		curr_pos = 0;
 		signal(SIGINT, handle_signal);
 		signal(SIGQUIT, SIG_IGN);
-		rl = readline("\001\033[1;32m\002🌋 Kontxesi ↝ \001\033[0m\002");
+		rl = readline("\001\033[1;32m\002🐉 Kontxesi ↝ \001\033[0m\002");
 		if (!rl)
 		{
 			ft_printf("Gora Kontxesi 🎷🦆\n");
