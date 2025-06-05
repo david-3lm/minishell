@@ -6,13 +6,11 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 15:27:01 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/05/12 15:25:47 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/06/05 12:45:27 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdio.h>
-
 
 void	ft_lstdel_index(t_list **lst, int index, void (*del)(void *))
 {
@@ -42,4 +40,3 @@ void	ft_lstdel_index(t_list **lst, int index, void (*del)(void *))
 		ft_lstdelone(curr, del);
 	}
 }
-
