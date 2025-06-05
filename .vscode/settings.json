@@ -17,7 +17,8 @@
 		"structs.h": "c",
 		"stdio.h": "c",
 		"readline.h": "c",
-		"defines.h": "c"
+		"defines.h": "c",
+		"errno.h": "c"
 	},
 	"C_Cpp.errorSquiggles": "disabled"
 }

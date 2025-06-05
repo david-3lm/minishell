@@ -43,6 +43,7 @@ echo "# include <term.h>" >> "$HEADER_FILE"
 echo "# include <signal.h>" >> "$HEADER_FILE"
 echo "# include <fcntl.h>" >> "$HEADER_FILE"
 echo "# include <sys/wait.h>" >> "$HEADER_FILE"
+echo "# include <errno.h>" >> "$HEADER_FILE"
 
 echo "" >> "$HEADER_FILE"
 

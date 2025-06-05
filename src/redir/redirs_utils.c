@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 21:28:16 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/06/04 17:33:29 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/06/05 11:48:06 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,15 +52,9 @@ int	open_file(t_redir *redir, int prev_fd, int flags, mode_t permissions)
 	else
 	{
 		if (redir->type == RD_SIN)
-		{
-			printf("stdin open file %i\n", new_fd);
 			dup2(new_fd, STDIN_FILENO);
-		}
 		else if (redir->type == RD_SOUT || redir->type == RD_SOUT2)
-		{
-			printf("stdout open file %i\n", new_fd);
 			dup2(new_fd, STDOUT_FILENO);
-		}
 		close(new_fd);
 	}
 	return (new_fd);
@@ -103,10 +97,7 @@ void	close_red_fd(int files[2])
 	while (i < 2)
 	{
 		if (files[i] != 0)
-		{
-			dprintf(2, "---- close_red_fd ---> \t voy a cerrar %d \n", files[i]);
 			close(files[i]);
-		}
 		i++;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/16 10:52:37 by cde-migu          #+#    #+#             */
-/*   Updated: 2025/06/04 19:15:24 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/06/05 11:47:40 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,9 +75,9 @@ void	close_all_pipes(t_cmd_table *table)
 	}
 }
 
-void close_unused_pipes(t_cmd_table *table, int index)
+void	close_unused_pipes(t_cmd_table *table, int index)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < table->n_cmd - 1)

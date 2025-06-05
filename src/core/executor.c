@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/23 23:34:06 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/06/03 21:13:31 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/06/05 12:02:13 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ int	executor(t_cmd_table *table)
 	signal(SIGINT, handle_interact);
 	signal(SIGQUIT, handle_interact);
 	review_token(table);
-	debug_table(table);
 	(table)->error_code = table_executor(table);
 	return ((table)->error_code);
 }

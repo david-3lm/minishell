@@ -6,7 +6,7 @@
 /*   By: cde-migu <cde-migu@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/30 16:35:13 by dlopez-l          #+#    #+#             */
-/*   Updated: 2025/06/03 18:19:42 by cde-migu         ###   ########.fr       */
+/*   Updated: 2025/06/05 11:51:36 by cde-migu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,9 @@ void	skip_letters(const char *input, int *curr_pos)
 		&& input[*curr_pos] != '$' && input[*curr_pos] != '/')
 		(*curr_pos)++;
 }
-char	*replace_midstring(char *original, char *old_substr, char *new_substr, int replace_i)
-// char	*replace_midstring(char *original, char *old_substr, \
-// 	char *new_substr, int replace_i)
+
+char	*replace_midstring(char *original, char *old_substr, \
+	char *new_substr, int replace_i)
 {
 	char	*final;
 	int		len;
